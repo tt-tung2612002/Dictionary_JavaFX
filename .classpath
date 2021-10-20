@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="application"/>
+	<classpathentry excluding="AudioPlayer.java|TextToSpeech.java" kind="src" path="application"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
 		<attributes>
@@ -20,8 +20,5 @@
 	<classpathentry kind="lib" path="resources/guava-22.0.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-builder-5.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-lang-en-5.2.jar"/>
-	<classpathentry kind="lib" path="resources/voice-cmu-rms-hsmm-5.2.jar"/>
-	<classpathentry kind="lib" path="resources/voice-cmu-slt-hsmm-5.2.jar"/>
-	<classpathentry kind="lib" path="resources/voice-dfki-poppy-hsmm-5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

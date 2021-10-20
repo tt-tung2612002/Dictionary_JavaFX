@@ -40,12 +40,8 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-
-		TextToSpeech tts = new TextToSpeech();
-		tts.getAvailableVoices().stream().forEach(voice -> System.out.println("Voice: " + voice));
-		tts.setVoice("cmu-rms-hsmm");
-		tts.speak("Metamorphosis", 2.0f, false, true);
-//		launch(args);
+		launch(args);
+		System.exit(0);
 	}
 
 }
