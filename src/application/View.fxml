@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="myAnchor" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchResultController">
+<AnchorPane fx:id="myAnchor" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
       <ScrollPane fitToWidth="true" layoutX="282.0" layoutY="100.0" prefHeight="460.0" prefWidth="490.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="282.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="100.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="488.0">
                <children>
-                  <WebView fx:id="searchResult" layoutX="6.0" prefHeight="459.0" prefWidth="488.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <WebView fx:id="searchResult" layoutX="6.0" prefHeight="450.0" prefWidth="480.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </content>

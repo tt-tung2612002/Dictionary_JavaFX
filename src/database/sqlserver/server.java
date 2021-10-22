@@ -17,7 +17,6 @@ public class server {
 	private String synonymIdentifier = "call findSynonym('";
 	private String antonymIdentifier = "call findAnonynym('";
 	private String searchedWordIdentifer = "call searchWord('";
-	private String listSearchIdentifer = "call listSearch('";
 	private String listIdentifer = "call printList()";
 	private String pronounciationIdentifier = "call getPronounciation('";
 	private String closestResultsIdentifer = "call findClosestResults('";
@@ -70,33 +69,19 @@ public class server {
 		return ans;
 	}
 
-	public List<String> getSearchWord(String word) throws SQLException {
-		List<String> ans = new ArrayList<String>();
+	public List<List<String>> getSearchWord(String word) throws SQLException {
+		List<List<String>> ans = new ArrayList<List<String>>();
 		try {
 			query = searchedWordIdentifer + word + "')";
 			Statement statement = con.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			while (resultSet.next()) {
+				List<String> temp = new ArrayList<String>();
 				for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-					ans.add(resultSet.getString(i));
+					temp.add(resultSet.getString(i));
 				}
+				ans.add(temp);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ans;
-	}
-
-	public List<String> getSearchList(String word) throws SQLException {
-		List<String> ans = new ArrayList<String>();
-		try {
-			query = listSearchIdentifer + word + "')";
-			Statement statement = con.createStatement();
-			ResultSet resultSet = statement.executeQuery(query);
-			while (resultSet.next()) {
-				ans.add(resultSet.getString(1));
-			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -152,12 +137,15 @@ public class server {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		server server = new server("wn_pro_mysql");
+		server server = new server("wordnet");
 		server server2 = new server("tables");
 		server2.connect();
 		server.connect();
-		var ans = server.getClosestResults("handso");
-		System.out.println(ans);
+		var ans = server.getSearchWord("happy");
+		for (var meaning : ans) {
+			System.out.println(meaning);
+			System.out.println("\n");
+		}
 
 	}
 }
