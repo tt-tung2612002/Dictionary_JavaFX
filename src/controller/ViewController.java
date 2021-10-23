@@ -76,12 +76,14 @@ public class ViewController implements Initializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		List<String> dictWord = databaseManager.getDictWord();
 		items.addAll(dictWord);
 		textField = databaseManager.getSearchedWord().getTextField();
 		textField.setEntries(dictWord);
 		textField.setFocusTraversable(false);
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ENTER)) {

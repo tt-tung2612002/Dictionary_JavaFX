@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="Main.java" kind="src" path="application"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="resources/guava-22.0.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-builder-5.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-lang-en-5.2.jar"/>
+	<classpathentry kind="lib" path="resources/jfoenix-9.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

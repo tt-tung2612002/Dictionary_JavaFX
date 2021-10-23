@@ -130,7 +130,7 @@ public class DatabaseManager {
 							+ "                    <h3 style=\"line-height: 150%;margin: 5px 0px; font-size: 15px;\">";
 			String synonym = new String();
 			if (synonymss != null) {
-				var synonyms = synonymss.get(i);
+				List<String> synonyms = synonymss.get(i);
 				if (synonyms != null) {
 					for (int j = 0; j < synonyms.size() && j < 4; j++)
 						synonym += synonyms.get(j) + ", ";
@@ -145,9 +145,9 @@ public class DatabaseManager {
 					synonym + meanings.get(i) + "</h3>\r\n"
 							+ "<ul style=\"margin:  5px 5px 5px 5px;\">";
 			if (exampless != null) {
-				var examples = exampless.get(i);
+				List<String> examples = exampless.get(i);
 				if (examples != null) {
-					for (var example : examples) {
+					for (String example : examples) {
 						formatted +=
 								"<li style='margin: 5px 5px 10px 5px; font-size: 16px; list-style-type: disc;'><i>"
 										+ exampleFormatter(example)
@@ -166,7 +166,7 @@ public class DatabaseManager {
 	}
 
 	public String getFormattedResult(String searchedWord) throws SQLException {
-		var ans = server.getSearchWord(searchedWord);
+		List<List<String>> ans = server.getSearchWord(searchedWord);
 		if (ans.size() == 0)
 			return null;
 		String word = ans.get(0).get(0);
@@ -197,6 +197,7 @@ public class DatabaseManager {
 				resultFormatter(word, types, pronounciation, meanings, examples,
 						synonyms);
 		return formattedResult;
+
 	}
 
 	public SearchedWord getSearchedWord() {
