@@ -28,16 +28,20 @@ public class AutoCompleteTextField extends TextField {
 		entriesPopup = new ContextMenu();
 		textProperty().addListener(new ChangeListener<String>() {
 			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+			public void changed(
+					ObservableValue<? extends String> observableValue, String s,
+					String s2) {
 				if (getText() == null) {
 					entriesPopup.hide();
 				} else {
 					LinkedList<String> searchResult = new LinkedList<>();
-					searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
+					searchResult.addAll(entries.subSet(getText(),
+							getText() + Character.MAX_VALUE));
 					if (entries.size() > 0) {
 						populatePopup(searchResult);
 						if (!entriesPopup.isShowing()) {
-							entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+							entriesPopup.show(AutoCompleteTextField.this,
+									Side.BOTTOM, 0, 0);
 						}
 					} else {
 						entriesPopup.hide();
@@ -48,8 +52,9 @@ public class AutoCompleteTextField extends TextField {
 
 		focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean,
-					Boolean aBoolean2) {
+			public void changed(
+					ObservableValue<? extends Boolean> observableValue,
+					Boolean aBoolean, Boolean aBoolean2) {
 				entriesPopup.hide();
 			}
 		});
@@ -66,14 +71,13 @@ public class AutoCompleteTextField extends TextField {
 	}
 
 	/**
-	 * Populate the entry set with the given search results. Display is limited to
-	 * 10 entries, for performance.
+	 * Populate the entry set with the given search results. Display is limited
+	 * to 10 entries, for performance.
 	 * 
 	 * @param searchResult The set of matching strings.
 	 */
 	private void populatePopup(List<String> searchResult) {
 		List<CustomMenuItem> menuItems = new LinkedList<>();
-		// If you'd like more entries, modify this line.
 		int maxEntries = 10;
 		int count = Math.min(searchResult.size(), maxEntries);
 		for (int i = 0; i < count; i++) {

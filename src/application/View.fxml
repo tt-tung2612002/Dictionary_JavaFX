@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="myAnchor" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<AnchorPane fx:id="myAnchor" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
-      <ScrollPane fitToWidth="true" layoutX="282.0" layoutY="100.0" prefHeight="460.0" prefWidth="490.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="282.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="100.0">
+      <ScrollPane fitToWidth="true" layoutX="282.0" layoutY="115.0" prefHeight="472.0" prefWidth="490.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="282.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="115.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="488.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="488.0">
                <children>
-                  <WebView fx:id="searchResult" layoutX="6.0" prefHeight="450.0" prefWidth="480.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                 <WebView fx:id="searchResult" layoutX="6.0" prefHeight="472.0" prefWidth="488.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ScrollPane layoutX="21.0" layoutY="100.0" prefHeight="460.0" prefWidth="250.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="100.0">
+      <ScrollPane layoutX="21.0" layoutY="115.0" prefHeight="472.0" prefWidth="250.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="115.0">
          <content>
-            <AnchorPane prefHeight="458.0" prefWidth="248.0">
+            <AnchorPane prefHeight="470.0" prefWidth="248.0">
                <children>
-                  <ListView fx:id="ListWord" editable="true" prefHeight="458.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="ListWord" editable="true" prefHeight="469.0" prefWidth="248.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </content>
@@ -32,7 +33,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Add" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -47,5 +48,8 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Button fx:id="USButton" layoutX="282.0" layoutY="79.0" mnemonicParsing="false" onAction="#PressedUS" text="US" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="282.0" />
+      <Button fx:id="UKButton" layoutX="322.0" layoutY="79.0" mnemonicParsing="false" onAction="#PressedUK" text="UK" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="322.0" />
+      <Button fx:id="switchMenu" layoutX="511.0" layoutY="79.0" mnemonicParsing="false" onAction="#switchToMenu" text="Switch" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="511.0" />
    </children>
 </AnchorPane>

@@ -7,7 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import controller.SceneController;
+import controller.ControllerManager;
+import controller.SceneManager;
+import controller.ViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,20 +20,28 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	public static Stage primaryStage;
-	public static SceneController screenController;
+	public static SceneManager sceneManager;
 	public static Scene scene;
+	public static ControllerManager controllerManager;
 
 	@Override
 	public void start(Stage primaryStage_) throws Exception {
-		Parent root =
-				FXMLLoader.load(
-						getClass().getClassLoader().getResource("View.fxml"));
+		controllerManager = new ControllerManager();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("View.fxml"));
+
+		Parent root = loader.load();
 		scene = new Scene(root, 800, 600);
-		screenController = new SceneController(scene);
-		screenController.addScreen("view", root);
-		screenController.addScreen("menu", FXMLLoader
-				.load(getClass().getClassLoader().getResource("Menu.fxml")));
-		screenController.activate("view");
+		sceneManager = new SceneManager(scene);
+
+		// FXMLLoader has to be loaded for controller to be initialized.
+		ViewController viewController = loader.getController();
+		controllerManager.addViewController(viewController);
+
+		sceneManager.addScreen("view", root);
+		loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		sceneManager.addScreen("menu", loader.load());
+		controllerManager.addMenuController(loader.getController());
+		sceneManager.activate("view");
 		primaryStage = primaryStage_;
 		primaryStage.getIcons().add(new Image("dictionary.png"));
 		primaryStage.setTitle("Dictionary");
@@ -39,8 +49,12 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 
-	public static SceneController getSceneController() {
-		return screenController;
+	public static ControllerManager getControllerManager() {
+		return controllerManager;
+	}
+
+	public static SceneManager getSceneManager() {
+		return sceneManager;
 	}
 
 	public static Stage getStage() {

@@ -18,8 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -27,7 +25,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 public class ViewController implements Initializable {
 
@@ -58,26 +55,21 @@ public class ViewController implements Initializable {
 
 	private DatabaseManager databaseManager;
 
-	private TextToSpeech tts;
+	private TextToSpeech textToSpeech;
 
 	private AutoCompleteTextField textField;
 
-	private Parent root;
-	private Stage stage;
-	private Scene scene;
-
 	public void switchToMenu(ActionEvent event) throws IOException {
-		Main.getSceneController().activate("menu");
+		Main.getSceneManager().activate("menu");
 		Main.getStage().show();
+		Main.getControllerManager().getMenuController().getTextField()
+				.setText("hello");
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tts = new TextToSpeech();
-		// tts.getAvailableVoices().stream().forEach(voice ->
-		// System.out.println("Voice: " + voice));
-		// cmu-bdl-hsmm, dfki-spike-hsmm
-
+		// var menuController = (MenuController) FXMLLoader.getController();
+		textToSpeech = new TextToSpeech();
 		ListWord.setItems(items);
 		try {
 			databaseManager = new DatabaseManager();
@@ -100,8 +92,8 @@ public class ViewController implements Initializable {
 										textField.getText());
 						if (searched == null)
 							return;
-						webEngine.setUserStyleSheetLocation(getClass()
-								.getResource("/nicepage.css").toString());
+						// webEngine.setUserStyleSheetLocation(
+						// getClass().getResource("/Home.css").toString());
 						// webEngine.setUserStyleSheetLocation(getClass().getResource("/nicepage.css").toString());
 						// webEngine.load(getClass().getResource("/new.html").toExternalForm());
 						webEngine.loadContent(searched);
@@ -120,6 +112,7 @@ public class ViewController implements Initializable {
 							String oldValue, String newValue) {
 						String searched =
 								ListWord.getSelectionModel().getSelectedItem();
+						textField.setText(searched);
 						WebEngine webEngine = searchResult.getEngine();
 						try {
 							webEngine.loadContent(databaseManager
@@ -139,10 +132,10 @@ public class ViewController implements Initializable {
 		if (textField.getText() == null)
 			return;
 		String word = textField.getText();
+
 		// female uk accent
-		tts.setVoice("cmu-bdl-hsmm");
-		tts.speak(word, 2.0f, false, true);
-		// tts.stopSpeaking();
+		textToSpeech.setVoice("cmu-bdl-hsmm");
+		textToSpeech.speak(word, 2.0f, false, true);
 	}
 
 	@FXML
@@ -152,8 +145,11 @@ public class ViewController implements Initializable {
 		String word = textField.getText();
 
 		// male us accent
-		tts.setVoice("dfki-prudence-hsmm");
-		tts.speak(word, 2.0f, false, true);
-		// tts.stopSpeaking();
+		textToSpeech.setVoice("dfki-prudence-hsmm");
+		textToSpeech.speak(word, 2.0f, false, true);
+	}
+
+	public AutoCompleteTextField getTextField() {
+		return textField;
 	}
 }

@@ -20,14 +20,13 @@ public class DatabaseManager {
 	private boolean flag = true;
 
 	public DatabaseManager() throws SQLException {
-		server = new server("wn_pro_mysql");
+		server = new server("wordnet");
 		server.connect();
 		server2 = new server("tables");
-		server3 = new server("wordnet");
 		server2.connect();
-		server3.connect();
+
 		// dictionaryData = new DictionaryData();
-		dictList = server3.getList();
+		dictList = server.getList();
 		searchedWord = new SearchedWord();
 		// listWords = new ListWord();
 		// listWords.putData(dictionaryData.getWordTarget_());
@@ -145,22 +144,29 @@ public class DatabaseManager {
 			formatted +=
 					synonym + meanings.get(i) + "</h3>\r\n"
 							+ "<ul style=\"margin:  5px 5px 5px 5px;\">";
-			var examples = exampless.get(i);
-			for (var example : examples) {
-				formatted +=
-						"<li style='margin: 5px 5px 10px 5px; font-size: 16px; list-style-type: disc;'><i>"
-								+ exampleFormatter(example) + "</i></li>";
+			if (exampless != null) {
+				var examples = exampless.get(i);
+				if (examples != null) {
+					for (var example : examples) {
+						formatted +=
+								"<li style='margin: 5px 5px 10px 5px; font-size: 16px; list-style-type: disc;'><i>"
+										+ exampleFormatter(example)
+										+ "</i></li>";
+					}
+				}
 			}
+
 			formatted += "</ul>\r\n" + "                </li>";
 		}
 		formatted +=
-				"</ol>\r\n" + "\r\n" + "        </section>\r\n"
-						+ "    </div>\r\n" + "</body>\r\n" + "\r\n" + "</html>";
+				"</ol><p>&nbsp;</p> \r\n" + "<p></p> \r\n" + "\r\n"
+						+ "        </section>\r\n" + "    </div>\r\n"
+						+ "</body>\r\n" + "\r\n" + "</html>";
 		return formatted;
 	}
 
 	public String getFormattedResult(String searchedWord) throws SQLException {
-		var ans = server3.getSearchWord(searchedWord);
+		var ans = server.getSearchWord(searchedWord);
 		if (ans.size() == 0)
 			return null;
 		String word = ans.get(0).get(0);
@@ -176,7 +182,11 @@ public class DatabaseManager {
 			String synonym = ans.get(i).get(4);
 			types.add(type);
 			meanings.add(meaningFormatter(meaning));
-			examples.add(Arrays.asList(example.split(",")));
+			if (example != null) {
+				examples.add(Arrays.asList(example.split(",")));
+			} else
+				examples.add(null);
+
 			if (synonym != null)
 				synonyms.add(Arrays.asList(synonym.split(",")));
 			else
