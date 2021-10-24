@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_311/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="Main.java" kind="src" path="application"/>
 	<classpathentry kind="src" path="resources"/>
@@ -20,6 +21,17 @@
 	<classpathentry kind="lib" path="resources/guava-22.0.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-builder-5.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="resources/marytts-lang-en-5.2.jar"/>
-	<classpathentry kind="lib" path="resources/jfoenix-9.0.10.jar"/>
+	<classpathentry kind="lib" path="resources/core-12.11.2.jar"/>
+	<classpathentry kind="lib" path="resources/fontawesomefx-8.9.jar"/>
+	<classpathentry kind="lib" path="resources/jfoenix-8.0.10.jar"/>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="resources/datafx-8.0.1.jar"/>
+	<classpathentry kind="lib" path="resources/flow-8.0.1.jar"/>
+	<classpathentry kind="lib" path="resources/ikonli-fontawesome5-pack-2.4.0.jar"/>
+	<classpathentry kind="lib" path="resources/controlsfx-8.40.11.jar"/>
+	<classpathentry kind="lib" path="resources/jfoenix-0.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="resources/fontawesomefx-commons-9.1.2.jar"/>
+	<classpathentry kind="lib" path="resources/fontawesomefx-controls-9.1.2.jar"/>
+	<classpathentry kind="lib" path="resources/charm-glisten-6.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

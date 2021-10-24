@@ -90,7 +90,7 @@ public class DatabaseManager {
 						+ "alt=\"facebook\" /><img src=\"https://i.ibb.co/xzLfZyq/instagram.png\" alt=\"instagram\" /> <img\r\n"
 						+ "            src=\"https://i.ibb.co/s2kPLsP/twitter.png\" alt=\"twitter\" /></div>";
 		String formatted =
-				"<!DOCTYPE html><html lang='en' style='background-color: white;font-size:15px; height: 450px; width:480px; font-family: Arial, Helvetica, sans-serif;'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Tu dien</title><style>\r\n"
+				"<!DOCTYPE html><html lang='en' style='background-color: white;font-size:15px; height: 598px; width:669px; font-family: Arial, Helvetica, sans-serif;'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Tu dien</title><style>\r\n"
 						+ "        ol li {\r\n"
 						+ "            font-weight: bold;\r\n" + "        }\r\n"
 						+ "\r\n" + "        li>p {\r\n"

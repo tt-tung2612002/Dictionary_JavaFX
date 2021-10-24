@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,9 +15,8 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-public class AutoCompleteTextField extends TextField {
+public class AutoCompleteTextField extends JFXTextField {
 	/** The existing autocomplete entries. */
 	private final SortedSet<String> entries;
 	/** The popup used to select an entry. */

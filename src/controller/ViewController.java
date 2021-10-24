@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleNode;
+
 import application.Main;
 import controller.tospeech.TextToSpeech;
 import database.AutoCompleteTextField;
@@ -17,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -26,7 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-public class ViewController implements Initializable {
+public class ViewController {
 
 	@FXML
 	private ResourceBundle resources;
@@ -47,9 +49,9 @@ public class ViewController implements Initializable {
 	private Button switchMenu;
 
 	@FXML
-	private Button USButton;
+	private JFXButton USButton;
 	@FXML
-	private Button UKButton;
+	private JFXButton UKButton;
 
 	private ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -66,8 +68,8 @@ public class ViewController implements Initializable {
 				.setText("hello");
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	@FXML
+	public void initialize() {
 		// var menuController = (MenuController) FXMLLoader.getController();
 		textToSpeech = new TextToSpeech();
 		ListWord.setItems(items);
@@ -77,17 +79,26 @@ public class ViewController implements Initializable {
 			e.printStackTrace();
 		}
 
+		// HamburgerBackArrowBasicTransition burgerTask =
+		// new HamburgerBackArrowBasicTransition(myHamburger);
+		// burgerTask.setRate(1);
+		// myHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+		// burgerTask.setRate(burgerTask.getRate() * -1);
+		// burgerTask.play();
+		// });
+		// myHamburger.getStyleClass().add("jfx-hamburger-icon");
 		List<String> dictWord = databaseManager.getDictWord();
 		items.addAll(dictWord);
 		textField = databaseManager.getSearchedWord().getTextField();
 		textField.setEntries(dictWord);
-		textField.setFocusTraversable(false);
+		// textField.setFocusTraversable(false);
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					try {
+						// textField.validate();
 						WebEngine webEngine = searchResult.getEngine();
 						String searched =
 								databaseManager.getFormattedResult(
@@ -105,6 +116,8 @@ public class ViewController implements Initializable {
 				}
 			}
 		});
+		JFXToggleNode node = new JFXToggleNode();
+
 		ListWord.getSelectionModel().selectedItemProperty()
 				.addListener(new ChangeListener<String>() {
 

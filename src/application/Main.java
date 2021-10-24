@@ -30,9 +30,8 @@ public class Main extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("View.fxml"));
 
 		Parent root = loader.load();
-		scene = new Scene(root, 800, 600);
+		scene = new Scene(root);
 		sceneManager = new SceneManager(scene);
-
 		// FXMLLoader has to be loaded for controller to be initialized.
 		ViewController viewController = loader.getController();
 		controllerManager.addViewController(viewController);
@@ -42,6 +41,7 @@ public class Main extends Application {
 		sceneManager.addScreen("menu", loader.load());
 		controllerManager.addMenuController(loader.getController());
 		sceneManager.activate("view");
+
 		primaryStage = primaryStage_;
 		primaryStage.getIcons().add(new Image("dictionary.png"));
 		primaryStage.setTitle("Dictionary");
