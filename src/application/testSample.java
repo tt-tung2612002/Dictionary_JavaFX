@@ -1,85 +1,108 @@
 package application;
 
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
+import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXDrawer.DrawerDirection;
+import com.jfoenix.controls.JFXDrawersStack;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class testSample extends Application {
 
+	private static final String LEFT = "LEFT";
+	private static final String TOP = "TOP";
+	private static final String RIGHT = "RIGHT";
+	private static final String BOTTOM = "BOTTOM";
+
 	@Override
-	public void start(Stage stage) throws Exception {
-		// Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
-		//
-		// Scene scene = new Scene(root);
-		//
-		// stage.setScene(scene);
-		// stage.show();
-		final VBox pane = new VBox();
-		pane.setSpacing(30);
-		pane.setStyle("-fx-background-color:WHITE;-fx-padding:40;");
+	public void start(Stage stage) {
+		FlowPane content = new FlowPane();
+		JFXButton leftButton = new JFXButton(LEFT);
+		JFXButton topButton = new JFXButton(TOP);
+		JFXButton rightButton = new JFXButton(RIGHT);
+		JFXButton bottomButton = new JFXButton(BOTTOM);
+		content.getChildren().addAll(leftButton, topButton, rightButton,
+				bottomButton);
+		content.setMaxSize(200, 200);
 
-		pane.getChildren().add(new TextField());
+		JFXDrawer leftDrawer = new JFXDrawer();
+		StackPane leftDrawerPane = new StackPane();
+		leftDrawerPane.getStyleClass().add("red-400");
+		leftDrawerPane.getChildren().add(new JFXButton("Left Content"));
+		leftDrawer.setSidePane(leftDrawerPane);
+		leftDrawer.setDefaultDrawerSize(150);
+		leftDrawer.setResizeContent(true);
+		leftDrawer.setOverLayVisible(false);
+		leftDrawer.setResizableOnDrag(true);
 
-		JFXTextField field = new JFXTextField();
-		field.setLabelFloat(true);
-		field.setPromptText("Type Something");
-		pane.getChildren().add(field);
+		JFXDrawer bottomDrawer = new JFXDrawer();
+		StackPane bottomDrawerPane = new StackPane();
+		bottomDrawerPane.getStyleClass().add("deep-purple-400");
+		bottomDrawerPane.getChildren().add(new JFXButton("Bottom Content"));
+		bottomDrawer.setDefaultDrawerSize(150);
+		bottomDrawer.setDirection(DrawerDirection.BOTTOM);
+		bottomDrawer.setSidePane(bottomDrawerPane);
+		bottomDrawer.setResizeContent(true);
+		bottomDrawer.setOverLayVisible(false);
+		bottomDrawer.setResizableOnDrag(true);
 
-		JFXTextField disabledField = new JFXTextField();
-		disabledField.setLabelFloat(true);
-		disabledField.setPromptText("I'm disabled..");
-		disabledField.setDisable(true);
-		pane.getChildren().add(disabledField);
+		JFXDrawer rightDrawer = new JFXDrawer();
+		StackPane rightDrawerPane = new StackPane();
+		rightDrawerPane.getStyleClass().add("blue-400");
+		rightDrawerPane.getChildren().add(new JFXButton("Right Content"));
+		rightDrawer.setDirection(DrawerDirection.RIGHT);
+		rightDrawer.setDefaultDrawerSize(150);
+		rightDrawer.setSidePane(rightDrawerPane);
+		rightDrawer.setOverLayVisible(false);
+		rightDrawer.setResizableOnDrag(true);
 
-		JFXTextField validationField = new JFXTextField();
+		JFXDrawer topDrawer = new JFXDrawer();
+		StackPane topDrawerPane = new StackPane();
+		topDrawerPane.getStyleClass().add("green-400");
+		topDrawerPane.getChildren().add(new JFXButton("Top Content"));
+		topDrawer.setDirection(DrawerDirection.TOP);
+		topDrawer.setDefaultDrawerSize(150);
+		topDrawer.setSidePane(topDrawerPane);
+		topDrawer.setOverLayVisible(false);
+		topDrawer.setResizableOnDrag(true);
 
-		validationField.setPromptText("With Validation..");
-		RequiredFieldValidator validator = new RequiredFieldValidator();
-		validator.setMessage("Input Required");
+		JFXDrawersStack drawersStack = new JFXDrawersStack();
+		drawersStack.setContent(content);
 
-		// validator.setIcon(warnIcon);
-		validationField.getValidators().add(validator);
-		validationField.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal) {
-				validationField.validate();
-			}
-		});
-		pane.getChildren().add(validationField);
+		leftDrawer.setId(LEFT);
+		rightDrawer.setId(RIGHT);
+		bottomDrawer.setId(BOTTOM);
+		topDrawer.setId(TOP);
 
-		JFXPasswordField passwordField = new JFXPasswordField();
-		passwordField.setLabelFloat(true);
-		passwordField.setPromptText("Password");
-		validator = new RequiredFieldValidator();
-		validator.setMessage("Password Can't be empty");
+		leftButton.addEventHandler(MOUSE_PRESSED,
+				e -> drawersStack.toggle(leftDrawer));
+		bottomButton.addEventHandler(MOUSE_PRESSED,
+				e -> drawersStack.toggle(bottomDrawer));
+		rightButton.addEventHandler(MOUSE_PRESSED,
+				e -> drawersStack.toggle(rightDrawer));
+		topButton.addEventHandler(MOUSE_PRESSED,
+				e -> drawersStack.toggle(topDrawer));
 
-		// validator.setIcon(warnIcon);
-		passwordField.getValidators().add(validator);
-		passwordField.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal) {
-				passwordField.validate();
-			}
-		});
-		pane.getChildren().add(passwordField);
+		final Scene scene = new Scene(drawersStack, 800, 800);
+		final ObservableList<String> stylesheets = scene.getStylesheets();
+		stylesheets.addAll(
+				getClass().getResource("/jfoenix-components.css")
+						.toExternalForm(),
+				getClass().getResource("/jfoenix-design.css").toExternalForm());
 
-		final Scene scene = new Scene(pane, 600, 400, Color.WHITE);
-		scene.getStylesheets().add(getClass()
-				.getResource("/jfoenix-components.css").toExternalForm());
-		stage.setTitle("JFX TextField Demo ");
+		stage.setTitle("JFX Drawer Demo");
 		stage.setScene(scene);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 	}
 
-	/**
-	 * @param args the command line arguments
-	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

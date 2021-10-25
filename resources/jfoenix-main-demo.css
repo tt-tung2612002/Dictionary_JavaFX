@@ -3,7 +3,7 @@
  */
 
 .root {
-    -fx-font-family: "Segoe Script";
+    -fx-font-family: "Fira Code";
     -fx-font-weight: NORMAL;
     -fx-font-smoothing-type: gray;
 }
@@ -154,6 +154,7 @@
 *******************************************************************************/
 
 .jfx-hamburger {
+	-fx-background-color: black;
     -fx-padding: 10.0;
     -fx-spacing: 4px;
     -fx-cursor: hand;

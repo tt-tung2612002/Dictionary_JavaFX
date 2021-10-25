@@ -32,6 +32,8 @@ public class Main extends Application {
 		Parent root = loader.load();
 		scene = new Scene(root);
 		sceneManager = new SceneManager(scene);
+		scene.getStylesheets()
+				.add(getClass().getResource("Home.css").toExternalForm());
 		// FXMLLoader has to be loaded for controller to be initialized.
 		ViewController viewController = loader.getController();
 		controllerManager.addViewController(viewController);

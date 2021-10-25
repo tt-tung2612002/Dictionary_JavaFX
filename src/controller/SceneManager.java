@@ -11,10 +11,10 @@ public class SceneManager {
 
 	public SceneManager(Scene main) {
 		this.main = main;
-		this.main.getStylesheets().add(
-				getClass().getResource("/jfoenix-components.css").toString());
-		this.main.getStylesheets()
-				.add(getClass().getResource("/Home.css").toExternalForm());
+		// this.main.getStylesheets().addAll(
+		// getClass().getResource("/Home.css").toExternalForm(),
+		// getClass().getResource("/jfoenix-components.css").toString(),
+		// getClass().getResource("/jfoenix-design.css").toExternalForm());
 	}
 
 	public void addScreen(String name, Parent pane) {

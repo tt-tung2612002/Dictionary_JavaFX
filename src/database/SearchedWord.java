@@ -9,6 +9,8 @@ import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Pos;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class SearchedWord {
@@ -46,13 +48,9 @@ public class SearchedWord {
 		// validator.setAwsomeIcon(
 		// new Icon(AwesomeIcon.WARNING, "2em", ";", "error"));
 
-		// textField.setFont(Font.font("Fira Code", FontWeight.LIGHT, 18));
+		textField.setFont(Font.font("Fira Code", FontWeight.LIGHT, 18));
 		textField.setAlignment(Pos.CENTER_LEFT);
 		textField.getValidators().add(validator);
-		// textField.focusedProperty().addListener((o, oldVal, newVal) -> {
-		// if (!newVal)
-		// textField.validate();
-		// });
 		textField.textProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					textField.validate();
