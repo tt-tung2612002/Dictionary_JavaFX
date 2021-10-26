@@ -1,16 +1,19 @@
 package application;
 
-import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXDrawer.DrawerDirection;
-import com.jfoenix.controls.JFXDrawersStack;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXPopup.PopupHPosition;
+import com.jfoenix.controls.JFXPopup.PopupVPosition;
+import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXRippler.RipplerMask;
+import com.jfoenix.controls.JFXRippler.RipplerPos;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -22,85 +25,37 @@ public class testSample extends Application {
 	private static final String BOTTOM = "BOTTOM";
 
 	@Override
-	public void start(Stage stage) {
-		FlowPane content = new FlowPane();
-		JFXButton leftButton = new JFXButton(LEFT);
-		JFXButton topButton = new JFXButton(TOP);
-		JFXButton rightButton = new JFXButton(RIGHT);
-		JFXButton bottomButton = new JFXButton(BOTTOM);
-		content.getChildren().addAll(leftButton, topButton, rightButton,
-				bottomButton);
-		content.setMaxSize(200, 200);
+	public void start(Stage primaryStage) {
+		JFXHamburger show = new JFXHamburger();
+		show.setPadding(new Insets(10, 5, 10, 5));
+		JFXRippler rippler =
+				new JFXRippler(show, RipplerMask.CIRCLE, RipplerPos.BACK);
 
-		JFXDrawer leftDrawer = new JFXDrawer();
-		StackPane leftDrawerPane = new StackPane();
-		leftDrawerPane.getStyleClass().add("red-400");
-		leftDrawerPane.getChildren().add(new JFXButton("Left Content"));
-		leftDrawer.setSidePane(leftDrawerPane);
-		leftDrawer.setDefaultDrawerSize(150);
-		leftDrawer.setResizeContent(true);
-		leftDrawer.setOverLayVisible(false);
-		leftDrawer.setResizableOnDrag(true);
+		JFXListView<Label> list = new JFXListView<>();
+		for (int i = 1; i < 5; i++) {
+			list.getItems().add(new Label("Item " + i));
+		}
 
-		JFXDrawer bottomDrawer = new JFXDrawer();
-		StackPane bottomDrawerPane = new StackPane();
-		bottomDrawerPane.getStyleClass().add("deep-purple-400");
-		bottomDrawerPane.getChildren().add(new JFXButton("Bottom Content"));
-		bottomDrawer.setDefaultDrawerSize(150);
-		bottomDrawer.setDirection(DrawerDirection.BOTTOM);
-		bottomDrawer.setSidePane(bottomDrawerPane);
-		bottomDrawer.setResizeContent(true);
-		bottomDrawer.setOverLayVisible(false);
-		bottomDrawer.setResizableOnDrag(true);
+		AnchorPane container = new AnchorPane();
+		container.getChildren().add(rippler);
+		AnchorPane.setLeftAnchor(rippler, 200.0);
+		AnchorPane.setTopAnchor(rippler, 210.0);
 
-		JFXDrawer rightDrawer = new JFXDrawer();
-		StackPane rightDrawerPane = new StackPane();
-		rightDrawerPane.getStyleClass().add("blue-400");
-		rightDrawerPane.getChildren().add(new JFXButton("Right Content"));
-		rightDrawer.setDirection(DrawerDirection.RIGHT);
-		rightDrawer.setDefaultDrawerSize(150);
-		rightDrawer.setSidePane(rightDrawerPane);
-		rightDrawer.setOverLayVisible(false);
-		rightDrawer.setResizableOnDrag(true);
+		StackPane main = new StackPane();
+		main.getChildren().add(container);
 
-		JFXDrawer topDrawer = new JFXDrawer();
-		StackPane topDrawerPane = new StackPane();
-		topDrawerPane.getStyleClass().add("green-400");
-		topDrawerPane.getChildren().add(new JFXButton("Top Content"));
-		topDrawer.setDirection(DrawerDirection.TOP);
-		topDrawer.setDefaultDrawerSize(150);
-		topDrawer.setSidePane(topDrawerPane);
-		topDrawer.setOverLayVisible(false);
-		topDrawer.setResizableOnDrag(true);
+		JFXPopup popup = new JFXPopup(list);
+		rippler.setOnMouseClicked(e -> popup.show(rippler, PopupVPosition.TOP,
+				PopupHPosition.LEFT));
 
-		JFXDrawersStack drawersStack = new JFXDrawersStack();
-		drawersStack.setContent(content);
+		final Scene scene = new Scene(main, 800, 800);
+		scene.getStylesheets().add(getClass()
+				.getResource("/jfoenix-components.css").toExternalForm());
 
-		leftDrawer.setId(LEFT);
-		rightDrawer.setId(RIGHT);
-		bottomDrawer.setId(BOTTOM);
-		topDrawer.setId(TOP);
-
-		leftButton.addEventHandler(MOUSE_PRESSED,
-				e -> drawersStack.toggle(leftDrawer));
-		bottomButton.addEventHandler(MOUSE_PRESSED,
-				e -> drawersStack.toggle(bottomDrawer));
-		rightButton.addEventHandler(MOUSE_PRESSED,
-				e -> drawersStack.toggle(rightDrawer));
-		topButton.addEventHandler(MOUSE_PRESSED,
-				e -> drawersStack.toggle(topDrawer));
-
-		final Scene scene = new Scene(drawersStack, 800, 800);
-		final ObservableList<String> stylesheets = scene.getStylesheets();
-		stylesheets.addAll(
-				getClass().getResource("/jfoenix-components.css")
-						.toExternalForm(),
-				getClass().getResource("/jfoenix-design.css").toExternalForm());
-
-		stage.setTitle("JFX Drawer Demo");
-		stage.setScene(scene);
-		stage.setResizable(true);
-		stage.show();
+		primaryStage.setTitle("JFX Popup Demo");
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {

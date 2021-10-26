@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class server {
+public class Server {
 	private String url = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
 	private String password = "tung2612002";
@@ -17,12 +17,14 @@ public class server {
 	private String query;
 	private String synonymIdentifier = "call findSynonym('";
 	private String antonymIdentifier = "call findAnonynym('";
-	private String searchedWordIdentifer = "{CALL searchWord(?)}";
-	private String listIdentifer = "call printList()";
+	private String searchedWordIdentifier = "{CALL searchWord(?)}";
+	private String listIdentifier = "call printList()";
 	private String pronounciationIdentifier = "{CALL getPronounciation(?)}";
-	private String closestResultsIdentifer = "call findClosestResults('";
+	private String closestResultsIdentifier = "call findClosestResults('";
+	private String addWordIdentifier = "{CALL addWord(?,?)}";
+	private String deleteWordIdentifier = "{CALL deleteWord(?)}";
 
-	public server(String database) {
+	public Server(String database) {
 		url += database;
 	}
 
@@ -75,7 +77,7 @@ public class server {
 	public List<List<String>> getSearchWord(String word) throws SQLException {
 		List<List<String>> ans = new ArrayList<List<String>>();
 		try {
-			query = searchedWordIdentifer;
+			query = searchedWordIdentifier;
 			PreparedStatement statement = con.prepareCall(query);
 			statement.setString(1, word);
 			ResultSet resultSet = statement.executeQuery();
@@ -96,7 +98,7 @@ public class server {
 	public List<List<String>> getList() throws SQLException {
 		List<List<String>> ans = new ArrayList<List<String>>();
 
-		query = listIdentifer;
+		query = listIdentifier;
 		Statement statement = con.createStatement();
 		ResultSet resultSet = statement.executeQuery(query);
 		while (resultSet.next()) {
@@ -130,7 +132,7 @@ public class server {
 	public List<String> getClosestResults(String word) {
 		List<String> ans = new ArrayList<String>();
 		try {
-			query = closestResultsIdentifer + word + "')";
+			query = closestResultsIdentifier + word + "')";
 			PreparedStatement statement = con.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -141,6 +143,38 @@ public class server {
 			e.printStackTrace();
 		}
 		return ans;
+	}
+
+	public void addWord(String word, String meaning) {
+		try {
+			query = addWordIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			statement.setString(2, meaning);
+			statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deleteWord(String word) {
+		try {
+			query = deleteWordIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void main(String[] args) throws SQLException {
+		Server server = new Server("tables");
+		server.connect();
+		server.deleteWord("hello");
+		// server.addWord("hello", "xin chao");
 	}
 
 }

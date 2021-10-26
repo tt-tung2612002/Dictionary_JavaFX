@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import database.filedatabase.DictionaryData;
+import database.sqlserver.Server;
 import database.sqlserver.server;
 
 public class DatabaseManager {
-	private server server;
-	private server server2;
-	private server server3;
+	private Server server;
+	private Server server2;
 	private SearchedWord searchedWord;
 	private ListWord listWords;
 	private SearchedResult searchedResult;
@@ -20,9 +20,9 @@ public class DatabaseManager {
 	private boolean flag = true;
 
 	public DatabaseManager() throws SQLException {
-		server = new server("wordnet");
+		server = new Server("wordnet");
 		server.connect();
-		server2 = new server("tables");
+		server2 = new Server("tables");
 		server2.connect();
 
 		// dictionaryData = new DictionaryData();

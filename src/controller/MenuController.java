@@ -10,9 +10,12 @@ import application.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -47,8 +50,6 @@ public class MenuController {
 	public void switchToView(ActionEvent event) throws IOException {
 		Main.getSceneManager().activate("view");
 		Main.getStage().show();
-		Main.getControllerManager().getViewController().getTextField()
-				.setText("hello");
 	}
 
 	void initialize() {
@@ -86,6 +87,36 @@ public class MenuController {
 
 	public TextField getTextField() {
 		return field;
+	}
+
+	public class IntroView extends Thread {
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(5000);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							FXMLLoader loader =
+									new FXMLLoader(getClass()
+											.getResource("View.fxml"));
+							Parent parent = loader.load();
+							Main.getSceneManager().addScreen("view", parent);
+							Main.getControllerManager()
+									.addViewController(loader.getController());
+							Main.getSceneManager().activate("view");
+							Main.getStage().show();
+
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

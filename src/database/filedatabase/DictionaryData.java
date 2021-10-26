@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DictionaryData {
-	private final String FILE_PATH = "E:\\Program\\eclipse\\Dictionary\\src\\application\\EV.txt";
+	private final String FILE_PATH =
+			"E:\\Program\\eclipse\\Dictionary\\src\\application\\EV.txt";
 	private ArrayList<Word> DictList = new ArrayList<Word>();
 	private Map<Integer, String> wordTarget_ = new HashMap<>();
 	private Map<Integer, String> wordInfo_ = new HashMap<>();
@@ -19,7 +20,8 @@ public class DictionaryData {
 	public DictionaryData() {
 		String line;
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+			BufferedReader reader =
+					new BufferedReader(new FileReader(FILE_PATH));
 
 			while ((line = reader.readLine()) != null) {
 				String word = "";
@@ -43,7 +45,8 @@ public class DictionaryData {
 		System.out.println(this.getDictData().size());
 	}
 
-	// finding position of a word if dictionary has it or the position of the word
+	// finding position of a word if dictionary has it or the position of the
+	// word
 	// front of it
 	public int findPosition(String w) {
 		int n = this.getDictData().size() - 1;
@@ -57,7 +60,8 @@ public class DictionaryData {
 				return n;
 
 			if (w.compareTo(this.getDictData().get(n).getWord_target()) > 0)
-				return n + 1;// find "e" in "a", "b", "d" will return 4 pos after "d"
+				return n + 1;// find "e" in "a", "b", "d" will return 4 pos
+								// after "d"
 
 			Word w1 = this.getDictData().get((i + n) / 2);
 			int compare = w.compareTo(w1.getWord_target());
@@ -77,18 +81,19 @@ public class DictionaryData {
 		return i;
 	}
 
-	// add word into dictionary if it doesn't have
+	// add word into dictionary if it doesn't exist.
 	boolean addWord(Word word) {
 		int i = this.findPosition(word.getWord_target());
 
-		if (this.DictList.size() == 0 || this.DictList.get(i).compareTo(word) != 0) {
+		if (this.DictList.size() == 0
+				|| this.DictList.get(i).compareTo(word) != 0) {
 			this.DictList.add(i, word);
 			return true;
 		} else
 			return false;
 	}
 
-	// remove word from dictionary if it has
+	// remove word from dictionary if it exists.
 	boolean removeWord(Word word) {
 		if (this.DictList.remove(word))
 			return true;

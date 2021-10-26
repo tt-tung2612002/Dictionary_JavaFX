@@ -11,6 +11,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXPopup.PopupHPosition;
+import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
@@ -21,8 +25,7 @@ import application.Main;
 import controller.tospeech.TextToSpeech;
 import database.AutoCompleteTextField;
 import database.DatabaseManager;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,8 +33,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -66,7 +68,16 @@ public class ViewController {
 	private AnchorPane favAnchor;
 
 	@FXML
-	private ListView<String> ListWord;
+	private AnchorPane addAnchor;
+
+	@FXML
+	private AnchorPane changeAnchor;
+
+	@FXML
+	private AnchorPane deleteAnchor;
+
+	@FXML
+	private JFXListView<String> listWord;
 
 	@FXML
 	private JFXButton USButton;
@@ -90,6 +101,18 @@ public class ViewController {
 	private JFXButton settingsButton;
 
 	@FXML
+	private JFXButton editButton;
+
+	@FXML
+	private JFXButton addButton;
+
+	@FXML
+	private JFXButton changeButton;
+
+	@FXML
+	private JFXButton deleteButton;
+
+	@FXML
 	private JFXBadge myBadge;
 
 	@FXML
@@ -105,10 +128,22 @@ public class ViewController {
 	private StackPane myStackPane;
 
 	@FXML
+	private ScrollPane listScrollPane;
+
+	@FXML
 	private JFXSnackbar snackbar;
 
 	@FXML
 	private Pane favPane;
+
+	@FXML
+	private Pane addPane;
+
+	@FXML
+	private Pane changePane;
+
+	@FXML
+	private Pane deletePane;
 
 	private ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -119,52 +154,230 @@ public class ViewController {
 	private AutoCompleteTextField textField;
 
 	private int prev = 0;
-
 	private boolean flag = false;
+	private boolean editFlag = false;
+	private FadeTransition fadeIn = new FadeTransition(Duration.seconds(5));
+	ChangeListener<String> listListener = new ChangeListener<String>() {
 
-	public void switchToMenu(ActionEvent event) throws IOException {
-		Main.getSceneManager().activate("menu");
-		Main.getStage().show();
-		Main.getControllerManager().getMenuController().getTextField()
-				.setText("hello");
-	}
+		@Override
+		public void changed(ObservableValue<? extends String> observable,
+				String oldValue, String newValue) {
+			String searched = listWord.getSelectionModel().getSelectedItem();
+			textField.setText(searched);
+			WebEngine webEngine = searchResult.getEngine();
+			try {
+				webEngine.loadContent(
+						databaseManager.getFormattedResult(searched));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-	@SuppressWarnings("unused")
-	private void setupBadge(JFXBadge buttonWithBadge,
-			StringProperty badgeNumber, BooleanProperty badgeEnabled) {
-		buttonWithBadge.textProperty().bind(badgeNumber);
-		buttonWithBadge.setEnabled(badgeEnabled.get());
-		badgeEnabled.addListener((observable, oldValue, newValue) -> {
-			buttonWithBadge.setEnabled(newValue);
-			buttonWithBadge.refreshBadge();
-		});
-
-		buttonWithBadge.setPosition(Pos.TOP_RIGHT);
-		buttonWithBadge.setMinHeight(34);
-		buttonWithBadge.setMaxHeight(34);
-	}
+	};
 
 	@FXML
 	public void initialize() {
 		textToSpeech = new TextToSpeech();
-		ListWord.setItems(items);
+		listWord.setItems(items);
 		try {
 			databaseManager = new DatabaseManager();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		JFXRippler rippler = new JFXRippler(favPane);
-		rippler.setMaskType(JFXRippler.RipplerMask.CIRCLE);
-		rippler.setRipplerFill(Paint.valueOf("#ff0000"));
-		rippler.getStyleClass().add("icons-rippler");
+
+		JFXRippler ripplerFav = new JFXRippler(favPane);
+		ripplerFav.setMaskType(JFXRippler.RipplerMask.CIRCLE);
+		ripplerFav.setRipplerFill(Paint.valueOf("#ff0000"));
+		ripplerFav.getStyleClass().add("icons-rippler");
+
+		// Add PopUp for AddButton.
+		JFXRippler ripplerAdd = new JFXRippler(addPane);
+		ripplerAdd.setRipplerRadius(60);
+		ripplerAdd.setMaskType(JFXRippler.RipplerMask.CIRCLE);
+		ripplerAdd.setRipplerFill(Paint.valueOf("#ff0000"));
+		addPane.setVisible(false);
+		addAnchor.setVisible(false);
+		addButton.setVisible(false);
+		JFXPopup popUpAddButton = new JFXPopup(addButton);
+		popUpAddButton.getStyleClass().add("jfx-popup-container");
+
+		// Add PopUp for ChangeButton.
+		JFXRippler ripplerChange = new JFXRippler(changePane);
+		ripplerChange.setRipplerRadius(60);
+		ripplerChange.setMaskType(JFXRippler.RipplerMask.CIRCLE);
+		ripplerChange.setRipplerFill(Paint.valueOf("#ff0000"));
+		changePane.setVisible(false);
+		changeAnchor.setVisible(false);
+		changeButton.setVisible(false);
+		JFXPopup popUpChangeButton = new JFXPopup(changeButton);
+		popUpChangeButton.getStyleClass().add("jfx-popup-container");
+
+		// Add PopUp for DeleteButton.
+		JFXRippler ripplerDelete = new JFXRippler(deletePane);
+		ripplerDelete.setRipplerRadius(30);
+		ripplerDelete.setMaskType(JFXRippler.RipplerMask.CIRCLE);
+		ripplerDelete.setRipplerFill(Paint.valueOf("#ff0000"));
+		deletePane.setVisible(false);
+		deleteAnchor.setVisible(false);
+		deleteButton.setVisible(false);
+		JFXPopup popUpDeleteButton = new JFXPopup(deleteButton);
+		popUpDeleteButton.getStyleClass().add("jfx-popup-container");
+
+		editButton.setOnMouseClicked(e -> {
+			if (!editFlag) {
+				popUpChangeButton.show(ripplerChange, PopupVPosition.TOP,
+						PopupHPosition.LEFT);
+				popUpAddButton.show(ripplerAdd, PopupVPosition.BOTTOM,
+						PopupHPosition.LEFT);
+				popUpDeleteButton.show(ripplerDelete, PopupVPosition.TOP,
+						PopupHPosition.LEFT);
+				addButton.setVisible(true);
+				deleteButton.setVisible(true);
+				changeButton.setVisible(true);
+			} else {
+				popUpChangeButton.hide();
+				popUpAddButton.hide();
+				popUpDeleteButton.hide();
+
+			}
+			editFlag = !editFlag;
+		});
 
 		snackbar = new JFXSnackbar(myAnchor);
 		snackbar.setPrefWidth(600);
-		myBadge.setOnMouseClicked((click) -> {
+
+		myBadge.setOnMouseClicked(badgeEvent);
+
+		JFXDrawer leftDrawer = new JFXDrawer();
+		leftDrawer.setSidePane(leftDrawerPane);
+		// leftDrawer.setDirection(DrawerDirection.LEFT);
+		leftDrawer.setDefaultDrawerSize(268);
+		leftDrawer.setResizeContent(true);
+		leftDrawer.setOverLayVisible(false);
+		leftDrawer.setResizableOnDrag(true);
+		// fakeAnchor.getChildren().add(textField);
+		drawersStack.setContent(fakeAnchor);
+		leftDrawer.setId("LEFT");
+
+		BoxBlur boxBlur = new BoxBlur();
+		HamburgerBackArrowBasicTransition burgerTask =
+				new HamburgerBackArrowBasicTransition(myHamburger);
+		burgerTask.setRate(-1);
+		myHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+			burgerTask.setRate(burgerTask.getRate() * -1);
+			burgerTask.play();
+			drawersStack.toggle(leftDrawer);
+			if (!flag) {
+				listScrollPane.toBack();
+				textField.setEffect(boxBlur);
+				listWord.setEffect(boxBlur);
+				searchResult.setEffect(boxBlur);
+				myBadge.setEffect(boxBlur);
+				USButton.setEffect(boxBlur);
+				UKButton.setEffect(boxBlur);
+			} else {
+				listScrollPane.toFront();
+				textField.setEffect(null);
+				listWord.setEffect(null);
+				searchResult.setEffect(null);
+				myBadge.setEffect(null);
+				USButton.setEffect(null);
+				UKButton.setEffect(null);
+			}
+			flag = !flag;
+		});
+
+		myHamburger.getStyleClass().add("jfx-hamburger-icon");
+		myBadge.getStyleClass().add("fav");
+		addButton.getStyleClass().add("editButton");
+		deleteButton.getStyleClass().add("editButton");
+		changeButton.getStyleClass().add("editButton");
+		USButton.getStyleClass().add("my-button");
+		UKButton.getStyleClass().add("my-button");
+		searchPlusButton.getStyleClass().add("my-button");
+		notiButton.getStyleClass().add("my-button");
+		infoButton.getStyleClass().add("my-button");
+		favButton.getStyleClass().add("my-button");
+		settingsButton.getStyleClass().add("my-button");
+		editButton.getStyleClass().add("my-button");
+		myAnchor.getStyleClass().add("bodybg");
+		listWord.getStyleClass().add("custom-jfx-list-view");
+		List<String> dictWord = databaseManager.getDictWord();
+		items.addAll(dictWord);
+		textField = databaseManager.getSearchedWord().getTextField();
+		textField.setEntries(dictWord);
+		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					try {
+						// textField.validate();
+						WebEngine webEngine = searchResult.getEngine();
+						String searched =
+								databaseManager.getFormattedResult(
+										textField.getText());
+						if (searched == null) {
+							return;
+						}
+						webEngine.loadContent(searched);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		listWord.getSelectionModel().selectedItemProperty()
+				.addListener(listListener);
+		listWord.setFixedCellSize(40);
+		myAnchor.getChildren().add(textField);
+		favAnchor.getChildren().add(ripplerFav);
+		addAnchor.getChildren().add(ripplerAdd);
+		deleteAnchor.getChildren().add(ripplerDelete);
+		changeAnchor.getChildren().add(ripplerChange);
+	}
+
+	@FXML
+	void PressedUS(ActionEvent event) {
+		if (textField.getText() == null) {
+			return;
+		}
+		String word = textField.getText();
+		if (word.length() == 0) {
+			return;
+		}
+
+		// female uk accent
+		textToSpeech.setVoice("cmu-bdl-hsmm");
+		textToSpeech.speak(word, 2.0f, false, true);
+	}
+
+	@FXML
+	void PressedUK(ActionEvent event) {
+		if (textField.getText() == null)
+			return;
+		String word = textField.getText();
+		if (word.length() == 0)
+			return;
+
+		// male us accent
+		textToSpeech.setVoice("dfki-prudence-hsmm");
+		textToSpeech.speak(word, 2.0f, false, true);
+	}
+
+	@FXML
+	public void switchToMenu(ActionEvent event) throws IOException {
+		Main.getSceneManager().activate("menu");
+		fadeIn.playFromStart();
+		Main.getStage().show();
+	}
+
+	EventHandler<MouseEvent> badgeEvent = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent myClick) {
 			int value = Integer.parseInt(myBadge.getText());
-			if (click.getButton() == MouseButton.PRIMARY) {
+			if (myClick.getButton() == MouseButton.PRIMARY) {
 				value++;
-			} else if (click.getButton() == MouseButton.SECONDARY) {
+			} else if (myClick.getButton() == MouseButton.SECONDARY) {
 				value--;
 			}
 
@@ -208,136 +421,8 @@ public class ViewController {
 						}), Duration.seconds(2), null));
 			}
 			prev = value;
-		});
-
-		JFXDrawer leftDrawer = new JFXDrawer();
-		leftDrawer.setSidePane(leftDrawerPane);
-		// leftDrawer.setDirection(DrawerDirection.LEFT);
-		leftDrawer.setDefaultDrawerSize(268);
-		leftDrawer.setResizeContent(true);
-		leftDrawer.setOverLayVisible(false);
-		leftDrawer.setResizableOnDrag(true);
-		// fakeAnchor.getChildren().add(textField);
-		drawersStack.setContent(fakeAnchor);
-		leftDrawer.setId("LEFT");
-
-		BoxBlur boxBlur = new BoxBlur();
-		HamburgerBackArrowBasicTransition burgerTask =
-				new HamburgerBackArrowBasicTransition(myHamburger);
-		burgerTask.setRate(-1);
-		myHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-			burgerTask.setRate(burgerTask.getRate() * -1);
-			burgerTask.play();
-			drawersStack.toggle(leftDrawer);
-			if (!flag) {
-				textField.setEffect(boxBlur);
-				ListWord.setEffect(boxBlur);
-				searchResult.setEffect(boxBlur);
-				myBadge.setEffect(boxBlur);
-				USButton.setEffect(boxBlur);
-				UKButton.setEffect(boxBlur);
-			} else {
-				textField.setEffect(null);
-				ListWord.setEffect(null);
-				searchResult.setEffect(null);
-				myBadge.setEffect(null);
-				USButton.setEffect(null);
-				UKButton.setEffect(null);
-			}
-			flag = !flag;
-		});
-
-		myHamburger.getStyleClass().add("jfx-hamburger-icon");
-		myBadge.getStyleClass().add("fav");
-		USButton.getStyleClass().add("my-button");
-		UKButton.getStyleClass().add("my-button");
-		searchPlusButton.getStyleClass().add("my-button");
-		notiButton.getStyleClass().add("my-button");
-		infoButton.getStyleClass().add("my-button");
-		favButton.getStyleClass().add("my-button");
-		settingsButton.getStyleClass().add("my-button");
-		myAnchor.getStyleClass().add("bodybg");
-
-		List<String> dictWord = databaseManager.getDictWord();
-		items.addAll(dictWord);
-		textField = databaseManager.getSearchedWord().getTextField();
-		textField.setEntries(dictWord);
-		// textField.setFocusTraversable(false);
-		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent key) {
-				if (key.getCode().equals(KeyCode.ENTER)) {
-					try {
-						// textField.validate();
-						WebEngine webEngine = searchResult.getEngine();
-						String searched =
-								databaseManager.getFormattedResult(
-										textField.getText());
-						if (searched == null)
-							return;
-						// webEngine.setUserStyleSheetLocation(
-						// getClass().getResource("/Home.css").toString());
-						// webEngine.setUserStyleSheetLocation(getClass().getResource("/nicepage.css").toString());
-						// webEngine.load(getClass().getResource("/new.html").toExternalForm());
-						webEngine.loadContent(searched);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-
-		ListWord.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListener<String>() {
-
-					@Override
-					public void changed(
-							ObservableValue<? extends String> observable,
-							String oldValue, String newValue) {
-						String searched =
-								ListWord.getSelectionModel().getSelectedItem();
-						textField.setText(searched);
-						WebEngine webEngine = searchResult.getEngine();
-						try {
-							webEngine.loadContent(databaseManager
-									.getFormattedResult(searched));
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-
-				});
-		ListWord.setFixedCellSize(40);
-		myAnchor.getChildren().add(textField);
-		favAnchor.getChildren().add(rippler);
-	}
-
-	@FXML
-	void PressedUS(ActionEvent event) {
-		if (textField.getText() == null)
-			return;
-		String word = textField.getText();
-		if (word.length() == 0)
-			return;
-
-		// female uk accent
-		textToSpeech.setVoice("cmu-bdl-hsmm");
-		textToSpeech.speak(word, 2.0f, false, true);
-	}
-
-	@FXML
-	void PressedUK(ActionEvent event) {
-		if (textField.getText() == null)
-			return;
-		String word = textField.getText();
-		if (word.length() == 0)
-			return;
-
-		// male us accent
-		textToSpeech.setVoice("dfki-prudence-hsmm");
-		textToSpeech.speak(word, 2.0f, false, true);
-	}
+		}
+	};
 
 	public AutoCompleteTextField getTextField() {
 		return textField;

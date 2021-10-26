@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
 	public static Stage primaryStage;
 	public static SceneManager sceneManager;
 	public static Scene scene;

@@ -78,8 +78,7 @@
 }
 
 .jfx-popup-container {
-    -fx-background-color: WHITE;
-    -fx-pref-width: 151.0px;
+    -fx-background-color: transparent;
 }
 
 .popup-list-view {

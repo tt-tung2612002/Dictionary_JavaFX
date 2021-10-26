@@ -4,9 +4,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawersStack?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXSnackbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,35 +15,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="myAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<AnchorPane fx:id="myAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" style="-fx-background-color: #e6ede8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
-      <ScrollPane fitToWidth="true" layoutX="459.0" layoutY="225.0" prefHeight="660.0" prefWidth="615.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="459.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="225.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="615.0">
-               <children>
-                 <WebView fx:id="searchResult" layoutX="76.0" prefHeight="660.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <ScrollPane layoutX="119.0" layoutY="225.0" prefHeight="662.0" prefWidth="320.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="841.0" AnchorPane.topAnchor="225.0">
-         <content>
-            <AnchorPane prefHeight="660.0" prefWidth="318.0">
-               <children>
-                  <ListView fx:id="ListWord" editable="true" prefHeight="660.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
-      <JFXButton fx:id="USButton" layoutX="459.0" layoutY="185.0" onAction="#PressedUS" text="US" wrapText="true">
-         <graphic>
-            <FontAwesomeIconView glyphName="VOLUME_UP" size="25" />
-         </graphic>
-         <font>
-            <Font name="Fira Code Regular" size="17.0" />
-         </font>
-      </JFXButton>
-      <JFXBadge layoutX="712.0" layoutY="185.0" text="" />
       <JFXDrawersStack fx:id="drawersStack" prefHeight="900.0" prefWidth="348.0" />
       <StackPane fx:id="leftDrawerPane" prefHeight="900.0" prefWidth="268.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -71,7 +44,7 @@
                         <Font name="Fira Code SemiBold" size="18.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="infoButton" alignment="BASELINE_LEFT" graphicTextGap="83.0" layoutX="18.0" layoutY="553.0" prefHeight="88.0" prefWidth="248.0" text="Info" textFill="#f1f1f1" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="2.0">
+                  <JFXButton fx:id="infoButton" alignment="BASELINE_LEFT" graphicTextGap="88.0" layoutX="21.0" layoutY="641.0" prefHeight="88.0" prefWidth="248.0" text="Info" textFill="#f1f1f1" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="2.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="INFO_CIRCLE" size="45" />
                      </graphic>
@@ -79,7 +52,7 @@
                         <Font name="Fira Code SemiBold" size="19.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="favButton" alignment="BASELINE_LEFT" graphicTextGap="60.0" layoutX="11.0" layoutY="350.0" prefHeight="80.0" prefWidth="253.0" ripplerFill="#61a1ab" text="Favourite" textFill="#f1f1f1" wrapText="true" AnchorPane.bottomAnchor="470.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="350.0">
+                  <JFXButton fx:id="favButton" alignment="BASELINE_LEFT" graphicTextGap="60.0" layoutX="11.0" layoutY="350.0" prefHeight="80.0" prefWidth="253.0" text="Favourite" textFill="#f1f1f1" wrapText="true" AnchorPane.bottomAnchor="470.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="350.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="HEART" size="45" />
                      </graphic>
@@ -87,7 +60,15 @@
                         <Font name="Fira Code SemiBold" size="19.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="settingsButton" alignment="BASELINE_LEFT" graphicTextGap="63.0" layoutX="21.0" layoutY="641.0" prefHeight="96.0" prefWidth="248.0" text="Settings" textFill="#f1f1f1" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="-1.0">
+                  <JFXButton fx:id="editButton" alignment="BASELINE_LEFT" cancelButton="true" graphicTextGap="76.0" layoutX="21.0" layoutY="543.0" prefHeight="96.0" prefWidth="248.0" text="Edit" textFill="#f1f1f1" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="0.0">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="EDIT" size="50" />
+                     </graphic>
+                     <font>
+                        <Font name="Fira Code SemiBold" size="19.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="settingsButton" alignment="BASELINE_LEFT" graphicTextGap="63.0" layoutX="21.0" layoutY="751.0" prefHeight="96.0" prefWidth="248.0" text="Settings" textFill="#f1f1f1">
                      <graphic>
                         <FontAwesomeIconView glyphName="WRENCH" size="45" />
                      </graphic>
@@ -95,7 +76,7 @@
                         <Font name="Fira Code SemiBold" size="19.0" />
                      </font>
                   </JFXButton>
-                  <AnchorPane fx:id="fakeAnchor" prefHeight="900.0" prefWidth="268.0">
+                  <AnchorPane fx:id="fakeAnchor" layoutY="14.0" prefHeight="900.0" prefWidth="268.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                      <children>
                         <JFXHamburger fx:id="myHamburger" prefHeight="57.0" prefWidth="73.0" />
                      </children>
@@ -104,8 +85,27 @@
             </AnchorPane>
          </children>
       </StackPane>
+      <ScrollPane fx:id="listScrollPane" layoutX="48.0" layoutY="189.0" prefHeight="698.0" prefWidth="383.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="849.0" AnchorPane.topAnchor="189.0">
+         <content>
+            <AnchorPane prefHeight="696.0" prefWidth="381.0">
+               <children>
+                  <JFXListView fx:id="listWord" layoutY="1.0" prefHeight="684.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <ScrollPane fitToWidth="true" layoutX="459.0" layoutY="189.0" prefHeight="698.0" prefWidth="793.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="459.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="189.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="696.0" prefWidth="791.0">
+               <children>
+                 <WebView fx:id="searchResult" layoutX="76.0" layoutY="-2.0" prefHeight="698.0" prefWidth="775.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="-2.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <JFXBadge layoutX="712.0" layoutY="185.0" text="" />
       <JFXSnackbar fx:id="snackbar" layoutX="408.0" layoutY="162.0" />
-      <JFXButton fx:id="UKButton" layoutX="532.0" layoutY="185.0" onAction="#PressedUK" text="UK">
+      <JFXButton fx:id="UKButton" layoutX="532.0" layoutY="149.0" onAction="#PressedUK" text="UK">
          <graphic>
             <FontAwesomeIconView glyphName="VOLUME_UP" size="25" />
          </graphic>
@@ -113,7 +113,7 @@
             <Font name="Fira Code Regular" size="17.0" />
          </font>
       </JFXButton>
-      <AnchorPane fx:id="favAnchor" layoutX="1160.0" layoutY="150.0" prefHeight="53.0" prefWidth="61.0">
+      <AnchorPane fx:id="favAnchor" layoutX="1160.0" layoutY="130.0" prefHeight="53.0" prefWidth="61.0">
          <children>
             <Pane fx:id="favPane">
                <children>
@@ -127,6 +127,41 @@
                                                                 </JFXBadge>
                         </children>
                     </HBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="USButton" layoutX="459.0" layoutY="149.0" onAction="#PressedUS" text="US" wrapText="true">
+         <graphic>
+            <FontAwesomeIconView glyphName="VOLUME_UP" size="25" />
+         </graphic>
+         <font>
+            <Font name="Fira Code Regular" size="17.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane fx:id="addAnchor" layoutX="269.0" layoutY="530.0" prefHeight="120.0" prefWidth="120.0">
+         <children>
+            <Pane fx:id="addPane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #778299; -fx-background-radius: 30;">
+               <children>
+                  <JFXButton fx:id="addButton" cancelButton="true" layoutX="-2.0" layoutY="4.0" prefHeight="120.0" prefWidth="120.0" text="Add" textAlignment="CENTER" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="changeAnchor" layoutX="269.0" layoutY="410.0" prefHeight="120.0" prefWidth="120.0">
+         <children>
+            <Pane fx:id="changePane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #778299; -fx-background-radius: 30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton fx:id="changeButton" cancelButton="true" layoutX="-2.0" layoutY="4.0" prefHeight="120.0" prefWidth="120.0" text="Change" textAlignment="CENTER" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="deleteAnchor" layoutX="269.0" layoutY="648.0" prefHeight="120.0" prefWidth="120.0">
+         <children>
+            <Pane fx:id="deletePane" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #778299; -fx-background-radius: 30;">
+               <children>
+                  <JFXButton fx:id="deleteButton" cancelButton="true" layoutX="-2.0" layoutY="4.0" prefHeight="120.0" prefWidth="120.0" text="Delete" textAlignment="CENTER" />
                </children>
             </Pane>
          </children>

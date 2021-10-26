@@ -31,4 +31,8 @@ public class SceneManager {
 	public Parent getParent(String name) {
 		return screenMap.get(name);
 	}
+
+	public Scene getScene() {
+		return main;
+	}
 }
