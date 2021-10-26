@@ -11,9 +11,8 @@ public class SceneManager {
 
 	public SceneManager(Scene main) {
 		this.main = main;
-		// this.main.getStylesheets().addAll(
-		// getClass().getResource("/Home.css").toExternalForm(),
-		// getClass().getResource("/jfoenix-components.css").toString(),
+		this.main.getStylesheets()
+				.addAll(getClass().getResource("/Home.css").toExternalForm());
 		// getClass().getResource("/jfoenix-design.css").toExternalForm());
 	}
 

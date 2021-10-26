@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXSpinner;
+
 import application.Main;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class MenuController {
 
@@ -32,6 +38,12 @@ public class MenuController {
 	private TextField field;
 
 	@FXML
+	private JFXSpinner blueSpinner;
+
+	@FXML
+	private JFXSpinner greenSpinner;
+
+	@FXML
 	public void switchToView(ActionEvent event) throws IOException {
 		Main.getSceneManager().activate("view");
 		Main.getStage().show();
@@ -40,6 +52,28 @@ public class MenuController {
 	}
 
 	void initialize() {
+		blueSpinner = new JFXSpinner();
+		greenSpinner = new JFXSpinner();
+		greenSpinner.setLayoutX(662);
+		greenSpinner.setLayoutY(52);
+		blueSpinner.setLayoutX(647);
+		blueSpinner.setLayoutY(33);
+		blueSpinner.setPrefSize(80, 88);
+		Timeline timeline =
+				new Timeline(
+						new KeyFrame(Duration.ZERO,
+								new KeyValue(blueSpinner.progressProperty(), 0),
+								new KeyValue(greenSpinner.progressProperty(),
+										0)),
+						new KeyFrame(Duration.seconds(0.5),
+								new KeyValue(greenSpinner.progressProperty(),
+										0.5)),
+						new KeyFrame(Duration.seconds(2),
+								new KeyValue(blueSpinner.progressProperty(), 1),
+								new KeyValue(greenSpinner.progressProperty(),
+										1)));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 		field.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {

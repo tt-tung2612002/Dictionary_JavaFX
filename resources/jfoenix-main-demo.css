@@ -86,12 +86,15 @@
     -fx-pref-width: 150.0px;
 }
 
+
+
+
 .jfx-snackbar-content {
     -fx-background-color: #323232;
 }
 
 .jfx-snackbar-toast {
-    -fx-text-fill: WHITE;
+    -fx-text-fill: BLACK;
 }
 
 .jfx-snackbar-action {

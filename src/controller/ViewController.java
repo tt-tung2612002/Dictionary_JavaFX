@@ -12,6 +12,9 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
+import com.jfoenix.controls.JFXSnackbarLayout;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import application.Main;
@@ -28,16 +31,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.util.Duration;
 
 public class ViewController {
 
@@ -57,10 +63,10 @@ public class ViewController {
 	private AnchorPane fakeAnchor;
 
 	@FXML
-	private ListView<String> ListWord;
+	private AnchorPane favAnchor;
 
 	@FXML
-	private Button switchMenu;
+	private ListView<String> ListWord;
 
 	@FXML
 	private JFXButton USButton;
@@ -69,7 +75,19 @@ public class ViewController {
 	private JFXButton UKButton;
 
 	@FXML
+	private JFXButton searchPlusButton;
+
+	@FXML
 	private JFXButton notiButton;
+
+	@FXML
+	private JFXButton infoButton;
+
+	@FXML
+	private JFXButton favButton;
+
+	@FXML
+	private JFXButton settingsButton;
 
 	@FXML
 	private JFXBadge myBadge;
@@ -83,6 +101,15 @@ public class ViewController {
 	@FXML
 	private JFXHamburger myHamburger;
 
+	@FXML
+	private StackPane myStackPane;
+
+	@FXML
+	private JFXSnackbar snackbar;
+
+	@FXML
+	private Pane favPane;
+
 	private ObservableList<String> items = FXCollections.observableArrayList();
 
 	private DatabaseManager databaseManager;
@@ -91,6 +118,10 @@ public class ViewController {
 
 	private AutoCompleteTextField textField;
 
+	private int prev = 0;
+
+	private boolean flag = false;
+
 	public void switchToMenu(ActionEvent event) throws IOException {
 		Main.getSceneManager().activate("menu");
 		Main.getStage().show();
@@ -98,6 +129,7 @@ public class ViewController {
 				.setText("hello");
 	}
 
+	@SuppressWarnings("unused")
 	private void setupBadge(JFXBadge buttonWithBadge,
 			StringProperty badgeNumber, BooleanProperty badgeEnabled) {
 		buttonWithBadge.textProperty().bind(badgeNumber);
@@ -121,21 +153,75 @@ public class ViewController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		JFXRippler rippler = new JFXRippler();
+		JFXRippler rippler = new JFXRippler(favPane);
 		rippler.setMaskType(JFXRippler.RipplerMask.CIRCLE);
 		rippler.setRipplerFill(Paint.valueOf("#ff0000"));
-		// rippler.getChildren().add(USButton);
+		rippler.getStyleClass().add("icons-rippler");
+
+		snackbar = new JFXSnackbar(myAnchor);
+		snackbar.setPrefWidth(600);
+		myBadge.setOnMouseClicked((click) -> {
+			int value = Integer.parseInt(myBadge.getText());
+			if (click.getButton() == MouseButton.PRIMARY) {
+				value++;
+			} else if (click.getButton() == MouseButton.SECONDARY) {
+				value--;
+			}
+
+			if (value == 0) {
+				myBadge.setEnabled(false);
+			} else {
+				myBadge.setEnabled(true);
+			}
+			String word = textField.getText();
+			if (word.length() == 0)
+				return;
+			if (value > prev) {
+				// add word to favourite if exists.
+				myBadge.setText(String.valueOf(value));
+				JFXButton button = new JFXButton("CLOSE");
+				button.setOnAction(action -> {
+					if (snackbar.getCurrentEvent() != null)
+						snackbar.close();
+				});
+				final JFXSnackbarLayout content =
+						new JFXSnackbarLayout(
+								"Added " + word + " to favourite <3", "CLOSE",
+								action -> {
+									snackbar.close();
+								});
+				snackbar.enqueue(
+						new SnackbarEvent(content, Duration.seconds(2)));
+			} else {
+				// delete word from favourite if exists.
+				myBadge.setText(String.valueOf(value));
+				JFXButton button = new JFXButton("CLOSE");
+				button.setOnAction(action -> {
+					if (snackbar.getCurrentEvent() != null)
+						snackbar.close();
+				});
+				snackbar.fireEvent(new SnackbarEvent(new JFXSnackbarLayout(
+						"Deleted " + word + " from favourite :( ", "CLOSE",
+						action -> {
+							if (snackbar.getCurrentEvent() != null)
+								snackbar.close();
+						}), Duration.seconds(2), null));
+			}
+			prev = value;
+		});
 
 		JFXDrawer leftDrawer = new JFXDrawer();
 		leftDrawer.setSidePane(leftDrawerPane);
 		// leftDrawer.setDirection(DrawerDirection.LEFT);
-		leftDrawer.setDefaultDrawerSize(260);
+		leftDrawer.setDefaultDrawerSize(268);
 		leftDrawer.setResizeContent(true);
 		leftDrawer.setOverLayVisible(false);
 		leftDrawer.setResizableOnDrag(true);
 		// fakeAnchor.getChildren().add(textField);
 		drawersStack.setContent(fakeAnchor);
 		leftDrawer.setId("LEFT");
+
+		BoxBlur boxBlur = new BoxBlur();
 		HamburgerBackArrowBasicTransition burgerTask =
 				new HamburgerBackArrowBasicTransition(myHamburger);
 		burgerTask.setRate(-1);
@@ -143,9 +229,34 @@ public class ViewController {
 			burgerTask.setRate(burgerTask.getRate() * -1);
 			burgerTask.play();
 			drawersStack.toggle(leftDrawer);
+			if (!flag) {
+				textField.setEffect(boxBlur);
+				ListWord.setEffect(boxBlur);
+				searchResult.setEffect(boxBlur);
+				myBadge.setEffect(boxBlur);
+				USButton.setEffect(boxBlur);
+				UKButton.setEffect(boxBlur);
+			} else {
+				textField.setEffect(null);
+				ListWord.setEffect(null);
+				searchResult.setEffect(null);
+				myBadge.setEffect(null);
+				USButton.setEffect(null);
+				UKButton.setEffect(null);
+			}
+			flag = !flag;
 		});
+
 		myHamburger.getStyleClass().add("jfx-hamburger-icon");
+		myBadge.getStyleClass().add("fav");
 		USButton.getStyleClass().add("my-button");
+		UKButton.getStyleClass().add("my-button");
+		searchPlusButton.getStyleClass().add("my-button");
+		notiButton.getStyleClass().add("my-button");
+		infoButton.getStyleClass().add("my-button");
+		favButton.getStyleClass().add("my-button");
+		settingsButton.getStyleClass().add("my-button");
+		myAnchor.getStyleClass().add("bodybg");
 
 		List<String> dictWord = databaseManager.getDictWord();
 		items.addAll(dictWord);
@@ -199,7 +310,7 @@ public class ViewController {
 				});
 		ListWord.setFixedCellSize(40);
 		myAnchor.getChildren().add(textField);
-		myAnchor.getChildren().add(rippler);
+		favAnchor.getChildren().add(rippler);
 	}
 
 	@FXML

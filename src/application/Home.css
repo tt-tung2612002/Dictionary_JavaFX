@@ -1,3 +1,8 @@
+.bodybg{
+     -fx-background-image: url('/bg.jpg');
+     -fx-background-size: 100% 100%;    
+  }
+
 .jfx-hamburger-icon{
 	
     -fx-spacing: 5;
@@ -13,14 +18,9 @@
     -fx-background-color : black;
     -fx-background-radius : 5px;
 }
-.green-hamburger > StackPane {
-    -fx-background-color: #00FF00;
-}
-.my-button:hover{
-    -fx-background-color: #778299;
-}
 
-.button:hover{
+
+.my-button:hover{
 	-fx-font-family: "Fira Code";
     -fx-font-weight: BOLD;
 	-fx-font-size: 20px;
@@ -33,7 +33,206 @@
 .warning {
   -fx-fill: red;
 }
-.glyph-icon {
-	
+.jfx-snackbar-content {
+	-fx-font-family: "Fira Code";
+    -fx-font-weight: NORMAL;
+	-fx-font-size: 17px;
+    -fx-background-color: #323232;
 }
+
+.jfx-snackbar-toast {
+    -fx-text-fill: WHITE;
+}
+
+.jfx-snackbar-action {
+    -fx-font-family: "Fira Code";
+    -fx-font-weight: NORMAL;
+	-fx-font-size: 17px;
+	-fx-background-color: #2a7480;
+	-fx-background-radius: 4px;
+	-fx-text-fill: white;
+}
+.fav .glyph-icon{
+	-fx-fill: #f2c549;
+    -fx-padding: 10.0;
+    -fx-cursor: hand;
+}
+.icons-badge .badge-pane {
+    -fx-background-color: #ff4081;
+    -fx-background-radius: 23;
+    -fx-pref-width: 23;
+    -fx-pref-height: 23;
+    -fx-alignment: center;
+}
+
+.icons-badge Label {
+    -fx-font-weight: BOLD;
+    -fx-font-size: 14.0px;
+    -fx-text-fill: WHITE;
+}
+.icon {
+    -fx-fill: #FE774D;
+    -fx-padding: 10.0;
+    -fx-cursor: hand;
+}
+
+.icons-rippler {
+    -jfx-rippler-fill: #FE774D;
+    -jfx-mask-type: CIRCLE;
+}
+
+.icons-rippler1 {
+    -jfx-rippler-fill: #4285F4;
+    -jfx-mask-type: CIRCLE;
+}
+
+.icons-rippler:hover {
+    -fx-cursor: hand;
+}
+
+.animated-burgers .jfx-hamburger StackPane {
+    -fx-background-color: #5264AE;
+    -fx-background-radius: 4px;
+}
+
+.animated-burgers .jfx-rippler {
+    -jfx-rippler-fill: #5264AE;
+}
+
+.icons-badge .badge-pane {
+    -fx-background-color: #ff4081;
+    -fx-background-radius: 23;
+    -fx-pref-width: 23;
+    -fx-pref-height: 23;
+    -fx-alignment: center;
+}
+
+.icons-badge Label {
+    -fx-font-weight: BOLD;
+    -fx-font-size: 14.0px;
+    -fx-text-fill: WHITE;
+}
+
+/*******************************************************************************
+*                                                                              *
+* JFX Spinner                                                                  *
+*                                                                              *
+*******************************************************************************/
+
+.jfx-spinner .arc {
+    -fx-stroke-width: 3.0;
+}
+
+.first-spinner {
+    -jfx-radius: 20;
+}
+
+.first-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.second-spinner {
+    -jfx-radius: 30;
+}
+
+.second-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.third-spinner {
+    -jfx-radius: 40;
+}
+
+.third-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.fourth-spinner {
+    -jfx-radius: 50;
+}
+
+.fourth-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.fifth-spinner {
+    -jfx-radius: 60;
+}
+
+.fifth-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.sixth-spinner {
+    -jfx-radius: 70;
+}
+
+.sixth-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.seventh-spinner {
+    -jfx-radius: 80;
+}
+
+.seventh-spinner .arc {
+    -fx-stroke-width: 5.0;
+}
+
+.blue-spinner .arc {
+    -fx-stroke: #4285f4;
+}
+
+.blue-spinner .track {
+    -fx-stroke: #d0d0d0;
+}
+
+.red-spinner .arc {
+    -fx-stroke: #db4437;
+}
+
+.green-spinner .arc {
+    -fx-stroke: #0F9D58;
+}
+
+.yellow-spinner .arc {
+    -fx-stroke: #f4b400;
+}
+
+.materialDesign-purple:indeterminate .arc {
+    -fx-stroke: #ab47bc;
+}
+
+.materialDesign-blue .arc {
+    -fx-stroke: #2962ff;
+}
+
+.materialDesign-blue .percentage {
+    -fx-fill: #ab47bc;
+}
+
+.materialDesign-cyan .arc {
+    -fx-stroke: #00b8d4;
+}
+
+.materialDesign-green .arc {
+    -fx-stroke: #00c853;
+}
+
+.materialDesign-green .text {
+    visibility: false;
+}
+
+.materialDesign-yellow .arc {
+    -fx-stroke: #ffd600;
+}
+
+.materialDesign-orange .arc {
+    -fx-stroke: #ff6d00;
+}
+
+.materialDesign-red .arc {
+    -fx-stroke: #d50000;
+}
+
 

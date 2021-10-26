@@ -61,7 +61,7 @@ public class DatabaseManager {
 		} else if (type.equals("s")) {
 			type = "adjective";
 		}
-		return type;
+		return type.toUpperCase();
 	}
 
 	public String meaningFormatter(String meaning) {
@@ -86,11 +86,11 @@ public class DatabaseManager {
 			String pronounciation, List<String> meanings,
 			List<List<String>> exampless, List<List<String>> synonymss) {
 		String images =
-				"<div style=\"position: absolute; top: 10px; left: 390px;\"><img src=\"https://i.ibb.co/L5ykRV0/facebook.png\"\r\n"
+				"<div style=\"position: absolute; top: 15px; left: 670px;\"><img src=\"https://i.ibb.co/L5ykRV0/facebook.png\"\r\n"
 						+ "alt=\"facebook\" /><img src=\"https://i.ibb.co/xzLfZyq/instagram.png\" alt=\"instagram\" /> <img\r\n"
 						+ "            src=\"https://i.ibb.co/s2kPLsP/twitter.png\" alt=\"twitter\" /></div>";
 		String formatted =
-				"<!DOCTYPE html><html lang='en' style='background-color: white;font-size:15px; height: 598px; width:669px; font-family: Arial, Helvetica, sans-serif;'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Tu dien</title><style>\r\n"
+				"<!DOCTYPE html><html lang='en' style='background-color: white;font-size:21px; height: 610px; width:660; font-family: Arial, Helvetica, sans-serif;'><head><meta charset='UTF-8'><meta http-equiv='X-UA-Compatible' content='IE=edge'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Tu dien</title><style>\r\n"
 						+ "        ol li {\r\n"
 						+ "            font-weight: bold;\r\n" + "        }\r\n"
 						+ "\r\n" + "        li>p {\r\n"
@@ -100,11 +100,11 @@ public class DatabaseManager {
 						+ "        }\r\n"
 						+ "    </style></head><body style='color: #1d2a57; margin:0px 5px; padding: 0px;'>"
 						+ images
-						+ "<section><div style='font-size: 22px; border-bottom: 3px solid #fdc702; padding: 5px 0;'><p style='margin-top: 5px; margin-bottom: 10px; font-size: 20px;'><i>Ý nghĩa của <b>"
+						+ "<section><div style='font-size: 35 px; border-bottom: 3px solid #fdc702; padding: 5px 0;'><p style='margin-top: 5px; margin-bottom: 10px; font-size: 30px;'><i>Ý nghĩa của <b>"
 						+ word
-						+ "</b> trong tiếng anh</i></p></div></section><section><div style='line-height: 150%;padding: 0px 15px; border-bottom: 3px solid #fdc702;'><p style='margin: 5px 0; font-size: 18px;'><b>"
+						+ "</b> trong tiếng anh</i></p></div></section><section><div style='line-height: 150%;padding: 0px 15px; border-bottom: 3px solid #fdc702;'><p style='margin: 5px 0; font-size: 24px;'><b>"
 						+ word + "</b></p>"
-						+ "<p style='margin: 5px 0; font-size: 14px;'><b>"
+						+ "<p style='margin: 5px 0; font-size: 20px;'><b>"
 						+ pronounciation + "</b></p>"
 						+ " <div style=\"position: relative; left: 0px\">\r\n"
 						+ "                    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/1024px-Speaker_Icon.svg.png\"\r\n"
@@ -113,7 +113,7 @@ public class DatabaseManager {
 						+ "</div></section><section>";
 		String currentType = types.get(0);
 		formatted +=
-				"<p style=\"margin: 5px 5px; font-size: 18px;\"><b>"
+				"<p style=\"margin: 5px 5px; font-size: 24px;\"><b>"
 						+ currentType + "</b></p>\r\n" + "            <ol>";
 		for (int i = 0; i < types.size(); i++) {
 			String type = types.get(i);
@@ -122,12 +122,12 @@ public class DatabaseManager {
 				formatted +=
 						"</ol> <div style=\"line-height: 300%;padding: 0px 15px; border-bottom: 3px solid #fdc702;\">\r\n"
 								+ "\r\n" + "            </div>"
-								+ "<p style=\"margin: 5px 0; font-size: 18px;\"><b>"
+								+ "<p style=\"margin: 5px 0; font-size: 24px;\"><b>"
 								+ type + "</b></p>\r\n" + "            <ol>";
 			}
 			formatted +=
-					"<li style=\"margin: 0px 5px 5px 15px; font-size: 14px;list-style-type:decimal;\">"
-							+ "                    <h3 style=\"line-height: 150%;margin: 5px 0px; font-size: 15px;\">";
+					"<li style=\"margin: 0px 5px 5px 15px; font-size: 20px;list-style-type:decimal;\">"
+							+ "                    <h3 style=\"line-height: 150%;margin: 5px 0px; font-size: 21px;\">";
 			String synonym = new String();
 			if (synonymss != null) {
 				List<String> synonyms = synonymss.get(i);
@@ -149,7 +149,7 @@ public class DatabaseManager {
 				if (examples != null) {
 					for (String example : examples) {
 						formatted +=
-								"<li style='margin: 5px 5px 10px 5px; font-size: 16px; list-style-type: disc;'><i>"
+								"<li style='margin: 5px 5px 10px 5px; font-size: 22px; list-style-type: disc;'><i>"
 										+ exampleFormatter(example)
 										+ "</i></li>";
 					}
