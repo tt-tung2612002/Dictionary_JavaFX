@@ -34,8 +34,11 @@ public class CompletionSample implements Runnable {
 		public String autoComplete(String startsWith) {
 			String ans = null;
 			List<String> anss = new ArrayList<String>();
-			if (startsWith != null && !startsWith.equals("Search in English") && startsWith.length() >= 3)
-				anss = databaseManager.getFirstServer().getClosestResults(startsWith);
+			if (startsWith != null && !startsWith.equals("Search in English")
+					&& startsWith.length() >= 3)
+				anss =
+						databaseManager.getFirstServer()
+								.getClosestResults(startsWith);
 			if (anss.size() > 0)
 				return anss.get(0);
 			return ans;

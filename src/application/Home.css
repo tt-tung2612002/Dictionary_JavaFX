@@ -1,6 +1,7 @@
 .bodybg{
      -fx-background-image: url('/bg.jpg');
      -fx-background-size: 100% 100%;    
+     -fx-background-color: rgba(0,0,0,0.1);
  }
 
 .jfx-hamburger-icon{
@@ -58,6 +59,16 @@
 }
 .button:hover .glyph-icon{
 	-fx-fill: white;
+}
+.sound-button:hover{
+	-fx-font-family: "Fira Code";
+    -fx-font-weight: BOLD;
+	-fx-font-size: 20px;
+	-fx-background-color: #778299;
+	-fx-text-fill: white;
+}
+.sound-button{
+	-fx-text-fill: black;
 }
 /*******************************************************************************
 *                                                                              *
@@ -173,120 +184,69 @@
 *                                                                              *
 *******************************************************************************/
 
-.jfx-spinner .arc {
-    -fx-stroke-width: 3.0;
+.percentage .text{
+	-fx-fill: black;
+	-fx-alignment: center;
 }
-
-.first-spinner {
-    -jfx-radius: 20;
+.percentage .arc{
+	visibility: false;
 }
-
-.first-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.second-spinner {
-    -jfx-radius: 30;
-}
-
-.second-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.third-spinner {
-    -jfx-radius: 40;
-}
-
-.third-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.fourth-spinner {
-    -jfx-radius: 50;
-}
-
-.fourth-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.fifth-spinner {
-    -jfx-radius: 60;
-}
-
-.fifth-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.sixth-spinner {
-    -jfx-radius: 70;
-}
-
-.sixth-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.seventh-spinner {
-    -jfx-radius: 80;
-}
-
-.seventh-spinner .arc {
-    -fx-stroke-width: 5.0;
-}
-
-.blue-spinner .arc {
-    -fx-stroke: #4285f4;
-}
-
-.blue-spinner .track {
-    -fx-stroke: #d0d0d0;
-}
-
-.red-spinner .arc {
-    -fx-stroke: #db4437;
-}
-
-.green-spinner .arc {
-    -fx-stroke: #0F9D58;
-}
-
-.yellow-spinner .arc {
-    -fx-stroke: #f4b400;
-}
-
-.materialDesign-purple:indeterminate .arc {
+.materialDesign-purple .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #ab47bc;
 }
-
+.materialDesign-purple .text {
+    visibility: false;
+}
+.materialDesign-blue .text{
+	
+}
 .materialDesign-blue .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #2962ff;
 }
-
 .materialDesign-blue .percentage {
-    -fx-fill: #ab47bc;
+    -fx-fill: black;
 }
 
 .materialDesign-cyan .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #00b8d4;
 }
-
+.materialDesign-cyan .text{
+	visibility: false;
+}
 .materialDesign-green .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #00c853;
 }
-
 .materialDesign-green .text {
     visibility: false;
 }
 
 .materialDesign-yellow .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #ffd600;
 }
+.materialDesign-yellow .text {
+    visibility: false;
+}
+
 
 .materialDesign-orange .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #ff6d00;
+}
+.materialDesign-orange .text {
+    visibility: false;
 }
 
 .materialDesign-red .arc {
+	-fx-stroke-width: 6.0;
     -fx-stroke: #d50000;
+}
+.materialDesign-red .text {
+    visibility: false;
 }
 /*******************************************************************************
 *                                                                              *
@@ -333,4 +293,11 @@
 
 .jfx-popup-container {
     -fx-background-color: transparent;
+}
+.jfx-time-picker{
+
+}
+.jfx-time-picker > .jfx-text-field {
+    -jfx-focus-color: -jfx-default-color;
+      visibility: false;
 }

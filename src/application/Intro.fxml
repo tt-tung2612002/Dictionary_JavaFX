@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="myAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.IntroController">
+   <children>
+      <Button fx:id="switchView" layoutX="-5.0" layoutY="-1.0" mnemonicParsing="false" onAction="#switchToView" text="Switch" />
+      <JFXSpinner fx:id="spinner10" layoutX="105.0" layoutY="25.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-240.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="130.0" />
+      <JFXSpinner fx:id="spinner9" layoutX="105.0" layoutY="25.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-210.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0" />
+      <JFXSpinner fx:id="spinner8" layoutX="95.0" layoutY="15.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-180.0" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="170.0" />
+      <JFXSpinner fx:id="spinner5" layoutX="85.0" layoutY="5.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-150.0" AnchorPane.bottomAnchor="190.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="190.0" />
+      <JFXSpinner fx:id="spinner4" layoutX="125.0" layoutY="45.0" prefHeight="390.0" prefWidth="390.0" radius="13.0" startingAngle="-120.0" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="210.0" />
+      <JFXSpinner fx:id="spinner3" layoutX="165.0" layoutY="85.0" prefHeight="310.0" prefWidth="310.0" radius="13.0" startingAngle="-90.0" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="230.0" />
+      <JFXSpinner fx:id="spinner2" layoutX="230.0" layoutY="110.0" prefHeight="180.0" prefWidth="180.0" radius="13.0" startingAngle="-60.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="250.0" />
+      <JFXSpinner fx:id="spinner1" layoutX="245.0" layoutY="125.0" prefHeight="150.0" prefWidth="150.0" radius="13.0" startingAngle="-30.0" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="270.0" />
+      <JFXSpinner fx:id="spinner6" radius="13.0" startingAngle="0.0" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="290.0" />
+      <JFXSpinner fx:id="spinner7" layoutX="10.0" layoutY="10.0" radius="13.0" startingAngle="30.0" AnchorPane.bottomAnchor="310.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="310.0" />
+      <JFXSpinner fx:id="percentageDisplay" layoutX="20.0" layoutY="20.0" radius="13.0" startingAngle="60.0" AnchorPane.bottomAnchor="330.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="330.0" />
+   </children>
+</AnchorPane>

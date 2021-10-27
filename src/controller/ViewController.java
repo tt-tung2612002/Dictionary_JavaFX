@@ -19,6 +19,7 @@ import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXSnackbarLayout;
+import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import application.Main;
@@ -145,6 +146,9 @@ public class ViewController {
 	@FXML
 	private Pane deletePane;
 
+	@FXML
+	private JFXTimePicker timePicker;
+
 	private ObservableList<String> items = FXCollections.observableArrayList();
 
 	private DatabaseManager databaseManager;
@@ -177,6 +181,7 @@ public class ViewController {
 
 	@FXML
 	public void initialize() {
+		// timePicker.setShowing(true);
 		textToSpeech = new TextToSpeech();
 		listWord.setItems(items);
 		try {
@@ -292,8 +297,8 @@ public class ViewController {
 		addButton.getStyleClass().add("editButton");
 		deleteButton.getStyleClass().add("editButton");
 		changeButton.getStyleClass().add("editButton");
-		USButton.getStyleClass().add("my-button");
-		UKButton.getStyleClass().add("my-button");
+		USButton.getStyleClass().add("sound-button");
+		UKButton.getStyleClass().add("sound-button");
 		searchPlusButton.getStyleClass().add("my-button");
 		notiButton.getStyleClass().add("my-button");
 		infoButton.getStyleClass().add("my-button");
@@ -367,8 +372,6 @@ public class ViewController {
 	@FXML
 	public void switchToMenu(ActionEvent event) throws IOException {
 		Main.getSceneManager().activate("menu");
-		fadeIn.playFromStart();
-		Main.getStage().show();
 	}
 
 	EventHandler<MouseEvent> badgeEvent = new EventHandler<MouseEvent>() {

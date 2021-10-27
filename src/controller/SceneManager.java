@@ -2,22 +2,13 @@ package controller;
 
 import java.util.HashMap;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class SceneManager {
-	private HashMap<String, Parent> screenMap = new HashMap<>();
-	private Scene main;
+	private HashMap<String, Stage> screenMap = new HashMap<>();
 
-	public SceneManager(Scene main) {
-		this.main = main;
-		this.main.getStylesheets()
-				.addAll(getClass().getResource("/Home.css").toExternalForm());
-		// getClass().getResource("/jfoenix-design.css").toExternalForm());
-	}
-
-	public void addScreen(String name, Parent pane) {
-		screenMap.put(name, pane);
+	public void addStage(String name, Stage stage) {
+		screenMap.put(name, stage);
 	}
 
 	public void removeScreen(String name) {
@@ -25,14 +16,11 @@ public class SceneManager {
 	}
 
 	public void activate(String name) {
-		main.setRoot(screenMap.get(name));
+		screenMap.get(name).show();
 	}
 
-	public Parent getParent(String name) {
+	public Stage getStage(String name) {
 		return screenMap.get(name);
 	}
 
-	public Scene getScene() {
-		return main;
-	}
 }

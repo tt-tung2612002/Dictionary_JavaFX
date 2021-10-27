@@ -2,18 +2,18 @@ package controller;
 
 public class ControllerManager {
 	private ViewController viewController;
-	private MenuController menuController;
+	private IntroController introController;
 
-	public void addMenuController(MenuController controller) {
-		this.menuController = controller;
+	public void addIntroController(IntroController controller) {
+		this.introController = controller;
 	}
 
 	public void addViewController(ViewController controller) {
 		this.viewController = controller;
 	}
 
-	public MenuController getMenuController() {
-		return menuController;
+	public IntroController getMenuController() {
+		return introController;
 	}
 
 	public ViewController getViewController() {
