@@ -303,9 +303,9 @@
     -fx-fill: rgb(113, 118, 114);
 }
 
-.main-button {
+.node-button {
     -fx-pref-width: 60px;
-    -fx-background-color: #0F9D58;
+    -fx-background-color: #526c7d;
     -fx-background-radius: 60px;
     -fx-pref-height: 60px;
     -fx-min-width: -fx-pref-width;
@@ -314,7 +314,7 @@
     -fx-max-height: -fx-pref-height;
     -jfx-button-type: RAISED;
 }
-.main-button .jfx-rippler{
+.node-button .jfx-rippler{
     -jfx-rippler-fill: rgba(255,255,255, .87);
 }
 .main-icon{

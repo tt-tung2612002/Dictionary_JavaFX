@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +14,17 @@ public class Server {
 	private String password = "tung2612002";
 	private Connection con;
 	private String query;
-	private String synonymIdentifier = "call findSynonym('";
-	private String antonymIdentifier = "call findAnonynym('";
-	private String searchedWordIdentifier = "{CALL searchWord(?)}";
+	private String antonymIdentifier = "{call getAntonym(?)}";
+	private String searchedWordIdentifier = "{CALL searchWord2(?)}";
 	private String listIdentifier = "call printList()";
 	private String pronounciationIdentifier = "{CALL getPronounciation(?)}";
-	private String closestResultsIdentifier = "call findClosestResults('";
+	private String closestResultsIdentifier = "{call findClosestResults(?)}";
 	private String addWordIdentifier = "{CALL addWord(?,?)}";
 	private String deleteWordIdentifier = "{CALL deleteWord(?)}";
+	private String changeWordIdentifier = "{CALL changeWord(?,?,?)}";
+	private String addFvouriteIdentifier = "{CALL addFavourite(?)}";
+	private String removeFvouriteIdentifier = "{CALL removeFavourite(?)}";
+	private String getFvouriteIdentifier = "{CALL getFavourite()}";
 
 	public Server(String database) {
 		url += database;
@@ -42,27 +44,12 @@ public class Server {
 		}
 	}
 
-	public List<String> getSynonym(String word) throws SQLException {
-		List<String> ans = new ArrayList<String>();
-		try {
-			query = synonymIdentifier + word + "')";
-			PreparedStatement statement = con.prepareStatement(query);
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				ans.add(resultSet
-						.getString(resultSet.getMetaData().getColumnCount()));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ans;
-	}
-
 	public List<String> getAntonym(String word) throws SQLException {
 		List<String> ans = new ArrayList<String>();
 		try {
-			query = antonymIdentifier + word + "')";
+			query = antonymIdentifier;
 			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, word);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				ans.add(resultSet
@@ -95,19 +82,24 @@ public class Server {
 		return ans;
 	}
 
-	public List<List<String>> getList() throws SQLException {
+	public List<List<String>> getSearchWordAntonym(String word)
+			throws SQLException {
 		List<List<String>> ans = new ArrayList<List<String>>();
-
-		query = listIdentifier;
-		Statement statement = con.createStatement();
-		ResultSet resultSet = statement.executeQuery(query);
-		while (resultSet.next()) {
-			List<String> temp = new ArrayList<String>();
-			for (int i = 1; i
-					<= resultSet.getMetaData().getColumnCount(); i++) {
-				temp.add(resultSet.getString(i));
+		try {
+			query = antonymIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				List<String> temp = new ArrayList<String>();
+				for (int i = 1; i
+						<= resultSet.getMetaData().getColumnCount(); i++) {
+					temp.add(resultSet.getString(i));
+				}
+				ans.add(temp);
 			}
-			ans.add(temp);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return ans;
 	}
@@ -129,10 +121,58 @@ public class Server {
 		return ans;
 	}
 
+	public List<List<String>> getList() throws SQLException {
+		List<List<String>> ans = new ArrayList<List<String>>();
+
+		query = listIdentifier;
+		PreparedStatement statement = con.prepareStatement(query);
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next()) {
+			List<String> temp = new ArrayList<String>();
+			for (int i = 1; i
+					<= resultSet.getMetaData().getColumnCount(); i++) {
+				temp.add(resultSet.getString(i));
+			}
+			ans.add(temp);
+		}
+		return ans;
+	}
+
 	public List<String> getClosestResults(String word) {
 		List<String> ans = new ArrayList<String>();
 		try {
-			query = closestResultsIdentifier + word + "')";
+			query = closestResultsIdentifier;
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, word);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				ans.add(resultSet.getString(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ans;
+	}
+
+	public int addWord(String word, String meaning) {
+		int count = 0;
+		try {
+			query = addWordIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			statement.setString(2, meaning);
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	public List<String> getFavourite() {
+		List<String> ans = new ArrayList<String>();
+		try {
+			query = getFvouriteIdentifier;
 			PreparedStatement statement = con.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -145,36 +185,65 @@ public class Server {
 		return ans;
 	}
 
-	public void addWord(String word, String meaning) {
+	public int addFavourite(String word) {
+		int count = 0;
 		try {
-			query = addWordIdentifier;
+			query = addFvouriteIdentifier;
 			PreparedStatement statement = con.prepareCall(query);
 			statement.setString(1, word);
-			statement.setString(2, meaning);
-			statement.executeQuery();
+			count = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return count;
 	}
 
-	public void deleteWord(String word) {
+	public int removeFavourite(String word) {
+		int count = 0;
+		try {
+			query = removeFvouriteIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	public int changeWord(String word, String type, String meaning) {
+		int count = 0;
+		try {
+			query = changeWordIdentifier;
+			PreparedStatement statement = con.prepareCall(query);
+			statement.setString(1, word);
+			statement.setString(2, type);
+			statement.setString(3, meaning);
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	public int deleteWord(String word) {
+		int count = 0;
 		try {
 			query = deleteWordIdentifier;
 			PreparedStatement statement = con.prepareCall(query);
 			statement.setString(1, word);
-			statement.executeQuery();
+			count = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return count;
 	}
 
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server("tables");
 		server.connect();
-		server.deleteWord("hello");
-		// server.addWord("hello", "xin chao");
+		List<String> ans = server.getFavourite();
+		System.out.println(ans);
 	}
 
 }

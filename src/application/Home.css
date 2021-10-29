@@ -3,6 +3,10 @@
      -fx-background-size: 100% 100%;    
      -fx-background-color: rgba(0,0,0,0.1);
  }
+ .intro{
+ 	-fx-background-color: transparent;
+ }
+ 
 
 .jfx-hamburger-icon{
 	
@@ -248,6 +252,22 @@
 .materialDesign-red .text {
     visibility: false;
 }
+
+.materialDesign-pink .arc {
+	-fx-stroke-width: 6.0;
+    -fx-stroke: #f25ea6;
+}
+.materialDesign-pink .text {
+    visibility: false;
+}
+
+.materialDesign-brown .arc {
+	-fx-stroke-width: 6.0;
+    -fx-stroke: #4af7c1;
+}
+.materialDesign-brown .text {
+    visibility: false;
+}
 /*******************************************************************************
 *                                                                              *
 * JFX List View                                                                *
@@ -300,4 +320,35 @@
 .jfx-time-picker > .jfx-text-field {
     -jfx-focus-color: -jfx-default-color;
       visibility: false;
+}
+/*******************************************************************************
+*                                                                              *
+* 						      JFX Node Lists                                   *
+*                                                                              *
+*******************************************************************************/
+.node-button {
+	-fx-font-family: "Fira Code";
+    -fx-background-color: #526c7d;
+    -fx-background-radius: 45px;
+}
+.subnode-button{
+	-fx-font-family: "Fira Code";
+	-fx-font-weight: BOLD;
+	-fx-font-size: 20px;
+	-fx-background-color: #526c7d;
+	-fx-text-fill: white;
+}
+.node-button .jfx-rippler{
+    -jfx-rippler-fill: #ceedd7;
+}
+.node-button .glyph-icon{
+	-fx-fill :white;	
+}
+
+.subnode-button:hover{
+	-fx-font-family: "Fira Code";
+    -fx-font-weight: BOLD;
+	-fx-font-size: 22px;
+	-fx-background-color: #778299;
+	-fx-text-fill: white;
 }

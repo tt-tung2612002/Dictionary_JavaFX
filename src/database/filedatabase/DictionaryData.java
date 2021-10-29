@@ -1,27 +1,23 @@
 package database.filedatabase;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DictionaryData {
-	private final String FILE_PATH =
-			"E:\\Program\\eclipse\\Dictionary\\src\\application\\EV.txt";
-	private ArrayList<Word> DictList = new ArrayList<Word>();
+	private ArrayList<Word> dictList = new ArrayList<Word>();
 	private Map<Integer, String> wordTarget_ = new HashMap<>();
 	private Map<Integer, String> wordInfo_ = new HashMap<>();
-
-	public String getFILE_PATH() {
-		return FILE_PATH;
-	}
 
 	public DictionaryData() {
 		String line;
 		try {
 			BufferedReader reader =
-					new BufferedReader(new FileReader(FILE_PATH));
+					new BufferedReader(new FileReader("resources/EVPro.txt"));
 
 			while ((line = reader.readLine()) != null) {
 				String word = "";
@@ -34,20 +30,32 @@ public class DictionaryData {
 					i++;
 				}
 				info = line.substring(i);
-				this.DictList.add(new Word(word, info));
+				this.dictList.add(new Word(word, info));
 			}
 			reader.close();
+			try {
+				for (int i = 0; i < dictList.size(); i++) {
+					wordTarget_.put(i, dictList.get(i).getWord_target());
+				}
+				for (int i = 0; i < dictList.size(); i++) {
+					wordInfo_.put(i, dictList.get(i).getWord_info());
+				}
+
+			} catch (Exception e) {
+				System.out.println("Can't get Word!!!!!");
+			}
 		} catch (Exception e) {
-			System.out.println(this.DictList.size());
-			System.out.println("Can't read file:" + FILE_PATH);
+			System.out.println(this.dictList.size());
+			// System.out.println("Can't read file:" + FILE_PATH);
+			System.out.println(new File(".").getAbsolutePath());
+
 		}
 
 		System.out.println(this.getDictData().size());
 	}
 
 	// finding position of a word if dictionary has it or the position of the
-	// word
-	// front of it
+	// word in front of it
 	public int findPosition(String w) {
 		int n = this.getDictData().size() - 1;
 		int i = 0;
@@ -85,9 +93,9 @@ public class DictionaryData {
 	boolean addWord(Word word) {
 		int i = this.findPosition(word.getWord_target());
 
-		if (this.DictList.size() == 0
-				|| this.DictList.get(i).compareTo(word) != 0) {
-			this.DictList.add(i, word);
+		if (this.dictList.size() == 0
+				|| this.dictList.get(i).compareTo(word) != 0) {
+			this.dictList.add(i, word);
 			return true;
 		} else
 			return false;
@@ -95,16 +103,16 @@ public class DictionaryData {
 
 	// remove word from dictionary if it exists.
 	boolean removeWord(Word word) {
-		if (this.DictList.remove(word))
+		if (this.dictList.remove(word))
 			return true;
 
-		if (this.DictList.size() == 0)
+		if (this.dictList.size() == 0)
 			return false;
 
 		int i = this.findPosition(word.getWord_target());
 
-		if (this.DictList.get(i).compareTo(word) == 0) {
-			this.DictList.remove(i);
+		if (this.dictList.get(i).compareTo(word) == 0) {
+			this.dictList.remove(i);
 			return true;
 		} else
 			return false;
@@ -116,30 +124,23 @@ public class DictionaryData {
 	}
 
 	public ArrayList<Word> getDictData() {
-		return DictList;
+		return dictList;
 	}
 
-	public Map<Integer, String> getWordTarget_() {
+	public List<String> getWordTarget() {
+		List<String> ans = new ArrayList<String>();
 		try {
-			for (int i = 0; i < DictList.size(); i++) {
-				wordTarget_.put(i, DictList.get(i).getWord_target());
+			for (int i = 0; i < dictList.size(); i++) {
+				ans.add(dictList.get(i).getWord_target());
 			}
 
 		} catch (Exception e) {
 			System.out.println("Can't get Word!!!!!");
 		}
-		return wordTarget_;
+		return ans;
 	}
 
-	public Map<Integer, String> getWordInfo_() {
-		try {
-			for (int i = 0; i < DictList.size(); i++) {
-				wordInfo_.put(i, DictList.get(i).getWord_info());
-			}
-
-		} catch (Exception e) {
-			System.out.println("Can't get info Word!!!!!");
-		}
+	public Map<Integer, String> getWordMeaning() {
 		return wordInfo_;
 	}
 

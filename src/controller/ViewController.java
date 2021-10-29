@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXDrawer.DrawerDirection;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
@@ -26,7 +27,6 @@ import application.Main;
 import controller.tospeech.TextToSpeech;
 import database.AutoCompleteTextField;
 import database.DatabaseManager;
-import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -114,6 +114,18 @@ public class ViewController {
 	private JFXButton deleteButton;
 
 	@FXML
+	private JFXButton nodeButton;
+
+	@FXML
+	private JFXButton EEButton;
+
+	@FXML
+	private JFXButton EVButton;
+
+	@FXML
+	private JFXButton APIButton;
+
+	@FXML
 	private JFXBadge myBadge;
 
 	@FXML
@@ -149,7 +161,10 @@ public class ViewController {
 	@FXML
 	private JFXTimePicker timePicker;
 
-	private ObservableList<String> items = FXCollections.observableArrayList();
+	private ObservableList<String> itemsEE =
+			FXCollections.observableArrayList();
+	private ObservableList<String> itemsEV =
+			FXCollections.observableArrayList();
 
 	private DatabaseManager databaseManager;
 
@@ -157,10 +172,30 @@ public class ViewController {
 
 	private AutoCompleteTextField textField;
 
+	private JFXPopup popUpAddButton;
+
+	private JFXRippler ripplerAdd;
+
+	private JFXPopup popUpDeleteButton;
+
+	private JFXRippler ripplerDelete;
+
+	private JFXPopup popUpChangeButton;
+
+	private JFXRippler ripplerChange;
+
+	private List<String> dictWordEE;
+
+	private List<String> dictWordEV;
+
 	private int prev = 0;
+
+	private List<String> favourites;
+
 	private boolean flag = false;
+
 	private boolean editFlag = false;
-	private FadeTransition fadeIn = new FadeTransition(Duration.seconds(5));
+
 	ChangeListener<String> listListener = new ChangeListener<String>() {
 
 		@Override
@@ -170,8 +205,8 @@ public class ViewController {
 			textField.setText(searched);
 			WebEngine webEngine = searchResult.getEngine();
 			try {
-				webEngine.loadContent(
-						databaseManager.getFormattedResult(searched));
+				webEngine.loadContent(databaseManager.getFormattedResult(
+						searched, databaseManager.getDictType()));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -180,30 +215,57 @@ public class ViewController {
 	};
 
 	@FXML
+	void changeToEV(ActionEvent event) {
+		databaseManager.changeDictionary(DatabaseManager.DictionaryType.ENG_VI);
+		listWord.setItems(itemsEV);
+		listWord.refresh();
+	}
+
+	@FXML
+	void changeToAPI(ActionEvent event) {
+		databaseManager
+				.changeDictionary(DatabaseManager.DictionaryType.ENG_VI_API);
+	}
+
+	@FXML
+	void changeToEE(ActionEvent event) {
+		databaseManager
+				.changeDictionary(DatabaseManager.DictionaryType.ENG_ENG);
+		listWord.setItems(itemsEE);
+		listWord.refresh();
+	}
+
+	@FXML
 	public void initialize() {
-		// timePicker.setShowing(true);
 		textToSpeech = new TextToSpeech();
-		listWord.setItems(items);
 		try {
 			databaseManager = new DatabaseManager();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		favourites = databaseManager.getFavourite();
+		// add data from dictionary to ListView.
+		dictWordEE = databaseManager.getDictWord();
+		dictWordEV = databaseManager.getDictionaryData().getWordTarget();
+		itemsEE.addAll(dictWordEE);
+		itemsEV.addAll(dictWordEV);
+		listWord.setItems(itemsEE);
+		myBadge.setText(String.valueOf(favourites.size()));
+		// add animation for favorite icon.
 		JFXRippler ripplerFav = new JFXRippler(favPane);
 		ripplerFav.setMaskType(JFXRippler.RipplerMask.CIRCLE);
 		ripplerFav.setRipplerFill(Paint.valueOf("#ff0000"));
 		ripplerFav.getStyleClass().add("icons-rippler");
 
 		// Add PopUp for AddButton.
-		JFXRippler ripplerAdd = new JFXRippler(addPane);
+		ripplerAdd = new JFXRippler(addPane);
 		ripplerAdd.setRipplerRadius(60);
 		ripplerAdd.setMaskType(JFXRippler.RipplerMask.CIRCLE);
 		ripplerAdd.setRipplerFill(Paint.valueOf("#ff0000"));
 		addPane.setVisible(false);
 		addAnchor.setVisible(false);
 		addButton.setVisible(false);
-		JFXPopup popUpAddButton = new JFXPopup(addButton);
+		popUpAddButton = new JFXPopup(addButton);
 		popUpAddButton.getStyleClass().add("jfx-popup-container");
 
 		// Add PopUp for ChangeButton.
@@ -247,20 +309,33 @@ public class ViewController {
 			}
 			editFlag = !editFlag;
 		});
-
+		// tabPane.getSelectionModel().selectedItemProperty()
+		// .addListener(new ChangeListener<Tab>() {
+		// @Override
+		// public void changed(ObservableValue<? extends Tab> old,
+		// Tab oldTab, Tab newTab) {
+		// if (newTab.getText() == "ENG-VI") {
+		// databaseManager.changeDictionary(
+		// DatabaseManager.DictionaryType.ENG_VI);
+		// listWord.setItems(itemsEV);
+		// listWord.refresh();
+		// }
+		// }
+		//
+		// });
 		snackbar = new JFXSnackbar(myAnchor);
 		snackbar.setPrefWidth(600);
 
 		myBadge.setOnMouseClicked(badgeEvent);
 
+		// animation for menuBar to pop up from left side.
 		JFXDrawer leftDrawer = new JFXDrawer();
 		leftDrawer.setSidePane(leftDrawerPane);
-		// leftDrawer.setDirection(DrawerDirection.LEFT);
+		leftDrawer.setDirection(DrawerDirection.LEFT);
 		leftDrawer.setDefaultDrawerSize(268);
 		leftDrawer.setResizeContent(true);
 		leftDrawer.setOverLayVisible(false);
 		leftDrawer.setResizableOnDrag(true);
-		// fakeAnchor.getChildren().add(textField);
 		drawersStack.setContent(fakeAnchor);
 		leftDrawer.setId("LEFT");
 
@@ -280,6 +355,7 @@ public class ViewController {
 				myBadge.setEffect(boxBlur);
 				USButton.setEffect(boxBlur);
 				UKButton.setEffect(boxBlur);
+				timePicker.setEffect(boxBlur);
 			} else {
 				listScrollPane.toFront();
 				textField.setEffect(null);
@@ -288,6 +364,7 @@ public class ViewController {
 				myBadge.setEffect(null);
 				USButton.setEffect(null);
 				UKButton.setEffect(null);
+				timePicker.setEffect(null);
 			}
 			flag = !flag;
 		});
@@ -305,12 +382,15 @@ public class ViewController {
 		favButton.getStyleClass().add("my-button");
 		settingsButton.getStyleClass().add("my-button");
 		editButton.getStyleClass().add("my-button");
-		myAnchor.getStyleClass().add("bodybg");
+		nodeButton.getStyleClass().add("node-button");
+		EVButton.getStyleClass().add("subnode-button");
+		EEButton.getStyleClass().add("subnode-button");
+		APIButton.getStyleClass().add("subnode-button");
 		listWord.getStyleClass().add("custom-jfx-list-view");
-		List<String> dictWord = databaseManager.getDictWord();
-		items.addAll(dictWord);
+		myAnchor.getStyleClass().add("bodybg");
+
 		textField = databaseManager.getSearchedWord().getTextField();
-		textField.setEntries(dictWord);
+		textField.setEntries(dictWordEE);
 		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
@@ -320,7 +400,8 @@ public class ViewController {
 						WebEngine webEngine = searchResult.getEngine();
 						String searched =
 								databaseManager.getFormattedResult(
-										textField.getText());
+										textField.getText(),
+										databaseManager.getDictType());
 						if (searched == null) {
 							return;
 						}
@@ -371,7 +452,7 @@ public class ViewController {
 
 	@FXML
 	public void switchToMenu(ActionEvent event) throws IOException {
-		Main.getSceneManager().activate("menu");
+		Main.getSceneManager().activate("intro");
 	}
 
 	EventHandler<MouseEvent> badgeEvent = new EventHandler<MouseEvent>() {
@@ -393,38 +474,71 @@ public class ViewController {
 			if (word.length() == 0)
 				return;
 			if (value > prev) {
-				// add word to favourite if exists.
+				// add word to favorite if exists.
 				myBadge.setText(String.valueOf(value));
-				JFXButton button = new JFXButton("CLOSE");
-				button.setOnAction(action -> {
-					if (snackbar.getCurrentEvent() != null)
-						snackbar.close();
-				});
-				final JFXSnackbarLayout content =
-						new JFXSnackbarLayout(
-								"Added " + word + " to favourite <3", "CLOSE",
-								action -> {
-									snackbar.close();
-								});
+				int count = databaseManager.addFavourite(word);
+				JFXSnackbarLayout content = null;
+				if (count > 0) {
+					value++;
+					content =
+							new JFXSnackbarLayout(
+									"Added " + word + " to favourite <3!", null,
+									null);
+				} else {
+					content =
+							new JFXSnackbarLayout(word
+									+ " has already been added to favourite <3!",
+									null, null);
+				}
 				snackbar.enqueue(
-						new SnackbarEvent(content, Duration.seconds(2)));
+						new SnackbarEvent(content, Duration.seconds(1.5)));
 			} else {
-				// delete word from favourite if exists.
+				// delete word from favorite if exists.
 				myBadge.setText(String.valueOf(value));
-				JFXButton button = new JFXButton("CLOSE");
-				button.setOnAction(action -> {
-					if (snackbar.getCurrentEvent() != null)
-						snackbar.close();
-				});
-				snackbar.fireEvent(new SnackbarEvent(new JFXSnackbarLayout(
-						"Deleted " + word + " from favourite :( ", "CLOSE",
-						action -> {
-							if (snackbar.getCurrentEvent() != null)
-								snackbar.close();
-						}), Duration.seconds(2), null));
+				int count = databaseManager.removeFavourite(word);
+				JFXSnackbarLayout content = null;
+				if (count > 0) {
+					value--;
+					content =
+							new JFXSnackbarLayout(
+									"Deleted " + word + " from favourite 💔 :(",
+									null, null);
+				} else {
+					content =
+							new JFXSnackbarLayout(
+									"Can't find  " + word
+											+ " in favourite 💔 :(",
+									null, null);
+				}
+
+				snackbar.enqueue(
+						new SnackbarEvent(content, Duration.seconds(1.5)));
 			}
 			prev = value;
 		}
+	};
+	EventHandler<MouseEvent> editEvent = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent e) {
+			if (!editFlag) {
+				popUpChangeButton.show(ripplerChange, PopupVPosition.TOP,
+						PopupHPosition.LEFT);
+				popUpAddButton.show(ripplerAdd, PopupVPosition.BOTTOM,
+						PopupHPosition.LEFT);
+				popUpDeleteButton.show(ripplerDelete, PopupVPosition.TOP,
+						PopupHPosition.LEFT);
+				addButton.setVisible(true);
+				deleteButton.setVisible(true);
+				changeButton.setVisible(true);
+			} else {
+				popUpChangeButton.hide();
+				popUpAddButton.hide();
+				popUpDeleteButton.hide();
+
+			}
+			editFlag = !editFlag;
+		}
+
 	};
 
 	public AutoCompleteTextField getTextField() {

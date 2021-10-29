@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXDrawersStack?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXNodesList?>
 <?import com.jfoenix.controls.JFXSnackbar?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -18,15 +19,6 @@
 
 <AnchorPane fx:id="myAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
-      <ScrollPane fx:id="listScrollPane" layoutX="48.0" layoutY="189.0" prefHeight="698.0" prefWidth="383.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="849.0" AnchorPane.topAnchor="189.0">
-         <content>
-            <AnchorPane prefHeight="696.0" prefWidth="381.0">
-               <children>
-                  <JFXListView fx:id="listWord" layoutY="1.0" prefHeight="684.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
-               </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
       <ScrollPane fitToWidth="true" layoutX="459.0" layoutY="189.0" prefHeight="698.0" prefWidth="793.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="459.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="189.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="696.0" prefWidth="791.0">
@@ -36,9 +28,8 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <JFXBadge layoutX="712.0" layoutY="185.0" text="" />
       <JFXSnackbar fx:id="snackbar" layoutX="408.0" layoutY="162.0" />
-      <JFXButton fx:id="UKButton" layoutX="532.0" layoutY="149.0" onAction="#PressedUK" text="UK">
+      <JFXButton fx:id="UKButton" layoutX="459.0" layoutY="151.0" onAction="#PressedUK" text="UK">
          <graphic>
             <FontAwesomeIconView glyphName="VOLUME_UP" size="25" />
          </graphic>
@@ -46,7 +37,7 @@
             <Font name="Fira Code Regular" size="17.0" />
          </font>
       </JFXButton>
-      <AnchorPane fx:id="favAnchor" layoutX="1160.0" layoutY="130.0" prefHeight="53.0" prefWidth="61.0">
+      <AnchorPane fx:id="favAnchor" layoutX="1160.0" layoutY="128.0" prefHeight="53.0" prefWidth="61.0">
          <children>
             <Pane fx:id="favPane">
                <children>
@@ -64,7 +55,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="USButton" layoutX="459.0" layoutY="149.0" onAction="#PressedUS" text="US" wrapText="true">
+      <JFXButton fx:id="USButton" layoutX="532.0" layoutY="151.0" onAction="#PressedUS" text="US" wrapText="true">
          <graphic>
             <FontAwesomeIconView glyphName="VOLUME_UP" size="25" />
          </graphic>
@@ -167,6 +158,45 @@
          </children>
       </StackPane>
       <JFXDrawersStack fx:id="drawersStack" prefHeight="900.0" prefWidth="348.0" />
-      <JFXTimePicker fx:id="timePicker" layoutX="947.0" layoutY="147.0" />
+      <JFXTimePicker fx:id="timePicker" layoutX="929.0" layoutY="147.0" />
+      <ScrollPane fx:id="listScrollPane" layoutX="48.0" layoutY="189.0" prefHeight="698.0" prefWidth="383.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="849.0" AnchorPane.topAnchor="189.0">
+         <content>
+            <AnchorPane prefHeight="696.0" prefWidth="381.0">
+               <children>
+                  <JFXListView fx:id="listWord" layoutY="1.0" prefHeight="684.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <JFXNodesList alignment="CENTER_LEFT" layoutX="1220.0" layoutY="843.0" rotate="180.0" spacing="15.0">
+         <children>
+            <JFXButton fx:id="nodeButton" contentDisplay="GRAPHIC_ONLY" text="Node 1">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLUS" size="25" style="-fx-fill: white;" />
+               </graphic></JFXButton>
+            <JFXButton fx:id="EEButton" contentDisplay="RIGHT" onAction="#changeToEE" text="ENG-ENG">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BOOK" size="25" style="-fx-fill: white;" />
+               </graphic>
+               <font>
+                  <Font name="Fira Code Regular" size="20.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="EVButton" contentDisplay="RIGHT" onAction="#changeToEV" text="ENG-VI">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BOOK" size="25" style="-fx-fill: white;" text="" />
+               </graphic>
+               <font>
+                  <Font name="Fira Code Regular" size="20.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="APIButton" contentDisplay="RIGHT" onAction="#changeToAPI" text="API">
+               <graphic>
+                  <FontAwesomeIconView glyphName="BOOK" size="25" style="-fx-fill: white;" />
+               </graphic>
+               <font>
+                  <Font name="Fira Code Regular" size="20.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </JFXNodesList>
    </children>
 </AnchorPane>

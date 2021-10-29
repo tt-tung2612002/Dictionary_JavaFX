@@ -106,17 +106,19 @@ public class IntroController implements Initializable {
 		Main.getControllerManager().addViewController(viewController);
 		Main.getSceneManager().addStage("view", viewStage);
 		viewStage.getIcons().add(new Image("dictionary.png"));
-		spinner1.getStyleClass().add("materialDesign-blue");
-		spinner2.getStyleClass().add("materialDesign-purple");
-		spinner3.getStyleClass().add("materialDesign-green");
-		spinner4.getStyleClass().add("materialDesign-cyan");
+		spinner1.getStyleClass().add("materialDesign-green");
+		spinner2.getStyleClass().add("materialDesign-yellow");
+		spinner3.getStyleClass().add("materialDesign-orange");
+		spinner4.getStyleClass().add("materialDesign-orange");
 		spinner5.getStyleClass().add("materialDesign-red");
-		spinner6.getStyleClass().add("materialDesign-yellow");
-		spinner7.getStyleClass().add("materialDesign-orange");
+		spinner6.getStyleClass().add("materialDesign-cyan");
+		spinner7.getStyleClass().add("materialDesign-blue");
 		spinner8.getStyleClass().add("materialDesign-purple");
-		spinner9.getStyleClass().add("materialDesign-cyan");
-		spinner10.getStyleClass().add("materialDesign-orange");
+		spinner9.getStyleClass().add("materialDesign-brown");
+		spinner10.getStyleClass().add("materialDesign-pink");
 		percentageDisplay.getStyleClass().add("percentage");
+		myAnchor.getStyleClass().add("intro");
+		// myAnchor.setFill(Color.TRANSPARENT);
 		Timeline timeline =
 				new Timeline(
 						new KeyFrame(Duration.ZERO, new KeyValue(
@@ -141,7 +143,7 @@ public class IntroController implements Initializable {
 								percentageDisplay.progressProperty(), 0.9)),
 						new KeyFrame(Duration.seconds(5), new KeyValue(
 								percentageDisplay.progressProperty(), 1)));
-		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setCycleCount(1);
 		timeline.play();
 		new IntroView().start();
 	}

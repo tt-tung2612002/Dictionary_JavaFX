@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -18,33 +19,20 @@ public class Main extends Application {
 	public void start(Stage primaryStage_) throws Exception {
 		controllerManager = new ControllerManager();
 		sceneManager = new SceneManager();
-		// Stage viewStage = new Stage(StageStyle.DECORATED);
-		// FXMLLoader loader = new
-		// FXMLLoader(getClass().getResource("View.fxml"));
-		//
-
-		// FXMLLoader has to be loaded for controller to be initialized.
-		// ViewController viewController = loader.getController();
-		// controllerManager.addViewController(viewController);
-		// sceneManager.addStage("view", viewStage);
-		// viewStage.getIcons().add(new Image("dictionary.png"));
-		// viewStage.setTitle("Dictionary");
-		// viewStage.setScene(scene);
-		// sceneManager.activate("view");
-
 		FXMLLoader loader =
 				new FXMLLoader(getClass().getResource("Intro.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets()
 				.addAll(getClass().getResource("/Home.css").toExternalForm());
-		Stage menuStage = new Stage(StageStyle.UNDECORATED);
-		menuStage.setScene(scene);
-		menuStage.setTitle("Menu");
-		sceneManager.addStage("menu", menuStage);
+		Stage introStage = new Stage(StageStyle.TRANSPARENT);
+		scene.setFill(Color.TRANSPARENT);
+		introStage.setScene(scene);
+		introStage.setTitle("intro");
+		sceneManager.addStage("intro", introStage);
 		IntroController introController = loader.getController();
 		controllerManager.addIntroController(introController);
-		sceneManager.activate("menu");
+		sceneManager.activate("intro");
 	}
 
 	public static ControllerManager getControllerManager() {
