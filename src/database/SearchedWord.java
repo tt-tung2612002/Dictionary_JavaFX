@@ -7,7 +7,6 @@ import com.jfoenix.validation.RequiredFieldValidator;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -22,27 +21,22 @@ public class SearchedWord {
 	AutoCompleteTextField textField = new AutoCompleteTextField();
 
 	public SearchedWord() {
-		this.x = 150;
-		this.y = 35;
-		this.width = 500;
+		this.x = 490;
+		this.y = 50;
+		this.width = 300;
 		this.height = 30;
 		textField.setPromptText("Search In English");
 		textField.setLabelFloat(true);
-		textField.setLayoutX(450);
-		textField.setLayoutY(65);
-		textField.setPrefSize(300, 30);
-
-		FontAwesomeIconView fontAwesomeIcon =
-				new FontAwesomeIconView(FontAwesomeIcon.WARNING);
-		fontAwesomeIcon.setSize("4em");
+		textField.setLayoutX(x);
+		textField.setLayoutY(y);
+		textField.setPrefSize(width, height);
 
 		JFXToggleNode node = new JFXToggleNode();
 		Text text = GlyphsDude.createIcon(FontAwesomeIcon.WARNING);
 		text.getStyleClass().add("warning");
 		node.setGraphic(text);
-
 		RequiredFieldValidator validator = new RequiredFieldValidator();
-		validator.setMessage("Input Required");
+		validator.setMessage("Input Required!");
 		validator.setIcon(node);
 		// validator.getIcon();
 		// validator.setAwsomeIcon(

@@ -309,20 +309,21 @@ public class ViewController {
 			}
 			editFlag = !editFlag;
 		});
-		// tabPane.getSelectionModel().selectedItemProperty()
-		// .addListener(new ChangeListener<Tab>() {
-		// @Override
-		// public void changed(ObservableValue<? extends Tab> old,
-		// Tab oldTab, Tab newTab) {
-		// if (newTab.getText() == "ENG-VI") {
-		// databaseManager.changeDictionary(
-		// DatabaseManager.DictionaryType.ENG_VI);
-		// listWord.setItems(itemsEV);
-		// listWord.refresh();
-		// }
-		// }
-		//
-		// });
+		addButton.setOnMouseClicked(e -> {
+			Main.getSceneManager().activate("edit");
+			Main.getControllerManager().getEditController().getEditTabPane()
+					.getSelectionModel().select(0);
+		});
+		changeButton.setOnMouseClicked(e -> {
+			Main.getSceneManager().activate("edit");
+			Main.getControllerManager().getEditController().getEditTabPane()
+					.getSelectionModel().select(1);
+		});
+		deleteButton.setOnMouseClicked(e -> {
+			Main.getSceneManager().activate("edit");
+			Main.getControllerManager().getEditController().getEditTabPane()
+					.getSelectionModel().select(2);
+		});
 		snackbar = new JFXSnackbar(myAnchor);
 		snackbar.setPrefWidth(600);
 
@@ -387,6 +388,7 @@ public class ViewController {
 		EEButton.getStyleClass().add("subnode-button");
 		APIButton.getStyleClass().add("subnode-button");
 		listWord.getStyleClass().add("custom-jfx-list-view");
+		timePicker.getStyleClass().add("jfx-time-picker");
 		myAnchor.getStyleClass().add("bodybg");
 
 		textField = databaseManager.getSearchedWord().getTextField();
@@ -396,13 +398,30 @@ public class ViewController {
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					try {
-						// textField.validate();
 						WebEngine webEngine = searchResult.getEngine();
 						String searched =
 								databaseManager.getFormattedResult(
 										textField.getText(),
 										databaseManager.getDictType());
+						if (textField.getText().length() == 0) {
+							textField.validate();
+							JFXSnackbarLayout content =
+									new JFXSnackbarLayout(
+											"Please type a word in English!",
+											null, null);
+							snackbar.enqueue(new SnackbarEvent(content,
+									Duration.seconds(1.5)));
+							return;
+						}
 						if (searched == null) {
+							JFXSnackbarLayout content =
+									new JFXSnackbarLayout(
+											"No match found for \""
+													+ textField.getText()
+													+ "\" in English",
+											null, null);
+							snackbar.enqueue(new SnackbarEvent(content,
+									Duration.seconds(1.5)));
 							return;
 						}
 						webEngine.loadContent(searched);
@@ -459,12 +478,6 @@ public class ViewController {
 		@Override
 		public void handle(MouseEvent myClick) {
 			int value = Integer.parseInt(myBadge.getText());
-			if (myClick.getButton() == MouseButton.PRIMARY) {
-				value++;
-			} else if (myClick.getButton() == MouseButton.SECONDARY) {
-				value--;
-			}
-
 			if (value == 0) {
 				myBadge.setEnabled(false);
 			} else {
@@ -473,9 +486,8 @@ public class ViewController {
 			String word = textField.getText();
 			if (word.length() == 0)
 				return;
-			if (value > prev) {
+			if (myClick.getButton() == MouseButton.PRIMARY) {
 				// add word to favorite if exists.
-				myBadge.setText(String.valueOf(value));
 				int count = databaseManager.addFavourite(word);
 				JFXSnackbarLayout content = null;
 				if (count > 0) {
@@ -490,11 +502,11 @@ public class ViewController {
 									+ " has already been added to favourite <3!",
 									null, null);
 				}
+				myBadge.setText(String.valueOf(value));
 				snackbar.enqueue(
 						new SnackbarEvent(content, Duration.seconds(1.5)));
-			} else {
+			} else if (myClick.getButton() == MouseButton.SECONDARY) {
 				// delete word from favorite if exists.
-				myBadge.setText(String.valueOf(value));
 				int count = databaseManager.removeFavourite(word);
 				JFXSnackbarLayout content = null;
 				if (count > 0) {
@@ -506,11 +518,11 @@ public class ViewController {
 				} else {
 					content =
 							new JFXSnackbarLayout(
-									"Can't find  " + word
+									"Can't find " + word
 											+ " in favourite 💔 :(",
 									null, null);
 				}
-
+				myBadge.setText(String.valueOf(value));
 				snackbar.enqueue(
 						new SnackbarEvent(content, Duration.seconds(1.5)));
 			}
@@ -534,12 +546,18 @@ public class ViewController {
 				popUpChangeButton.hide();
 				popUpAddButton.hide();
 				popUpDeleteButton.hide();
-
 			}
 			editFlag = !editFlag;
 		}
-
 	};
+
+	public DatabaseManager getDatabaseManager() {
+		return databaseManager;
+	}
+
+	public JFXSnackbar getSnackbar() {
+		return snackbar;
+	}
 
 	public AutoCompleteTextField getTextField() {
 		return textField;

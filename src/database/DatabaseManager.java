@@ -328,8 +328,8 @@ public class DatabaseManager {
 		return server2.addFavourite(word);
 	}
 
-	public int addWord(String word, String meaning) {
-		return server2.addWord(word, meaning);
+	public int addWord(String word, String type, String meaning) {
+		return server2.addWord(word, type, meaning);
 	}
 
 	public int changeWord(String word, String type, String meaning) {

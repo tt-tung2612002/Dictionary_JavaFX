@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="myAnchor" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditController">
+   <children>
+      <JFXTabPane fx:id="editTabPane" prefHeight="400.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Add Word">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="363.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXTextField fx:id="addWordField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Word" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="addTypeField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Type">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="addMeaningField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Meaning">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <HBox prefHeight="60.0" prefWidth="620.0">
+                                 <children>
+                                    <JFXButton onAction="#addWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                                    <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children></VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Change Word">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="363.0" prefWidth="640.0">
+                           <children>
+                              <JFXTextField fx:id="changeWordField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Word" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="changeTypeField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Type">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="changeMeaningField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Meaning">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                              <HBox prefHeight="60.0" prefWidth="620.0">
+                                 <children>
+                                    <JFXButton onAction="#changeWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                                    <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Delete Word">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="620.0">
+                           <children>
+                              <JFXButton onAction="#deleteWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                              <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <VBox prefHeight="223.0" prefWidth="640.0">
+                           <children>
+                              <JFXTextField fx:id="deleteWordField" prefHeight="64.0" prefWidth="602.0" promptText="Enter Word" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="50.0" left="50.0" right="50.0" top="70.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Fira Code Regular" size="18.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs></JFXTabPane>
+   </children>
+</AnchorPane>

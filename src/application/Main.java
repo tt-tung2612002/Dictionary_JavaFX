@@ -1,6 +1,7 @@
 package application;
 
 import controller.ControllerManager;
+import controller.EditController;
 import controller.IntroController;
 import controller.SceneManager;
 import javafx.application.Application;
@@ -32,6 +33,17 @@ public class Main extends Application {
 		sceneManager.addStage("intro", introStage);
 		IntroController introController = loader.getController();
 		controllerManager.addIntroController(introController);
+
+		loader = new FXMLLoader(getClass().getResource("Edit.fxml"));
+		Scene editScene = new Scene(loader.load());
+		editScene.getStylesheets()
+				.addAll(getClass().getResource("/Home.css").toExternalForm());
+		Stage editStage = new Stage(StageStyle.TRANSPARENT);
+		editStage.setScene(editScene);
+
+		EditController editController = loader.getController();
+		controllerManager.addEditController(editController);
+		sceneManager.addStage("edit", editStage);
 		sceneManager.activate("intro");
 	}
 

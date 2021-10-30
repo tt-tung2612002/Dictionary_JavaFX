@@ -19,7 +19,7 @@ public class Server {
 	private String listIdentifier = "call printList()";
 	private String pronounciationIdentifier = "{CALL getPronounciation(?)}";
 	private String closestResultsIdentifier = "{call findClosestResults(?)}";
-	private String addWordIdentifier = "{CALL addWord(?,?)}";
+	private String addWordIdentifier = "{CALL addWord(?,?,?)}";
 	private String deleteWordIdentifier = "{CALL deleteWord(?)}";
 	private String changeWordIdentifier = "{CALL changeWord(?,?,?)}";
 	private String addFvouriteIdentifier = "{CALL addFavourite(?)}";
@@ -155,13 +155,14 @@ public class Server {
 		return ans;
 	}
 
-	public int addWord(String word, String meaning) {
+	public int addWord(String word, String type, String meaning) {
 		int count = 0;
 		try {
 			query = addWordIdentifier;
 			PreparedStatement statement = con.prepareCall(query);
 			statement.setString(1, word);
-			statement.setString(2, meaning);
+			statement.setString(2, type);
+			statement.setString(3, meaning);
 			count = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -242,8 +243,7 @@ public class Server {
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server("tables");
 		server.connect();
-		List<String> ans = server.getFavourite();
-		System.out.println(ans);
+		System.out.println(server.deleteWord("asdad"));
 	}
 
 }
