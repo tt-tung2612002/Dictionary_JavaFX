@@ -188,8 +188,6 @@ public class ViewController {
 
 	private List<String> dictWordEV;
 
-	private int prev = 0;
-
 	private List<String> favourites;
 
 	private boolean flag = false;
@@ -202,7 +200,11 @@ public class ViewController {
 		public void changed(ObservableValue<? extends String> observable,
 				String oldValue, String newValue) {
 			String searched = listWord.getSelectionModel().getSelectedItem();
+			if (searched == null) {
+				return;
+			}
 			textField.setText(searched);
+			System.out.println(searched);
 			WebEngine webEngine = searchResult.getEngine();
 			try {
 				webEngine.loadContent(databaseManager.getFormattedResult(
@@ -245,7 +247,7 @@ public class ViewController {
 		}
 		favourites = databaseManager.getFavourite();
 		// add data from dictionary to ListView.
-		dictWordEE = databaseManager.getDictWord();
+		dictWordEE = databaseManager.getDictWordEE();
 		dictWordEV = databaseManager.getDictionaryData().getWordTarget();
 		itemsEE.addAll(dictWordEE);
 		itemsEV.addAll(dictWordEV);
@@ -526,7 +528,6 @@ public class ViewController {
 				snackbar.enqueue(
 						new SnackbarEvent(content, Duration.seconds(1.5)));
 			}
-			prev = value;
 		}
 	};
 	EventHandler<MouseEvent> editEvent = new EventHandler<MouseEvent>() {
@@ -561,5 +562,17 @@ public class ViewController {
 
 	public AutoCompleteTextField getTextField() {
 		return textField;
+	}
+
+	public JFXListView<String> getListWord() {
+		return listWord;
+	}
+
+	public List<String> getDictWordEV() {
+		return dictWordEV;
+	}
+
+	public void changeItemsEV(ObservableList<String> item) {
+		itemsEV = item;
 	}
 }

@@ -1,53 +1,119 @@
 package database.filedatabase;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+
+import database.sqlserver.Server;
 
 public class DictionaryData {
 	private ArrayList<Word> dictList = new ArrayList<Word>();
-	private Map<Integer, String> wordTarget_ = new HashMap<>();
-	private Map<Integer, String> wordInfo_ = new HashMap<>();
+	List<String> wordTarget = new ArrayList<String>();
+	List<List<String>> wordTypes = new ArrayList<List<String>>();
+	List<List<String>> wordMeanings = new ArrayList<List<String>>();
+	List<List<List<String>>> wordExampless =
+			new ArrayList<List<List<String>>>();
 
 	public DictionaryData() {
-		String line;
 		try {
+			Server server = new Server("tables");
+			server.connect();
+			List<List<String>> myDictionary = server.getMyDictionary();
 			BufferedReader reader =
-					new BufferedReader(new FileReader("resources/EVPro.txt"));
+					new BufferedReader(
+							new FileReader("resources/dictionaries.txt"));
 
-			while ((line = reader.readLine()) != null) {
+			for (String next = "", line = reader.readLine(); line
+					!= null; line = next) {
+				next = reader.readLine();
 				String word = "";
-				String info;
-				char[] a = line.toCharArray();
+				List<String> meanings = new ArrayList<String>();
+				List<String> types = new ArrayList<String>();
+				List<List<String>> exampless = new ArrayList<List<String>>();
+				List<String> examples = new ArrayList<String>();
 
-				int i = 0;
-				while (a[i] != '<') {
-					word += a[i];
-					i++;
+				if (line.charAt(0) == '#') {
+					String part[] = line.split("/", 2);
+					word = part[0].trim().substring(1);
 				}
-				info = line.substring(i);
-				this.dictList.add(new Word(word, info));
+				if (next != null) {
+					next = next.trim();
+				}
+				while (next != null && next.charAt(0) != '#') {
+
+					// line is the current type of the word.
+					if (next.charAt(0) == '*') {
+						types.add(next.substring(1));
+						next = reader.readLine();
+						if (next != null) {
+							next = next.trim();
+						} else {
+							break;
+						}
+					} else {
+						types.add(null);
+					}
+
+					// line is the current meaning of the word.
+					if (next.charAt(0) == '-') {
+						meanings.add(next.substring(2));
+						next = reader.readLine();
+						if (next != null) {
+							next = next.trim();
+						} else {
+							break;
+						}
+					}
+
+					// line is the current example of the word.
+					if (next.charAt(0) == '=') {
+						while (next != null && next.charAt(0) == '=') {
+							examples.add(next.substring(1));
+							next = reader.readLine();
+							if (next != null) {
+								next = next.trim();
+							}
+						}
+						exampless.add(examples);
+						examples = new ArrayList<String>();
+					} else {
+						exampless.add(null);
+					}
+				}
+
+				dictList.add(new Word(word, types, meanings, exampless));
 			}
 			reader.close();
+			for (int i = 0; i < myDictionary.size(); i++) {
+				String word = myDictionary.get(i).get(0);
+				List<String> type = new ArrayList<String>();
+				type.add(myDictionary.get(i).get(1));
+				List<String> meaning = new ArrayList<String>();
+				meaning.add(myDictionary.get(i).get(2));
+				dictList.add(new Word(word, type, meaning, null));
+			}
+			Collections.sort(dictList);
 			try {
-				for (int i = 0; i < dictList.size(); i++) {
-					wordTarget_.put(i, dictList.get(i).getWord_target());
+				for (Word word : dictList) {
+					wordTarget.add(word.getWord_target());
+					wordTypes.add(word.getTypes());
+					wordMeanings.add(word.getMeanings());
+					List<List<String>> examples = word.getExamples();
+					if (examples != null) {
+						wordExampless.add(word.getExamples());
+					} else {
+						wordExampless.add(null);
+					}
 				}
-				for (int i = 0; i < dictList.size(); i++) {
-					wordInfo_.put(i, dictList.get(i).getWord_info());
-				}
-
 			} catch (Exception e) {
 				System.out.println("Can't get Word!!!!!");
 			}
-		} catch (Exception e) {
-			System.out.println(this.dictList.size());
-			// System.out.println("Can't read file:" + FILE_PATH);
-			System.out.println(new File(".").getAbsolutePath());
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
 
 		}
 
@@ -59,7 +125,7 @@ public class DictionaryData {
 	public int findPosition(String w) {
 		int n = this.getDictData().size() - 1;
 		int i = 0;
-
+		System.out.println(w);
 		if (w.compareTo(this.getDictData().get(0).getWord_target()) <= 0)
 			return 0;
 
@@ -89,38 +155,61 @@ public class DictionaryData {
 		return i;
 	}
 
-	// add word into dictionary if it doesn't exist.
-	boolean addWord(Word word) {
+	// add word to dictionary if it doesn't exist.
+	public boolean addWord(Word word) {
 		int i = this.findPosition(word.getWord_target());
+		System.out.println(i);
+		if (this.dictList.get(i).compareTo(word) != 0) {
+			dictList.add(i, word);
+			wordTarget.add(i, word.getWord_target());
+			wordTypes.add(i, word.getTypes());
+			wordMeanings.add(i, word.getMeanings());
+			System.out.println(word.getExamples());
+			if (word.getExamples() != null) {
+				wordExampless.add(i, word.getExamples());
+			} else {
+				wordExampless.add(null);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-		if (this.dictList.size() == 0
-				|| this.dictList.get(i).compareTo(word) != 0) {
-			this.dictList.add(i, word);
+	// change word from dictionary if it exists.
+	public boolean changeWord(Word word) {
+		int i = this.findPosition(word.getWord_target());
+		if (this.dictList.get(i).compareTo(word) == 0) {
+			this.dictList.set(i, word);
+			wordTarget.set(i, word.getWord_target());
+			wordTypes.set(i, word.getTypes());
+			wordMeanings.set(i, word.getMeanings());
+			wordExampless.set(i, word.getExamples());
 			return true;
 		} else
 			return false;
 	}
 
 	// remove word from dictionary if it exists.
-	boolean removeWord(Word word) {
-		if (this.dictList.remove(word))
-			return true;
-
-		if (this.dictList.size() == 0)
+	public boolean deleteWord(String word) {
+		if (this.dictList.size() == 0) {
 			return false;
-
-		int i = this.findPosition(word.getWord_target());
-
-		if (this.dictList.get(i).compareTo(word) == 0) {
+		}
+		int i = this.findPosition(word);
+		System.out.println(i);
+		if (i == -1) {
+			return false;
+		}
+		if (this.dictList.get(i).getWord_target().compareTo(word) == 0) {
 			this.dictList.remove(i);
+			wordTarget.remove(i);
+			wordTypes.remove(i);
+			wordMeanings.remove(i);
+			wordExampless.remove(i);
 			return true;
-		} else
+		} else {
 			return false;
-	}
-
-	// make change in word's info
-	void changeWordInfo(Word word, String info) {
-		word.setWord_info(info);
+		}
 	}
 
 	public ArrayList<Word> getDictData() {
@@ -128,20 +217,29 @@ public class DictionaryData {
 	}
 
 	public List<String> getWordTarget() {
-		List<String> ans = new ArrayList<String>();
-		try {
-			for (int i = 0; i < dictList.size(); i++) {
-				ans.add(dictList.get(i).getWord_target());
-			}
-
-		} catch (Exception e) {
-			System.out.println("Can't get Word!!!!!");
-		}
-		return ans;
+		return this.wordTarget;
 	}
 
-	public Map<Integer, String> getWordMeaning() {
-		return wordInfo_;
+	public List<List<String>> getWordTypes() {
+		return this.wordTypes;
 	}
 
+	public List<List<String>> getWordMeanings() {
+		return this.wordMeanings;
+	}
+
+	public List<List<List<String>>> getWordExampless() {
+		return this.wordExampless;
+	}
+
+	public static void main(String[] args) {
+		// DictionaryData test = new DictionaryData();
+		List<String> arr = new ArrayList<String>();
+		arr.add("1");
+		arr.add("2");
+		arr.add("3");
+		arr.add("4");
+		arr.add(1, "5");
+		System.out.println(arr);
+	}
 }

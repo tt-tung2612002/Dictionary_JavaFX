@@ -1,6 +1,8 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
@@ -11,8 +13,11 @@ import com.jfoenix.controls.JFXToggleNode;
 import com.jfoenix.validation.RequiredFieldValidator;
 
 import application.Main;
+import database.filedatabase.Word;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -84,6 +89,67 @@ public class EditController implements Initializable {
 				}
 			}
 		});
+		addTypeField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+		addMeaningField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+		deleteWordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+		changeWordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+		changeTypeField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+		changeMeaningField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+					}
+				}
+			}
+		});
+
 		editTabPane.getStyleClass().add("jfx-tab-pane");
 
 	}
@@ -92,6 +158,7 @@ public class EditController implements Initializable {
 		return editTabPane;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@FXML
 	void addWord(ActionEvent event) {
 		String word = addWordField.getText();
@@ -115,6 +182,21 @@ public class EditController implements Initializable {
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
+		Main.getControllerManager().getViewController().getDatabaseManager()
+				.getDictionaryData().addWord(new Word(word, type, meaning));
+
+		@SuppressWarnings("unchecked")
+		List<String> newList =
+				new ArrayList(Main.getControllerManager().getViewController()
+						.getDatabaseManager().getDictionaryData()
+						.getWordTarget());
+
+		ObservableList<String> newItems = FXCollections.observableArrayList();
+		newItems.addAll(newList);
+		Main.getControllerManager().getViewController().changeItemsEV(newItems);
+		Main.getControllerManager().getViewController().getListWord()
+				.setItems(newItems);
+		Main.getControllerManager().getViewController().getListWord().refresh();
 	}
 
 	@FXML
@@ -139,6 +221,19 @@ public class EditController implements Initializable {
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
+		Main.getControllerManager().getViewController().getDatabaseManager()
+				.getDictionaryData().deleteWord(word);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		List<String> newList =
+				new ArrayList(Main.getControllerManager().getViewController()
+						.getDatabaseManager().getDictionaryData()
+						.getWordTarget());
+		ObservableList<String> newItems = FXCollections.observableArrayList();
+		newItems.addAll(newList);
+		Main.getControllerManager().getViewController().changeItemsEV(newItems);
+		Main.getControllerManager().getViewController().getListWord()
+				.setItems(newItems);
+		Main.getControllerManager().getViewController().getListWord().refresh();
 
 	}
 
@@ -167,6 +262,19 @@ public class EditController implements Initializable {
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
+		Main.getControllerManager().getViewController().getDatabaseManager()
+				.getDictionaryData().changeWord(new Word(word, type, meaning));
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		List<String> newList =
+				new ArrayList(Main.getControllerManager().getViewController()
+						.getDatabaseManager().getDictionaryData()
+						.getWordTarget());
+		ObservableList<String> newItems = FXCollections.observableArrayList();
+		newItems.addAll(newList);
+		Main.getControllerManager().getViewController().changeItemsEV(newItems);
+		Main.getControllerManager().getViewController().getListWord()
+				.setItems(newItems);
+		Main.getControllerManager().getViewController().getListWord().refresh();
 	}
 
 }

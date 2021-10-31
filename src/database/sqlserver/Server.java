@@ -25,6 +25,7 @@ public class Server {
 	private String addFvouriteIdentifier = "{CALL addFavourite(?)}";
 	private String removeFvouriteIdentifier = "{CALL removeFavourite(?)}";
 	private String getFvouriteIdentifier = "{CALL getFavourite()}";
+	private String getMyDictionaryIdentifier = "{CALL getMyDictionary()}";
 
 	public Server(String database) {
 		url += database;
@@ -77,6 +78,7 @@ public class Server {
 				ans.add(temp);
 			}
 		} catch (SQLException e) {
+			System.out.println("TUan oc oc");
 			e.printStackTrace();
 		}
 		return ans;
@@ -240,10 +242,33 @@ public class Server {
 		return count;
 	}
 
+	public List<List<String>> getMyDictionary() throws SQLException {
+		List<List<String>> ans = new ArrayList<List<String>>();
+		query = getMyDictionaryIdentifier;
+		PreparedStatement statement = con.prepareStatement(query);
+		ResultSet resultSet = statement.executeQuery(query);
+		while (resultSet.next()) {
+			List<String> temp = new ArrayList<String>();
+			for (int i = 1; i
+					<= resultSet.getMetaData().getColumnCount(); i++) {
+				temp.add(resultSet.getString(i));
+			}
+			ans.add(temp);
+		}
+		return ans;
+	}
+
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server("tables");
 		server.connect();
-		System.out.println(server.deleteWord("asdad"));
+		List<String> test = null;
+		try {
+			test.get(0);
+		} catch (NullPointerException e) {
+			System.out.println("Lỗi Null Pointer");
+			// e.printStackTrace();
+		}
+		// System.out.println(server.getMyDictionary());
 	}
 
 }
