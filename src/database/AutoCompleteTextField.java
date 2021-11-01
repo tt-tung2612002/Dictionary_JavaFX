@@ -35,18 +35,21 @@ public class AutoCompleteTextField extends JFXTextField {
 				if (getText() == null) {
 					entriesPopup.hide();
 				} else {
-					LinkedList<String> searchResult = new LinkedList<>();
-					searchResult.addAll(entries.subSet(getText(),
-							getText() + Character.MAX_VALUE));
-					if (entries.size() > 0) {
-						populatePopup(searchResult);
-						if (!entriesPopup.isShowing()) {
-							entriesPopup.show(AutoCompleteTextField.this,
-									Side.BOTTOM, 0, 0);
+					if (getText().length() >= 2) {
+						LinkedList<String> searchResult = new LinkedList<>();
+						searchResult.addAll(
+								entries.subSet(getText(), getText() + "~"));
+						if (entries.size() > 0) {
+							populatePopup(searchResult);
+							if (!entriesPopup.isShowing()) {
+								entriesPopup.show(AutoCompleteTextField.this,
+										Side.BOTTOM, 0, 0);
+							}
+						} else {
+							entriesPopup.hide();
 						}
-					} else {
-						entriesPopup.hide();
 					}
+
 				}
 			}
 		});

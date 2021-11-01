@@ -4,17 +4,26 @@ public class ControllerManager {
 	private ViewController viewController;
 	private IntroController introController;
 	private EditController editController;
+	private HelpController helpController;
 
-	public void addIntroController(IntroController controller) {
-		this.introController = controller;
+	public void addHelpController(HelpController helpController) {
+		this.helpController = helpController;
 	}
 
-	public void addViewController(ViewController controller) {
-		this.viewController = controller;
+	public void addIntroController(IntroController introController) {
+		this.introController = introController;
 	}
 
-	public void addEditController(EditController controller) {
-		this.editController = controller;
+	public void addViewController(ViewController viewController) {
+		this.viewController = viewController;
+	}
+
+	public void addEditController(EditController editController) {
+		this.editController = editController;
+	}
+
+	public HelpController getHelpController() {
+		return helpController;
 	}
 
 	public IntroController getMenuController() {

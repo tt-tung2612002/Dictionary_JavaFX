@@ -107,7 +107,7 @@ public class IntroController implements Initializable {
 		Main.getSceneManager().addStage("view", viewStage);
 		viewStage.getIcons().add(new Image("dictionary.png"));
 		spinner1.getStyleClass().add("materialDesign-green");
-		spinner2.getStyleClass().add("materialDesign-yellow");
+		spinner2.getStyleClass().add("materialDesign-cyan");
 		spinner3.getStyleClass().add("materialDesign-orange");
 		spinner4.getStyleClass().add("materialDesign-orange");
 		spinner5.getStyleClass().add("materialDesign-red");
@@ -122,27 +122,38 @@ public class IntroController implements Initializable {
 		Timeline timeline =
 				new Timeline(
 						new KeyFrame(Duration.ZERO, new KeyValue(
-								percentageDisplay.progressProperty(), 0)),
+								percentageDisplay.progressProperty(), 0),
+								new KeyValue(spinner2.progressProperty(), 0)),
 						new KeyFrame(Duration.seconds(0.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.1)),
+								percentageDisplay.progressProperty(), 0.1),
+								new KeyValue(spinner2.progressProperty(), 0.1)),
 						new KeyFrame(Duration.seconds(1), new KeyValue(
-								percentageDisplay.progressProperty(), 0.2)),
+								percentageDisplay.progressProperty(), 0.2),
+								new KeyValue(spinner2.progressProperty(), 0.2)),
 						new KeyFrame(Duration.seconds(1.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.3)),
+								percentageDisplay.progressProperty(), 0.3),
+								new KeyValue(spinner2.progressProperty(), 0.3)),
 						new KeyFrame(Duration.seconds(2), new KeyValue(
-								percentageDisplay.progressProperty(), 0.4)),
+								percentageDisplay.progressProperty(), 0.4),
+								new KeyValue(spinner2.progressProperty(), 0.4)),
 						new KeyFrame(Duration.seconds(2.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.5)),
+								percentageDisplay.progressProperty(), 0.5),
+								new KeyValue(spinner2.progressProperty(), 0.5)),
 						new KeyFrame(Duration.seconds(3), new KeyValue(
-								percentageDisplay.progressProperty(), 0.6)),
+								percentageDisplay.progressProperty(), 0.6),
+								new KeyValue(spinner2.progressProperty(), 0.6)),
 						new KeyFrame(Duration.seconds(3.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.7)),
+								percentageDisplay.progressProperty(), 0.7),
+								new KeyValue(spinner2.progressProperty(), 0.7)),
 						new KeyFrame(Duration.seconds(4), new KeyValue(
-								percentageDisplay.progressProperty(), 0.8)),
+								percentageDisplay.progressProperty(), 0.8),
+								new KeyValue(spinner2.progressProperty(), 0.8)),
 						new KeyFrame(Duration.seconds(4.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.9)),
+								percentageDisplay.progressProperty(), 0.9),
+								new KeyValue(spinner2.progressProperty(), 0.9)),
 						new KeyFrame(Duration.seconds(5), new KeyValue(
-								percentageDisplay.progressProperty(), 1)));
+								percentageDisplay.progressProperty(), 1),
+								new KeyValue(spinner2.progressProperty(), 1)));
 		timeline.setCycleCount(1);
 		timeline.play();
 		new IntroView().start();
@@ -162,7 +173,6 @@ public class IntroController implements Initializable {
 					public void run() {
 						Main.getSceneManager().activate("view");
 						myAnchor.getScene().getWindow().hide();
-
 					}
 				});
 			} catch (InterruptedException e) {

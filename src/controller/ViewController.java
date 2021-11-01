@@ -60,85 +60,36 @@ public class ViewController {
 	private WebView searchResult;
 
 	@FXML
-	private AnchorPane myAnchor;
-
-	@FXML
-	private AnchorPane fakeAnchor;
-
-	@FXML
-	private AnchorPane favAnchor;
-
-	@FXML
-	private AnchorPane addAnchor;
-
-	@FXML
-	private AnchorPane changeAnchor;
-
-	@FXML
-	private AnchorPane deleteAnchor;
+	private AnchorPane myAnchor, fakeAnchor, favAnchor, addAnchor, changeAnchor,
+			deleteAnchor;
 
 	@FXML
 	private JFXListView<String> listWord;
 
 	@FXML
-	private JFXButton USButton;
+	private JFXButton USButton, UKButton;
 
 	@FXML
-	private JFXButton UKButton;
+	private JFXButton searchPlusButton, notiButton, helpButton, favButton,
+			editButton, settingsButton, helpClose;
 
 	@FXML
-	private JFXButton searchPlusButton;
+	private JFXButton addButton, changeButton, deleteButton;
 
 	@FXML
-	private JFXButton notiButton;
-
-	@FXML
-	private JFXButton infoButton;
-
-	@FXML
-	private JFXButton favButton;
-
-	@FXML
-	private JFXButton settingsButton;
-
-	@FXML
-	private JFXButton editButton;
-
-	@FXML
-	private JFXButton addButton;
-
-	@FXML
-	private JFXButton changeButton;
-
-	@FXML
-	private JFXButton deleteButton;
-
-	@FXML
-	private JFXButton nodeButton;
-
-	@FXML
-	private JFXButton EEButton;
-
-	@FXML
-	private JFXButton EVButton;
-
-	@FXML
-	private JFXButton APIButton;
+	private JFXButton nodeButton, EEButton, EVButton, APIButton;
 
 	@FXML
 	private JFXBadge myBadge;
 
 	@FXML
-	private StackPane leftDrawerPane;
+	private StackPane leftDrawerPane, myStackPane;
 
 	@FXML
-	JFXDrawersStack drawersStack;
+	private JFXDrawersStack drawersStack;
 
 	@FXML
 	private JFXHamburger myHamburger;
-
-	@FXML
-	private StackPane myStackPane;
 
 	@FXML
 	private ScrollPane listScrollPane;
@@ -147,16 +98,7 @@ public class ViewController {
 	private JFXSnackbar snackbar;
 
 	@FXML
-	private Pane favPane;
-
-	@FXML
-	private Pane addPane;
-
-	@FXML
-	private Pane changePane;
-
-	@FXML
-	private Pane deletePane;
+	private Pane favPane, addPane, changePane, deletePane;
 
 	@FXML
 	private JFXTimePicker timePicker;
@@ -165,6 +107,8 @@ public class ViewController {
 			FXCollections.observableArrayList();
 	private ObservableList<String> itemsEV =
 			FXCollections.observableArrayList();
+	private ObservableList<String> itemsFavorite =
+			FXCollections.observableArrayList();
 
 	private DatabaseManager databaseManager;
 
@@ -172,23 +116,11 @@ public class ViewController {
 
 	private AutoCompleteTextField textField;
 
-	private JFXPopup popUpAddButton;
+	private JFXPopup popUpAddButton, popUpDeleteButton, popUpChangeButton;
 
-	private JFXRippler ripplerAdd;
+	private JFXRippler ripplerAdd, ripplerDelete, ripplerChange;
 
-	private JFXPopup popUpDeleteButton;
-
-	private JFXRippler ripplerDelete;
-
-	private JFXPopup popUpChangeButton;
-
-	private JFXRippler ripplerChange;
-
-	private List<String> dictWordEE;
-
-	private List<String> dictWordEV;
-
-	private List<String> favourites;
+	private List<String> dictWordEE, dictWordEV, favourites;
 
 	private boolean flag = false;
 
@@ -204,7 +136,7 @@ public class ViewController {
 				return;
 			}
 			textField.setText(searched);
-			System.out.println(searched);
+
 			WebEngine webEngine = searchResult.getEngine();
 			try {
 				webEngine.loadContent(databaseManager.getFormattedResult(
@@ -238,21 +170,26 @@ public class ViewController {
 	}
 
 	@FXML
+	void changeToFavorite(ActionEvent event) {
+		listWord.setItems(itemsFavorite);
+		listWord.refresh();
+	}
+
+	@FXML
 	public void initialize() {
 		textToSpeech = new TextToSpeech();
-		try {
-			databaseManager = new DatabaseManager();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		databaseManager = Main.getDatabaseManager();
+
+		// data from available dictionaries to ListView.
 		favourites = databaseManager.getFavourite();
-		// add data from dictionary to ListView.
 		dictWordEE = databaseManager.getDictWordEE();
 		dictWordEV = databaseManager.getDictionaryData().getWordTarget();
 		itemsEE.addAll(dictWordEE);
 		itemsEV.addAll(dictWordEV);
+		itemsFavorite.addAll(favourites);
 		listWord.setItems(itemsEE);
 		myBadge.setText(String.valueOf(favourites.size()));
+
 		// add animation for favorite icon.
 		JFXRippler ripplerFav = new JFXRippler(favPane);
 		ripplerFav.setMaskType(JFXRippler.RipplerMask.CIRCLE);
@@ -326,6 +263,10 @@ public class ViewController {
 			Main.getControllerManager().getEditController().getEditTabPane()
 					.getSelectionModel().select(2);
 		});
+		helpButton.setOnMouseClicked(e -> {
+			Main.getSceneManager().activate("help");
+		});
+
 		snackbar = new JFXSnackbar(myAnchor);
 		snackbar.setPrefWidth(600);
 
@@ -381,7 +322,7 @@ public class ViewController {
 		UKButton.getStyleClass().add("sound-button");
 		searchPlusButton.getStyleClass().add("my-button");
 		notiButton.getStyleClass().add("my-button");
-		infoButton.getStyleClass().add("my-button");
+		helpButton.getStyleClass().add("my-button");
 		favButton.getStyleClass().add("my-button");
 		settingsButton.getStyleClass().add("my-button");
 		editButton.getStyleClass().add("my-button");
@@ -460,11 +401,13 @@ public class ViewController {
 
 	@FXML
 	void PressedUK(ActionEvent event) {
-		if (textField.getText() == null)
+		if (textField.getText() == null) {
 			return;
+		}
 		String word = textField.getText();
-		if (word.length() == 0)
+		if (word.length() == 0) {
 			return;
+		}
 
 		// male us accent
 		textToSpeech.setVoice("dfki-prudence-hsmm");
@@ -480,24 +423,21 @@ public class ViewController {
 		@Override
 		public void handle(MouseEvent myClick) {
 			int value = Integer.parseInt(myBadge.getText());
-			if (value == 0) {
-				myBadge.setEnabled(false);
-			} else {
-				myBadge.setEnabled(true);
-			}
 			String word = textField.getText();
-			if (word.length() == 0)
+			if (word.length() == 0) {
 				return;
+			}
 			if (myClick.getButton() == MouseButton.PRIMARY) {
 				// add word to favorite if exists.
-				int count = databaseManager.addFavourite(word);
+				int index = databaseManager.addFavourite(word);
 				JFXSnackbarLayout content = null;
-				if (count > 0) {
+				if (index >= 0) {
 					value++;
 					content =
 							new JFXSnackbarLayout(
 									"Added " + word + " to favourite <3!", null,
 									null);
+					itemsFavorite.add(index, word);
 				} else {
 					content =
 							new JFXSnackbarLayout(word
@@ -509,15 +449,26 @@ public class ViewController {
 						new SnackbarEvent(content, Duration.seconds(1.5)));
 			} else if (myClick.getButton() == MouseButton.SECONDARY) {
 				// delete word from favorite if exists.
-				int count = databaseManager.removeFavourite(word);
+				if (itemsFavorite.size() == 0) {
+					JFXSnackbarLayout content =
+							new JFXSnackbarLayout(
+									"There is no word in favourite yet 💔 :(",
+									null, null);
+					snackbar.enqueue(
+							new SnackbarEvent(content, Duration.seconds(1.5)));
+					return;
+				}
+				int index = databaseManager.removeFavourite(word);
 				JFXSnackbarLayout content = null;
-				if (count > 0) {
+				if (index >= 0) {
 					value--;
 					content =
 							new JFXSnackbarLayout(
 									"Deleted " + word + " from favourite 💔 :(",
 									null, null);
+					itemsFavorite.remove(index);
 				} else {
+					System.out.println(itemsFavorite);
 					content =
 							new JFXSnackbarLayout(
 									"Can't find " + word
@@ -552,10 +503,6 @@ public class ViewController {
 		}
 	};
 
-	public DatabaseManager getDatabaseManager() {
-		return databaseManager;
-	}
-
 	public JFXSnackbar getSnackbar() {
 		return snackbar;
 	}
@@ -568,11 +515,7 @@ public class ViewController {
 		return listWord;
 	}
 
-	public List<String> getDictWordEV() {
-		return dictWordEV;
-	}
-
-	public void changeItemsEV(ObservableList<String> item) {
-		itemsEV = item;
+	public ObservableList<String> getItemsEV() {
+		return itemsEV;
 	}
 }

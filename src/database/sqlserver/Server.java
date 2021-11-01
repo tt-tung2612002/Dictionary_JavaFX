@@ -259,16 +259,7 @@ public class Server {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		Server server = new Server("tables");
-		server.connect();
-		List<String> test = null;
-		try {
-			test.get(0);
-		} catch (NullPointerException e) {
-			System.out.println("Lỗi Null Pointer");
-			// e.printStackTrace();
-		}
-		// System.out.println(server.getMyDictionary());
+		System.out.println(Character.MAX_VALUE);
 	}
 
 }

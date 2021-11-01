@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import database.filedatabase.DictionaryData;
+import database.filedatabase.Word;
 import database.sqlserver.Server;
 
 public class DatabaseManager {
@@ -19,7 +20,7 @@ public class DatabaseManager {
 	private Server server2;
 	private SearchedWord searchedWord;
 	private List<List<String>> dictListEE;
-	// private List<List<String>> dictListApi;
+	private List<String> favoriteList;
 	private DictionaryData dictionaryData;
 	private DictionaryType dictType;
 
@@ -35,6 +36,7 @@ public class DatabaseManager {
 		dictionaryData = new DictionaryData();
 		dictListEE = server.getList();
 		searchedWord = new SearchedWord();
+		favoriteList = server2.getFavourite();
 		dictType = DictionaryType.ENG_ENG;
 	}
 
@@ -111,7 +113,7 @@ public class DatabaseManager {
 			String adjType = ans.get(i).get(5);
 			types.add(type);
 			adjTypes.add(adjType != null ? adjType : null);
-			meanings.add(meaningFormatter(meaning));
+			meanings.add(meaning);
 
 			examples.add(
 					example != null ? Arrays.asList(example.split(",")) : null);
@@ -205,7 +207,6 @@ public class DatabaseManager {
 							+ "</h3>\r\n"
 							+ "<ul style=\"margin:  5px 5px 5px 5px;\">";
 			if (exampless != null && exampless.size() != 0) {
-				System.out.println(exampless);
 				if (exampless.get(i) != null) {
 					List<String> examples = exampless.get(i);
 					if (examples != null) {
@@ -287,7 +288,7 @@ public class DatabaseManager {
 	public String translate(String langFrom, String langTo, String text)
 			throws IOException {
 		String urlStr =
-				"https://script.google.com/macros/s/AKfycbw2qKkvobro8WLNZUKi2kGwGwEO4W8cBavcKqcuCIGhGBBtVts/exec"
+				"https://script.google.com/macros/s/AKfycby1KXAnwL5Nm1WY3m_CZ4BENAfQZCqcQ8Vyzcam8TEIsu9pL0DUz_E55nzYGSy0Av795g/exec"
 						+ "?q=" + URLEncoder.encode(text, "UTF-8") + "&target="
 						+ langTo + "&source=" + langFrom;
 		System.out.println(urlStr);
@@ -325,6 +326,44 @@ public class DatabaseManager {
 		return ans;
 	}
 
+	public int findPositionFavourite(String w) {
+		int n = favoriteList.size() - 1;
+		int i = 0;
+		if (favoriteList.size() == 0) {
+			return 0;
+		}
+		if (w.compareTo(favoriteList.get(0)) <= 0) {
+			return 0;
+		}
+
+		while (i < n) {
+			if (w.compareTo(favoriteList.get(n)) == 0) {
+				return n;
+			}
+
+			if (w.compareTo(favoriteList.get(n)) > 0) {
+				return n + 1;
+			}
+
+			String w1 = favoriteList.get((i + n) / 2);
+			int compare = w.compareTo(w1);
+
+			if (compare == 0) {
+				return (i + n) / 2;
+
+			} else if (compare > 0) {
+				i = (i + n) / 2 + 1;
+				n--;
+			} else {
+				n = (i + n) / 2;
+			}
+		}
+		if (w.compareTo(favoriteList.get(i)) > 0) {
+			return i + 1;
+		}
+		return i;
+	}
+
 	public void changeDictionary(DictionaryType dictType_) {
 		this.dictType = dictType_;
 	}
@@ -333,31 +372,55 @@ public class DatabaseManager {
 		return dictType;
 	}
 
-	public Server getFirstServer() {
-		return server;
-	}
-
 	public int addFavourite(String word) {
-		return server2.addFavourite(word);
-	}
+		server2.addFavourite(word);
+		if (favoriteList.size() == 0) {
+			favoriteList.add(0, word);
+			return 0;
+		}
+		int index = findPositionFavourite(word);
+		System.out.println(favoriteList.get(index).compareTo(word));
+		if (favoriteList.get(index).compareTo(word) != 0) {
+			favoriteList.add(index, word);
+			return index;
+		}
+		return -1;
 
-	public int addWord(String word, String type, String meaning) {
-		return server2.addWord(word, type, meaning);
-	}
-
-	public int changeWord(String word, String type, String meaning) {
-		return server2.changeWord(word, type, meaning);
-	}
-
-	public int deleteWord(String word) {
-		return server2.deleteWord(word);
 	}
 
 	public int removeFavourite(String word) {
-		return server2.removeFavourite(word);
+		server2.removeFavourite(word);
+		if (favoriteList.size() == 0) {
+			return -1;
+		}
+		int index = findPositionFavourite(word);
+		System.out.println(index);
+		if (index == -1) {
+			return -1;
+		}
+		if (favoriteList.get(index).compareTo(word) == 0) {
+			favoriteList.remove(index);
+			return index;
+		}
+		return -1;
+	}
+
+	public int addWord(String word, String type, String meaning) {
+		server2.addWord(word, type, meaning);
+		return dictionaryData.addWord(new Word(word, type, meaning));
+	}
+
+	public int changeWord(String word, String type, String meaning) {
+		server2.changeWord(word, type, meaning);
+		return dictionaryData.changeWord(new Word(word, type, meaning));
+	}
+
+	public int deleteWord(String word) {
+		server2.deleteWord(word);
+		return dictionaryData.deleteWord(word);
 	}
 
 	public List<String> getFavourite() {
-		return server2.getFavourite();
+		return favoriteList;
 	}
 }

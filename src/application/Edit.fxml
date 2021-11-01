@@ -55,7 +55,7 @@
                               </JFXTextField>
                               <HBox prefHeight="60.0" prefWidth="620.0">
                                  <children>
-                                    <JFXButton onAction="#addWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                                    <JFXButton fx:id="confirmAddButton" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
                                     <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
                                  </children>
                                  <VBox.margin>

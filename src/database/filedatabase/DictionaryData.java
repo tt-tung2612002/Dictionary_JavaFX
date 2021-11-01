@@ -108,7 +108,7 @@ public class DictionaryData {
 					}
 				}
 			} catch (Exception e) {
-				System.out.println("Can't get Word!!!!!");
+				e.printStackTrace();
 			}
 		} catch (
 
@@ -123,9 +123,11 @@ public class DictionaryData {
 	// finding position of a word if dictionary has it or the position of the
 	// word in front of it
 	public int findPosition(String w) {
+		if (this.getDictData().size() == 0) {
+			return 0;
+		}
 		int n = this.getDictData().size() - 1;
 		int i = 0;
-		System.out.println(w);
 		if (w.compareTo(this.getDictData().get(0).getWord_target()) <= 0)
 			return 0;
 
@@ -150,34 +152,29 @@ public class DictionaryData {
 				n = (i + n) / 2;
 			}
 		}
-		if (w.compareTo(this.getDictData().get(i).getWord_target()) > 0)
-			return i + 1;// find "c" in "a", "b", "d" will return 2 pos of "d"
+		if (w.compareTo(this.getDictData().get(i).getWord_target()) > 0) {
+			return i + 1;
+		}
 		return i;
 	}
 
 	// add word to dictionary if it doesn't exist.
-	public boolean addWord(Word word) {
+	public int addWord(Word word) {
 		int i = this.findPosition(word.getWord_target());
-		System.out.println(i);
 		if (this.dictList.get(i).compareTo(word) != 0) {
 			dictList.add(i, word);
 			wordTarget.add(i, word.getWord_target());
 			wordTypes.add(i, word.getTypes());
 			wordMeanings.add(i, word.getMeanings());
-			System.out.println(word.getExamples());
-			if (word.getExamples() != null) {
-				wordExampless.add(i, word.getExamples());
-			} else {
-				wordExampless.add(null);
-			}
-			return true;
-		} else {
-			return false;
+			wordExampless.add(i, word.getExamples());
+			return i;
 		}
+		return -1;
+
 	}
 
 	// change word from dictionary if it exists.
-	public boolean changeWord(Word word) {
+	public int changeWord(Word word) {
 		int i = this.findPosition(word.getWord_target());
 		if (this.dictList.get(i).compareTo(word) == 0) {
 			this.dictList.set(i, word);
@@ -185,31 +182,25 @@ public class DictionaryData {
 			wordTypes.set(i, word.getTypes());
 			wordMeanings.set(i, word.getMeanings());
 			wordExampless.set(i, word.getExamples());
-			return true;
-		} else
-			return false;
+			return i;
+		}
+		return -1;
+
 	}
 
 	// remove word from dictionary if it exists.
-	public boolean deleteWord(String word) {
-		if (this.dictList.size() == 0) {
-			return false;
-		}
+	public int deleteWord(String word) {
 		int i = this.findPosition(word);
-		System.out.println(i);
-		if (i == -1) {
-			return false;
-		}
 		if (this.dictList.get(i).getWord_target().compareTo(word) == 0) {
 			this.dictList.remove(i);
 			wordTarget.remove(i);
 			wordTypes.remove(i);
 			wordMeanings.remove(i);
 			wordExampless.remove(i);
-			return true;
-		} else {
-			return false;
+			return i;
 		}
+		return -1;
+
 	}
 
 	public ArrayList<Word> getDictData() {
@@ -230,16 +221,5 @@ public class DictionaryData {
 
 	public List<List<List<String>>> getWordExampless() {
 		return this.wordExampless;
-	}
-
-	public static void main(String[] args) {
-		// DictionaryData test = new DictionaryData();
-		List<String> arr = new ArrayList<String>();
-		arr.add("1");
-		arr.add("2");
-		arr.add("3");
-		arr.add("4");
-		arr.add(1, "5");
-		System.out.println(arr);
 	}
 }
