@@ -110,14 +110,9 @@ public class DictionaryData {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
-		System.out.println(this.getDictData().size());
 	}
 
 	// finding position of a word if dictionary has it or the position of the

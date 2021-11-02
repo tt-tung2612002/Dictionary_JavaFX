@@ -1,5 +1,7 @@
 package application;
 
+import java.sql.SQLException;
+
 import controller.ControllerManager;
 import controller.EditController;
 import controller.HelpController;
@@ -23,7 +25,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage_) throws Exception {
 		controllerManager = new ControllerManager();
 		sceneManager = new SceneManager();
-		databaseManager = new DatabaseManager();
+		// databaseManager = new DatabaseManager();
 
 		// load intro scene
 		FXMLLoader loader =
@@ -71,6 +73,10 @@ public class Main extends Application {
 
 	public static SceneManager getSceneManager() {
 		return sceneManager;
+	}
+
+	public static void initializeDatabaseManager() throws SQLException {
+		databaseManager = new DatabaseManager();
 	}
 
 	public static DatabaseManager getDatabaseManager() {

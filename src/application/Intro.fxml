@@ -12,7 +12,7 @@
             <Image url="@../../resources/background.png" />
          </image>
       </ImageView>
-   <AnchorPane layoutX="695.0" layoutY="145.0" prefHeight="340.0" prefWidth="340.0">
+   <AnchorPane layoutX="686.0" layoutY="179.0" prefHeight="340.0" prefWidth="340.0">
          <children>
            <JFXSpinner fx:id="spinner10" disable="true" layoutX="105.0" layoutY="25.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-240.0" visible="false" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="130.0" />
       <JFXSpinner fx:id="spinner9" disable="true" layoutX="105.0" layoutY="25.0" prefHeight="470.0" prefWidth="470.0" radius="13.0" startingAngle="-210.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0" />

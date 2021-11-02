@@ -33,28 +33,17 @@ public class EditController implements Initializable {
 	private JFXTabPane editTabPane;
 
 	@FXML
-	private JFXTextField addWordField;
-
-	@FXML
-	private JFXTextField addTypeField;
-
-	@FXML
-	private JFXTextField addMeaningField;
+	private JFXTextField addWordField, addTypeField, addMeaningField;
 
 	@FXML
 	private JFXTextField deleteWordField;
 
 	@FXML
-	private JFXTextField changeWordField;
+	private JFXTextField changeWordField, changeTypeField, changeMeaningField;
 
 	@FXML
-	private JFXTextField changeTypeField;
-
-	@FXML
-	private JFXTextField changeMeaningField;
-
-	@FXML
-	private JFXButton confirmAddButton;
+	private JFXButton confirmAddButton, confirmDeleteButton,
+			confirmChangeButton;
 
 	@FXML
 	void switchToView(ActionEvent event) {
@@ -79,7 +68,41 @@ public class EditController implements Initializable {
 		changeTypeField.getValidators().add(validator);
 		changeMeaningField.getValidators().add(validator);
 
-		confirmAddButton.setOnMouseClicked(e -> {
+		addWordField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					addWordField.validate();
+				});
+
+		addTypeField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					addTypeField.validate();
+				});
+
+		addMeaningField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					addMeaningField.validate();
+				});
+
+		deleteWordField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					deleteWordField.validate();
+				});
+
+		changeWordField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					changeWordField.validate();
+				});
+
+		changeTypeField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					changeTypeField.validate();
+				});
+
+		changeMeaningField.textProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					changeMeaningField.validate();
+				});
+		confirmAddButton.setOnAction(e -> {
 			if (addWordField.getText().length() == 0
 					|| addTypeField.getText().length() == 0
 					|| addMeaningField.getText().length() == 0) {
@@ -95,19 +118,52 @@ public class EditController implements Initializable {
 			addWord();
 		});
 
+		confirmChangeButton.setOnAction(e -> {
+			if (changeWordField.getText().length() == 0
+					|| changeTypeField.getText().length() == 0
+					|| changeMeaningField.getText().length() == 0) {
+				JFXSnackbarLayout content =
+						new JFXSnackbarLayout(
+								"Please fill in all fields before changing a word!",
+								null, null);
+				Main.getControllerManager().getViewController().getSnackbar()
+						.enqueue(new SnackbarEvent(content,
+								Duration.seconds(1.5)));
+				return;
+			}
+			changeWord();
+		});
+
+		confirmDeleteButton.setOnAction(e -> {
+			if (deleteWordField.getText().length() == 0) {
+				JFXSnackbarLayout content =
+						new JFXSnackbarLayout(
+								"Please fill in the field before trying to delete a word!",
+								null, null);
+				Main.getControllerManager().getViewController().getSnackbar()
+						.enqueue(new SnackbarEvent(content,
+								Duration.seconds(1.5)));
+				return;
+			}
+			deleteWord();
+		});
+
 		addWordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent key) {
-				if (addWordField.getText().length() == 0) {
-					addWordField.validate();
-					JFXSnackbarLayout content =
-							new JFXSnackbarLayout(
-									"Please fill in all fields before adding a word!",
-									null, null);
-					Main.getControllerManager().getViewController()
-							.getSnackbar().enqueue(new SnackbarEvent(content,
-									Duration.seconds(1.5)));
-					return;
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					if (addWordField.getText().length() == 0) {
+						addWordField.validate();
+						JFXSnackbarLayout content =
+								new JFXSnackbarLayout(
+										"Please fill in all fields before adding a word!",
+										null, null);
+						Main.getControllerManager().getViewController()
+								.getSnackbar().enqueue(new SnackbarEvent(
+										content, Duration.seconds(1.5)));
+						return;
+					}
+					confirmAddButton.fire();
 				}
 			}
 		});
@@ -126,7 +182,9 @@ public class EditController implements Initializable {
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmAddButton.fire();
 				}
+
 			}
 		});
 		addMeaningField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -144,7 +202,9 @@ public class EditController implements Initializable {
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmAddButton.fire();
 				}
+
 			}
 		});
 		deleteWordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -155,13 +215,14 @@ public class EditController implements Initializable {
 						deleteWordField.validate();
 						JFXSnackbarLayout content =
 								new JFXSnackbarLayout(
-										"Please fill in the blank before you try to delete a word!",
+										"Please fill in the blank before trying to delete a word!",
 										null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmDeleteButton.fire();
 				}
 			}
 		});
@@ -180,6 +241,7 @@ public class EditController implements Initializable {
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmChangeButton.fire();
 				}
 			}
 		});
@@ -198,6 +260,7 @@ public class EditController implements Initializable {
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmChangeButton.fire();
 				}
 			}
 		});
@@ -216,6 +279,7 @@ public class EditController implements Initializable {
 										content, Duration.seconds(1.5)));
 						return;
 					}
+					confirmChangeButton.fire();
 				}
 			}
 		});
@@ -251,8 +315,7 @@ public class EditController implements Initializable {
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
 	}
 
-	@FXML
-	void deleteWord(ActionEvent event) {
+	public void deleteWord() {
 		String word = deleteWordField.getText();
 		int index = Main.getDatabaseManager().deleteWord(word);
 
@@ -274,8 +337,7 @@ public class EditController implements Initializable {
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
 	}
 
-	@FXML
-	void changeWord(ActionEvent event) {
+	public void changeWord() {
 		String word = changeWordField.getText();
 		String type = changeTypeField.getText();
 		String meaning = changeMeaningField.getText();

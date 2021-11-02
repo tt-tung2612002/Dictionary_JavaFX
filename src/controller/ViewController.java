@@ -178,6 +178,11 @@ public class ViewController {
 	@FXML
 	public void initialize() {
 		textToSpeech = new TextToSpeech();
+		try {
+			Main.initializeDatabaseManager();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		databaseManager = Main.getDatabaseManager();
 
 		// data from available dictionaries to ListView.

@@ -111,7 +111,7 @@
                               </JFXTextField>
                               <HBox prefHeight="60.0" prefWidth="620.0">
                                  <children>
-                                    <JFXButton onAction="#changeWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                                    <JFXButton fx:id="confirmChangeButton" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
                                     <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
                                  </children>
                                  <VBox.margin>
@@ -133,7 +133,7 @@
                      <children>
                         <HBox layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="620.0">
                            <children>
-                              <JFXButton onAction="#deleteWord" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
+                              <JFXButton fx:id="confirmDeleteButton" prefHeight="98.0" prefWidth="310.0" text="CONFIRM" />
                               <JFXButton onAction="#switchToView" prefHeight="98.0" prefWidth="325.0" text="CANCEL" />
                            </children>
                            <padding>

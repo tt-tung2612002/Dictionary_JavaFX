@@ -236,6 +236,9 @@ public class DatabaseManager {
 			return null;
 		}
 		String word = dictionaryData.getWordTarget().get(pos);
+		if (word.equals(searched) == false) {
+			return null;
+		}
 		List<String> types = dictionaryData.getWordTypes().get(pos);
 		List<String> meanings = dictionaryData.getWordMeanings().get(pos);
 		List<List<String>> exampless =
@@ -379,7 +382,10 @@ public class DatabaseManager {
 			return 0;
 		}
 		int index = findPositionFavourite(word);
-		System.out.println(favoriteList.get(index).compareTo(word));
+		if (index == favoriteList.size()) {
+			favoriteList.add(index, word);
+			return index;
+		}
 		if (favoriteList.get(index).compareTo(word) != 0) {
 			favoriteList.add(index, word);
 			return index;
@@ -394,7 +400,6 @@ public class DatabaseManager {
 			return -1;
 		}
 		int index = findPositionFavourite(word);
-		System.out.println(index);
 		if (index == -1) {
 			return -1;
 		}

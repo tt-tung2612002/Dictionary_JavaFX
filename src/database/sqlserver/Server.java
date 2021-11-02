@@ -173,7 +173,8 @@ public class Server {
 	}
 
 	public List<String> getFavourite() {
-		List<String> ans = new ArrayList<String>();
+		List<String> ans = new ArrayList<String>(100);
+
 		try {
 			query = getFvouriteIdentifier;
 			PreparedStatement statement = con.prepareStatement(query);
@@ -259,7 +260,9 @@ public class Server {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		System.out.println(Character.MAX_VALUE);
+		Server server = new Server("wordnet");
+		server.connect();
+		System.out.println(server.getSearchWordAntonym("handsome"));
 	}
 
 }
