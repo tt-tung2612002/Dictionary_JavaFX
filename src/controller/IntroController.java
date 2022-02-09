@@ -86,9 +86,7 @@ public class IntroController implements Initializable {
 		Stage viewStage = new Stage(StageStyle.DECORATED);
 		Parent root = null;
 
-		FXMLLoader loader =
-				new FXMLLoader(
-						getClass().getResource("/application/View.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/View.fxml"));
 		try {
 			root = loader.load();
 		} catch (IOException e) {
@@ -96,8 +94,7 @@ public class IntroController implements Initializable {
 		}
 
 		Scene scene = new Scene(root);
-		scene.getStylesheets()
-				.addAll(getClass().getResource("/Home.css").toExternalForm());
+		scene.getStylesheets().addAll(getClass().getResource("/application/Home.css").toExternalForm());
 		viewStage.setTitle("Dictionary");
 		viewStage.setScene(scene);
 		// FXMLLoader has to be loaded for controller to be
@@ -105,7 +102,7 @@ public class IntroController implements Initializable {
 		ViewController viewController = loader.getController();
 		Main.getControllerManager().addViewController(viewController);
 		Main.getSceneManager().addStage("view", viewStage);
-		viewStage.getIcons().add(new Image("dictionary.png"));
+		viewStage.getIcons().add(new Image("/resources/dictionary.png"));
 		spinner1.getStyleClass().add("materialDesign-green");
 		spinner2.getStyleClass().add("materialDesign-cyan");
 		spinner3.getStyleClass().add("materialDesign-orange");
@@ -119,41 +116,29 @@ public class IntroController implements Initializable {
 		percentageDisplay.getStyleClass().add("percentage");
 		myAnchor.getStyleClass().add("intro");
 		// myAnchor.setFill(Color.TRANSPARENT);
-		Timeline timeline =
-				new Timeline(
-						new KeyFrame(Duration.ZERO, new KeyValue(
-								percentageDisplay.progressProperty(), 0),
-								new KeyValue(spinner2.progressProperty(), 0)),
-						new KeyFrame(Duration.seconds(0.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.1),
-								new KeyValue(spinner2.progressProperty(), 0.1)),
-						new KeyFrame(Duration.seconds(1), new KeyValue(
-								percentageDisplay.progressProperty(), 0.2),
-								new KeyValue(spinner2.progressProperty(), 0.2)),
-						new KeyFrame(Duration.seconds(1.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.3),
-								new KeyValue(spinner2.progressProperty(), 0.3)),
-						new KeyFrame(Duration.seconds(2), new KeyValue(
-								percentageDisplay.progressProperty(), 0.4),
-								new KeyValue(spinner2.progressProperty(), 0.4)),
-						new KeyFrame(Duration.seconds(2.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.5),
-								new KeyValue(spinner2.progressProperty(), 0.5)),
-						new KeyFrame(Duration.seconds(3), new KeyValue(
-								percentageDisplay.progressProperty(), 0.6),
-								new KeyValue(spinner2.progressProperty(), 0.6)),
-						new KeyFrame(Duration.seconds(3.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.7),
-								new KeyValue(spinner2.progressProperty(), 0.7)),
-						new KeyFrame(Duration.seconds(4), new KeyValue(
-								percentageDisplay.progressProperty(), 0.8),
-								new KeyValue(spinner2.progressProperty(), 0.8)),
-						new KeyFrame(Duration.seconds(4.5), new KeyValue(
-								percentageDisplay.progressProperty(), 0.9),
-								new KeyValue(spinner2.progressProperty(), 0.9)),
-						new KeyFrame(Duration.seconds(5), new KeyValue(
-								percentageDisplay.progressProperty(), 1),
-								new KeyValue(spinner2.progressProperty(), 1)));
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.ZERO, new KeyValue(percentageDisplay.progressProperty(), 0),
+						new KeyValue(spinner2.progressProperty(), 0)),
+				new KeyFrame(Duration.seconds(0.5), new KeyValue(percentageDisplay.progressProperty(), 0.1),
+						new KeyValue(spinner2.progressProperty(), 0.1)),
+				new KeyFrame(Duration.seconds(1), new KeyValue(percentageDisplay.progressProperty(), 0.2),
+						new KeyValue(spinner2.progressProperty(), 0.2)),
+				new KeyFrame(Duration.seconds(1.5), new KeyValue(percentageDisplay.progressProperty(), 0.3),
+						new KeyValue(spinner2.progressProperty(), 0.3)),
+				new KeyFrame(Duration.seconds(2), new KeyValue(percentageDisplay.progressProperty(), 0.4),
+						new KeyValue(spinner2.progressProperty(), 0.4)),
+				new KeyFrame(Duration.seconds(2.5), new KeyValue(percentageDisplay.progressProperty(), 0.5),
+						new KeyValue(spinner2.progressProperty(), 0.5)),
+				new KeyFrame(Duration.seconds(3), new KeyValue(percentageDisplay.progressProperty(), 0.6),
+						new KeyValue(spinner2.progressProperty(), 0.6)),
+				new KeyFrame(Duration.seconds(3.5), new KeyValue(percentageDisplay.progressProperty(), 0.7),
+						new KeyValue(spinner2.progressProperty(), 0.7)),
+				new KeyFrame(Duration.seconds(4), new KeyValue(percentageDisplay.progressProperty(), 0.8),
+						new KeyValue(spinner2.progressProperty(), 0.8)),
+				new KeyFrame(Duration.seconds(4.5), new KeyValue(percentageDisplay.progressProperty(), 0.9),
+						new KeyValue(spinner2.progressProperty(), 0.9)),
+				new KeyFrame(Duration.seconds(5), new KeyValue(percentageDisplay.progressProperty(), 1),
+						new KeyValue(spinner2.progressProperty(), 1)));
 		timeline.setCycleCount(1);
 		timeline.play();
 		new IntroView().start();
@@ -180,5 +165,4 @@ public class IntroController implements Initializable {
 			}
 		}
 	}
-
 }

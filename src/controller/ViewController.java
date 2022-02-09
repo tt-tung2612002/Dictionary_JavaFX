@@ -120,7 +120,7 @@ public class ViewController {
 
 	private JFXRippler ripplerAdd, ripplerDelete, ripplerChange;
 
-	private List<String> dictWordEE, dictWordEV, favourites;
+	private List<String> dictWordEE, dictWordEV, favorites;
 
 	private boolean flag = false;
 
@@ -186,14 +186,14 @@ public class ViewController {
 		databaseManager = Main.getDatabaseManager();
 
 		// data from available dictionaries to ListView.
-		favourites = databaseManager.getFavourite();
+		favorites = databaseManager.getFavourite();
 		dictWordEE = databaseManager.getDictWordEE();
 		dictWordEV = databaseManager.getDictionaryData().getWordTarget();
 		itemsEE.addAll(dictWordEE);
 		itemsEV.addAll(dictWordEV);
-		itemsFavorite.addAll(favourites);
+		itemsFavorite.addAll(favorites);
 		listWord.setItems(itemsEE);
-		myBadge.setText(String.valueOf(favourites.size()));
+		myBadge.setText(String.valueOf(favorites.size()));
 
 		// add animation for favorite icon.
 		JFXRippler ripplerFav = new JFXRippler(favPane);
@@ -249,7 +249,6 @@ public class ViewController {
 				popUpChangeButton.hide();
 				popUpAddButton.hide();
 				popUpDeleteButton.hide();
-
 			}
 			editFlag = !editFlag;
 		});

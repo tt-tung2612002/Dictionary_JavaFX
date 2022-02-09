@@ -11,7 +11,7 @@ import java.util.List;
 public class Server {
 	private String url = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
-	private String password = "tung2612002";
+	private String password = "";
 	private Connection con;
 	private String query;
 	private String antonymIdentifier = "{call getAntonym(?)}";
@@ -32,17 +32,7 @@ public class Server {
 	}
 
 	public void connect() throws SQLException {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			con = DriverManager.getConnection(url, user, password);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		con = DriverManager.getConnection(url, user, password);
 	}
 
 	public List<String> getAntonym(String word) throws SQLException {
@@ -53,8 +43,7 @@ public class Server {
 			statement.setString(1, word);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				ans.add(resultSet
-						.getString(resultSet.getMetaData().getColumnCount()));
+				ans.add(resultSet.getString(resultSet.getMetaData().getColumnCount()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,21 +60,18 @@ public class Server {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				List<String> temp = new ArrayList<String>();
-				for (int i = 1; i
-						<= resultSet.getMetaData().getColumnCount(); i++) {
+				for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
 					temp.add(resultSet.getString(i));
 				}
 				ans.add(temp);
 			}
 		} catch (SQLException e) {
-			System.out.println("TUan oc oc");
 			e.printStackTrace();
 		}
 		return ans;
 	}
 
-	public List<List<String>> getSearchWordAntonym(String word)
-			throws SQLException {
+	public List<List<String>> getSearchWordAntonym(String word) throws SQLException {
 		List<List<String>> ans = new ArrayList<List<String>>();
 		try {
 			query = antonymIdentifier;
@@ -94,8 +80,7 @@ public class Server {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				List<String> temp = new ArrayList<String>();
-				for (int i = 1; i
-						<= resultSet.getMetaData().getColumnCount(); i++) {
+				for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
 					temp.add(resultSet.getString(i));
 				}
 				ans.add(temp);
@@ -131,8 +116,7 @@ public class Server {
 		ResultSet resultSet = statement.executeQuery(query);
 		while (resultSet.next()) {
 			List<String> temp = new ArrayList<String>();
-			for (int i = 1; i
-					<= resultSet.getMetaData().getColumnCount(); i++) {
+			for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
 				temp.add(resultSet.getString(i));
 			}
 			ans.add(temp);
@@ -250,19 +234,12 @@ public class Server {
 		ResultSet resultSet = statement.executeQuery(query);
 		while (resultSet.next()) {
 			List<String> temp = new ArrayList<String>();
-			for (int i = 1; i
-					<= resultSet.getMetaData().getColumnCount(); i++) {
+			for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
 				temp.add(resultSet.getString(i));
 			}
 			ans.add(temp);
 		}
 		return ans;
-	}
-
-	public static void main(String[] args) throws SQLException {
-		Server server = new Server("wordnet");
-		server.connect();
-		System.out.println(server.getSearchWordAntonym("handsome"));
 	}
 
 }

@@ -106,10 +106,9 @@ public class EditController implements Initializable {
 			if (addWordField.getText().length() == 0
 					|| addTypeField.getText().length() == 0
 					|| addMeaningField.getText().length() == 0) {
-				JFXSnackbarLayout content =
-						new JFXSnackbarLayout(
-								"Please fill in all fields before adding a word!",
-								null, null);
+				JFXSnackbarLayout content = new JFXSnackbarLayout(
+						"Please fill in all fields before adding a word!",
+						null, null);
 				Main.getControllerManager().getViewController().getSnackbar()
 						.enqueue(new SnackbarEvent(content,
 								Duration.seconds(1.5)));
@@ -122,10 +121,9 @@ public class EditController implements Initializable {
 			if (changeWordField.getText().length() == 0
 					|| changeTypeField.getText().length() == 0
 					|| changeMeaningField.getText().length() == 0) {
-				JFXSnackbarLayout content =
-						new JFXSnackbarLayout(
-								"Please fill in all fields before changing a word!",
-								null, null);
+				JFXSnackbarLayout content = new JFXSnackbarLayout(
+						"Please fill in all fields before changing a word!",
+						null, null);
 				Main.getControllerManager().getViewController().getSnackbar()
 						.enqueue(new SnackbarEvent(content,
 								Duration.seconds(1.5)));
@@ -136,10 +134,9 @@ public class EditController implements Initializable {
 
 		confirmDeleteButton.setOnAction(e -> {
 			if (deleteWordField.getText().length() == 0) {
-				JFXSnackbarLayout content =
-						new JFXSnackbarLayout(
-								"Please fill in the field before trying to delete a word!",
-								null, null);
+				JFXSnackbarLayout content = new JFXSnackbarLayout(
+						"Please fill in the field before trying to delete a word!",
+						null, null);
 				Main.getControllerManager().getViewController().getSnackbar()
 						.enqueue(new SnackbarEvent(content,
 								Duration.seconds(1.5)));
@@ -154,10 +151,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (addWordField.getText().length() == 0) {
 						addWordField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all fields before adding a word!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all fields before adding a word!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -173,10 +169,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (addTypeField.getText().length() == 0) {
 						addTypeField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all blanks before adding a word!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all blanks before adding a word!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -193,10 +188,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (addMeaningField.getText().length() == 0) {
 						addMeaningField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all blanks before adding a word!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all blanks before adding a word!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -213,10 +207,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (deleteWordField.getText().length() == 0) {
 						deleteWordField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in the blank before trying to delete a word!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in the blank before trying to delete a word!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -232,10 +225,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (changeWordField.getText().length() == 0) {
 						changeWordField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all blanks before changing a word definition!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all blanks before changing a word definition!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -251,10 +243,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (changeTypeField.getText().length() == 0) {
 						changeTypeField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all blanks before changing a word definition!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all blanks before changing a word definition!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -270,10 +261,9 @@ public class EditController implements Initializable {
 				if (key.getCode().equals(KeyCode.ENTER)) {
 					if (changeMeaningField.getText().length() == 0) {
 						changeMeaningField.validate();
-						JFXSnackbarLayout content =
-								new JFXSnackbarLayout(
-										"Please fill in all blanks before changing a word definition!",
-										null, null);
+						JFXSnackbarLayout content = new JFXSnackbarLayout(
+								"Please fill in all blanks before changing a word definition!",
+								null, null);
 						Main.getControllerManager().getViewController()
 								.getSnackbar().enqueue(new SnackbarEvent(
 										content, Duration.seconds(1.5)));
@@ -300,16 +290,14 @@ public class EditController implements Initializable {
 
 		JFXSnackbarLayout content = null;
 		if (index >= 0) {
-			content =
-					new JFXSnackbarLayout(
-							"Added " + word + " to dictionary <3!", null, null);
+			content = new JFXSnackbarLayout(
+					"Added " + word + " to dictionary <3!", null, null);
 			Main.getControllerManager().getViewController().getItemsEV()
 					.add(index, word);
 		} else {
-			content =
-					new JFXSnackbarLayout(
-							word + " has already been added to dictionary <3!",
-							null, null);
+			content = new JFXSnackbarLayout(
+					word + " has already been added to dictionary <3!",
+					null, null);
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
@@ -321,17 +309,15 @@ public class EditController implements Initializable {
 
 		JFXSnackbarLayout content = null;
 		if (index >= 0) {
-			content =
-					new JFXSnackbarLayout(
-							"Deleted " + word + " from dictionary 💔 !", null,
-							null);
+			content = new JFXSnackbarLayout(
+					"Deleted " + word + " from dictionary 💔 !", null,
+					null);
 			Main.getControllerManager().getViewController().getItemsEV()
 					.remove(index);
 		} else {
-			content =
-					new JFXSnackbarLayout(
-							word + " doesn't exist in the dictionary 💔 :(",
-							null, null);
+			content = new JFXSnackbarLayout(
+					word + " doesn't exist in the dictionary 💔 :(",
+					null, null);
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));
@@ -346,16 +332,14 @@ public class EditController implements Initializable {
 
 		JFXSnackbarLayout content = null;
 		if (index >= 0) {
-			content =
-					new JFXSnackbarLayout(
-							"Changed " + word
-									+ " definition from dictionary <3 !",
-							null, null);
+			content = new JFXSnackbarLayout(
+					"Changed " + word
+							+ " definition from dictionary <3 !",
+					null, null);
 		} else {
-			content =
-					new JFXSnackbarLayout(
-							word + " doesn't exist in the dictionary 💔 :(",
-							null, null);
+			content = new JFXSnackbarLayout(
+					word + " doesn't exist in the dictionary 💔 :(",
+					null, null);
 		}
 		Main.getControllerManager().getViewController().getSnackbar()
 				.enqueue(new SnackbarEvent(content, Duration.seconds(1.5)));

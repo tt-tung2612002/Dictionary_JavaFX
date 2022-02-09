@@ -1,7 +1,8 @@
 package database.filedatabase;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,20 +14,20 @@ public class DictionaryData {
 	List<String> wordTarget = new ArrayList<String>();
 	List<List<String>> wordTypes = new ArrayList<List<String>>();
 	List<List<String>> wordMeanings = new ArrayList<List<String>>();
-	List<List<List<String>>> wordExampless =
-			new ArrayList<List<List<String>>>();
+	List<List<List<String>>> wordExampless = new ArrayList<List<List<String>>>();
 
 	public DictionaryData() {
 		try {
+			// print absolute path "/"
 			Server server = new Server("tables");
 			server.connect();
 			List<List<String>> myDictionary = server.getMyDictionary();
-			BufferedReader reader =
-					new BufferedReader(
-							new FileReader("resources/dictionaries.txt"));
 
-			for (String next = "", line = reader.readLine(); line
-					!= null; line = next) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+            new FileInputStream("E:\\Studycorner\\Code\\Programming\\Java\\Dictionary_JavaFX\\src\\resources\\dictionaries.txt"), "UTF-8")); 
+			
+
+			for (String next = "", line = reader.readLine(); line != null; line = next) {
 				next = reader.readLine();
 				String word = "";
 				List<String> meanings = new ArrayList<String>();
@@ -82,11 +83,13 @@ public class DictionaryData {
 						exampless.add(null);
 					}
 				}
-
+				// System.out.println(meanings);
 				dictList.add(new Word(word, types, meanings, exampless));
 			}
 			reader.close();
+			
 			for (int i = 0; i < myDictionary.size(); i++) {
+				// encoding to UTF-8.
 				String word = myDictionary.get(i).get(0);
 				List<String> type = new ArrayList<String>();
 				type.add(myDictionary.get(i).get(1));

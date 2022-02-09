@@ -9,7 +9,6 @@ public class CompletionSample implements Runnable {
 
 	public static class NameService implements CompletionService<String> {
 		// private List<String> data;
-		private DatabaseManager databaseManager;
 
 		public NameService(DatabaseManager databaseManager) {
 			// ArrayList<Word> DictData = dict.getDictData();
@@ -18,7 +17,6 @@ public class CompletionSample implements Runnable {
 			// words[i] = new String(DictData.get(i).getWord_target());
 			// }
 			// data = Arrays.asList(words);
-			this.databaseManager = databaseManager;
 		}
 
 		@Override
@@ -34,8 +32,7 @@ public class CompletionSample implements Runnable {
 		public String autoComplete(String startsWith) {
 			String ans = null;
 			List<String> anss = new ArrayList<String>();
-			if (startsWith != null && !startsWith.equals("Search in English")
-					&& startsWith.length() >= 3)
+			if (startsWith != null && !startsWith.equals("Search in English") && startsWith.length() >= 3)
 				// anss =
 				// databaseManager.getFirstServer()
 				// .getClosestResults(startsWith);

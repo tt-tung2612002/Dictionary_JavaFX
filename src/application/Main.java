@@ -25,28 +25,24 @@ public class Main extends Application {
 	public void start(Stage primaryStage_) throws Exception {
 		controllerManager = new ControllerManager();
 		sceneManager = new SceneManager();
-		// databaseManager = new DatabaseManager();
 
 		// load intro scene
-		FXMLLoader loader =
-				new FXMLLoader(getClass().getResource("Intro.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Intro.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
-		scene.getStylesheets()
-				.addAll(getClass().getResource("/Home.css").toExternalForm());
-		Stage introStage = new Stage(StageStyle.TRANSPARENT);
+		scene.getStylesheets().addAll(getClass().getResource("/application/Home.css").toExternalForm());
+		Stage introductionStage = new Stage(StageStyle.TRANSPARENT);
 		scene.setFill(Color.TRANSPARENT);
-		introStage.setScene(scene);
-		introStage.setTitle("intro");
-		sceneManager.addStage("intro", introStage);
+		introductionStage.setScene(scene);
+		introductionStage.setTitle("intro");
+		sceneManager.addStage("intro", introductionStage);
 		IntroController introController = loader.getController();
 		controllerManager.addIntroController(introController);
 
 		// load edit scene
-		loader = new FXMLLoader(getClass().getResource("Edit.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/application/Edit.fxml"));
 		Scene editScene = new Scene(loader.load());
-		editScene.getStylesheets()
-				.addAll(getClass().getResource("/Home.css").toExternalForm());
+		editScene.getStylesheets().addAll(getClass().getResource("/application/Home.css").toExternalForm());
 		Stage editStage = new Stage(StageStyle.UNDECORATED);
 		editStage.setScene(editScene);
 		EditController editController = loader.getController();
@@ -54,10 +50,9 @@ public class Main extends Application {
 		sceneManager.addStage("edit", editStage);
 
 		// load help scene
-		loader = new FXMLLoader(getClass().getResource("Help.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/application/Help.fxml"));
 		Scene helpScene = new Scene(loader.load());
-		helpScene.getStylesheets()
-				.addAll(getClass().getResource("/Home.css").toExternalForm());
+		helpScene.getStylesheets().addAll(getClass().getResource("/application/Home.css").toExternalForm());
 		Stage helpStage = new Stage(StageStyle.UNDECORATED);
 		helpStage.setScene(helpScene);
 		HelpController helpController = loader.getController();
@@ -87,5 +82,4 @@ public class Main extends Application {
 		launch(args);
 		System.exit(0);
 	}
-
 }

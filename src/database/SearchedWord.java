@@ -45,10 +45,9 @@ public class SearchedWord {
 		textField.setFont(Font.font("Fira Code", FontWeight.LIGHT, 18));
 		textField.setAlignment(Pos.CENTER_LEFT);
 		textField.getValidators().add(validator);
-		textField.textProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					textField.validate();
-				});
+		textField.textProperty().addListener((observable, oldValue, newValue) -> {
+			textField.validate();
+		});
 
 		// textField.focusedProperty().addListener(new ChangeListener<Boolean>()
 		// {

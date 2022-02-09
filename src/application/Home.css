@@ -1,27 +1,25 @@
-.bodybg{
-     -fx-background-image: url('/bg.jpg');
-     -fx-background-size: 100% 100%;    
-     -fx-background-color: rgba(0,0,0,0.1);
- }
- .intro{
- 	-fx-background-image: url('/background.png');
- }
- 
+.bodybg {
+  -fx-background-image: url("bg.jpg");
+  -fx-background-size: 100% 100%;
+  -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+.intro {
+  -fx-background-image: url("background.png");
+}
 
-.jfx-hamburger-icon{
-	
-    -fx-spacing: 5;
-    -fx-cursor: hand;
+.jfx-hamburger-icon {
+  -fx-spacing: 5;
+  -fx-cursor: hand;
 }
-.jfx-hamburger-icon:hover{
-	-fx-background-color: #778299;
-	-fx-text-fill: white;
+.jfx-hamburger-icon:hover {
+  -fx-background-color: #778299;
+  -fx-text-fill: white;
 }
-.jfx-hamburger-icon StackPane{
-    -fx-pref-width: 30px;
-    -fx-pref-height: 5px;
-    -fx-background-color : black;
-    -fx-background-radius : 5px;
+.jfx-hamburger-icon StackPane {
+  -fx-pref-width: 30px;
+  -fx-pref-height: 5px;
+  -fx-background-color: black;
+  -fx-background-radius: 5px;
 }
 /*******************************************************************************
 *                                                                              *
@@ -29,58 +27,56 @@
 *                                                                              *
 *******************************************************************************/
 
-.editButton{
-	-fx-border-radius: 60;
-	-fx-background-radius: 60;
-    -fx-alignment: center;
-    -fx-font-family: "Fira Code";
-	-fx-font-size: 17px;
-	-fx-font-weight: BOLD;
-	-fx-text-fill: white;
-	-fx-background-color:  #526c7d;
-	
+.editButton {
+  -fx-border-radius: 60;
+  -fx-background-radius: 60;
+  -fx-alignment: center;
+  -fx-font-family: "Fira Code";
+  -fx-font-size: 17px;
+  -fx-font-weight: BOLD;
+  -fx-text-fill: white;
+  -fx-background-color: #526c7d;
 }
 
-.editButton :hover{
-    -fx-font-family: "Fira Code";
-	-fx-font-size: 19px;
-	-fx-font-weight: BOLD;
-	-fx-background-color: #778299;
-	
+.editButton :hover {
+  -fx-font-family: "Fira Code";
+  -fx-font-size: 19px;
+  -fx-font-weight: BOLD;
+  -fx-background-color: #778299;
 }
-.editPane{
-	-fx-background-color: rgba(0, 100, 100, 0.5); 
-	-fx-background-radius: 30;
-	-fx-border-radius: 30;
-	-fx-alignment: center;
+.editPane {
+  -fx-background-color: rgba(0, 100, 100, 0.5);
+  -fx-background-radius: 30;
+  -fx-border-radius: 30;
+  -fx-alignment: center;
 }
 /*******************************************************************************
 *                                                                              *
 * 							    JFX Button                                     *
 *                                                                              *
 *******************************************************************************/
-.my-button:hover{
-	-fx-font-family: "Fira Code";
-    -fx-font-weight: BOLD;
-	-fx-font-size: 20px;
-	-fx-background-color: #778299;
-	-fx-text-fill: white;
+.my-button:hover {
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: BOLD;
+  -fx-font-size: 20px;
+  -fx-background-color: #778299;
+  -fx-text-fill: white;
 }
-.my-button{
-	-fx-text-fill: white;
+.my-button {
+  -fx-text-fill: white;
 }
-.button:hover .glyph-icon{
-	-fx-fill: white;
+.button:hover .glyph-icon {
+  -fx-fill: white;
 }
-.sound-button:hover{
-	-fx-font-family: "Fira Code";
-    -fx-font-weight: BOLD;
-	-fx-font-size: 20px;
-	-fx-background-color: #778299;
-	-fx-text-fill: white;
+.sound-button:hover {
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: BOLD;
+  -fx-font-size: 20px;
+  -fx-background-color: #778299;
+  -fx-text-fill: white;
 }
-.sound-button{
-	-fx-text-fill: black;
+.sound-button {
+  -fx-text-fill: black;
 }
 /*******************************************************************************
 *                                                                              *
@@ -97,23 +93,23 @@
 *                                                                              *
 *******************************************************************************/
 .jfx-snackbar-content {
-	-fx-font-family: "Fira Code";
-    -fx-font-weight: NORMAL;
-	-fx-font-size: 17px;
-    -fx-background-color: #323232;
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: NORMAL;
+  -fx-font-size: 17px;
+  -fx-background-color: #323232;
 }
 
 .jfx-snackbar-toast {
-    -fx-text-fill: WHITE;
+  -fx-text-fill: WHITE;
 }
 
 .jfx-snackbar-action {
-    -fx-font-family: "Fira Code";
-    -fx-font-weight: NORMAL;
-	-fx-font-size: 17px;
-	-fx-background-color: #2a7480;
-	-fx-background-radius: 4px;
-	-fx-text-fill: white;
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: NORMAL;
+  -fx-font-size: 17px;
+  -fx-background-color: #2a7480;
+  -fx-background-radius: 4px;
+  -fx-text-fill: white;
 }
 
 /*******************************************************************************
@@ -121,23 +117,23 @@
 * Favorite Button                                                             *
 *                                                                              *
 *******************************************************************************/
-.fav .glyph-icon{
-	-fx-fill: #f2c549;
-    -fx-padding: 10.0;
-    -fx-cursor: hand;
+.fav .glyph-icon {
+  -fx-fill: #f2c549;
+  -fx-padding: 10;
+  -fx-cursor: hand;
 }
 .icons-badge .badge-pane {
-    -fx-background-color: #ff4081;
-    -fx-background-radius: 23;
-    -fx-pref-width: 23;
-    -fx-pref-height: 23;
-    -fx-alignment: center;
+  -fx-background-color: #ff4081;
+  -fx-background-radius: 23;
+  -fx-pref-width: 23;
+  -fx-pref-height: 23;
+  -fx-alignment: center;
 }
 
 .icons-badge Label {
-    -fx-font-weight: BOLD;
-    -fx-font-size: 14.0px;
-    -fx-text-fill: WHITE;
+  -fx-font-weight: BOLD;
+  -fx-font-size: 14px;
+  -fx-text-fill: WHITE;
 }
 
 /*******************************************************************************
@@ -146,48 +142,47 @@
 *                                                                              *
 *******************************************************************************/
 .icon {
-    -fx-fill: #FE774D;
-    -fx-padding: 10.0;
-    -fx-cursor: hand;
+  -fx-fill: #fe774d;
+  -fx-padding: 10;
+  -fx-cursor: hand;
 }
 
 .icons-rippler {
-	-jfx-background-color: #e6ede8;
-    -jfx-rippler-fill: #FE774D;
-    -jfx-mask-type: CIRCLE;
+  -jfx-background-color: #e6ede8;
+  -jfx-rippler-fill: #fe774d;
+  -jfx-mask-type: CIRCLE;
 }
 
 .icons-rippler1 {
-    -jfx-rippler-fill: #4285F4;
-    -jfx-mask-type: CIRCLE;
+  -jfx-rippler-fill: #4285f4;
+  -jfx-mask-type: CIRCLE;
 }
 
 .icons-rippler:hover {
-    -fx-cursor: hand;
+  -fx-cursor: hand;
 }
 
-
 .animated-burgers .jfx-hamburger StackPane {
-    -fx-background-color: #5264AE;
-    -fx-background-radius: 4px;
+  -fx-background-color: #5264ae;
+  -fx-background-radius: 4px;
 }
 
 .animated-burgers .jfx-rippler {
-    -jfx-rippler-fill: #5264AE;
+  -jfx-rippler-fill: #5264ae;
 }
 
 .icons-badge .badge-pane {
-    -fx-background-color: #ff4081;
-    -fx-background-radius: 23;
-    -fx-pref-width: 23;
-    -fx-pref-height: 23;
-    -fx-alignment: center;
+  -fx-background-color: #ff4081;
+  -fx-background-radius: 23;
+  -fx-pref-width: 23;
+  -fx-pref-height: 23;
+  -fx-alignment: center;
 }
 
 .icons-badge Label {
-    -fx-font-weight: BOLD;
-    -fx-font-size: 14.0px;
-    -fx-text-fill: WHITE;
+  -fx-font-weight: BOLD;
+  -fx-font-size: 14px;
+  -fx-text-fill: WHITE;
 }
 
 /*******************************************************************************
@@ -196,85 +191,83 @@
 *                                                                              *
 *******************************************************************************/
 
-.percentage .text{
-	-fx-fill: black;
-	-fx-alignment: center;
+.percentage .text {
+  -fx-fill: black;
+  -fx-alignment: center;
 }
-.percentage .arc{
-	visibility: false;
+.percentage .arc {
+  visibility: false;
 }
 .materialDesign-purple .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #ab47bc;
+  -fx-stroke-width: 6;
+  -fx-stroke: #ab47bc;
 }
 .materialDesign-purple .text {
-    visibility: false;
+  visibility: false;
 }
-.materialDesign-blue .text{
-	
+.materialDesign-blue .text {
 }
 .materialDesign-blue .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #2962ff;
+  -fx-stroke-width: 6;
+  -fx-stroke: #2962ff;
 }
 .materialDesign-blue .percentage {
-    -fx-fill: black;
+  -fx-fill: black;
 }
 
 .materialDesign-cyan .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #00b8d4;
+  -fx-stroke-width: 6;
+  -fx-stroke: #00b8d4;
 }
-.materialDesign-cyan .text{
-	visibility: false;
+.materialDesign-cyan .text {
+  visibility: false;
 }
 .materialDesign-green .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #00c853;
+  -fx-stroke-width: 6;
+  -fx-stroke: #00c853;
 }
 .materialDesign-green .text {
-    visibility: false;
+  visibility: false;
 }
 
 .materialDesign-yellow .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #ffd600;
+  -fx-stroke-width: 6;
+  -fx-stroke: #ffd600;
 }
 .materialDesign-yellow .text {
-    visibility: false;
+  visibility: false;
 }
-
 
 .materialDesign-orange .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #ff6d00;
+  -fx-stroke-width: 6;
+  -fx-stroke: #ff6d00;
 }
 .materialDesign-orange .text {
-    visibility: false;
+  visibility: false;
 }
 
 .materialDesign-red .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #d50000;
+  -fx-stroke-width: 6;
+  -fx-stroke: #d50000;
 }
 .materialDesign-red .text {
-    visibility: false;
+  visibility: false;
 }
 
 .materialDesign-pink .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #f25ea6;
+  -fx-stroke-width: 6;
+  -fx-stroke: #f25ea6;
 }
 .materialDesign-pink .text {
-    visibility: false;
+  visibility: false;
 }
 
 .materialDesign-brown .arc {
-	-fx-stroke-width: 6.0;
-    -fx-stroke: #4af7c1;
+  -fx-stroke-width: 6;
+  -fx-stroke: #4af7c1;
 }
 .materialDesign-brown .text {
-    visibility: false;
+  visibility: false;
 }
 /*******************************************************************************
 *                                                                              *
@@ -283,32 +276,32 @@
 *******************************************************************************/
 .custom-jfx-list-view .jfx-list-cell:odd:selected > .jfx-rippler > StackPane,
 .custom-jfx-list-view .jfx-list-cell:even:selected > .jfx-rippler > StackPane {
-    -fx-background-color: rgba(255, 0, 0, 0.2);
+  -fx-background-color: rgba(255, 0, 0, 0.2);
 }
 
 .custom-jfx-list-view {
-	-fx-font-family: "Arial";
-    -fx-font-weight: NORMAL;
-	-fx-font-size: 17px;
-	-jfx-mask-type: CIRCLE;
-    -fx-background-insets: 0.0;
-    -jfx-cell-horizontal-margin: 0.0;
-    -jfx-cell-vertical-margin: 5.0;
-    -jfx-expanded: false;
-    -fx-max-width: 200.0px;
-    /* important to hide the list change of height */
-    -fx-background-color: TRANSPARENT;
+  -fx-font-family: "Arial";
+  -fx-font-weight: NORMAL;
+  -fx-font-size: 17px;
+  -jfx-mask-type: CIRCLE;
+  -fx-background-insets: 0;
+  -jfx-cell-horizontal-margin: 0;
+  -jfx-cell-vertical-margin: 5;
+  -jfx-expanded: false;
+  -fx-max-width: 200px;
+  /* important to hide the list change of height */
+  -fx-background-color: TRANSPARENT;
 }
 
 .custom-jfx-list-view .jfx-rippler {
-    -jfx-rippler-fill: #a6e3de;
+  -jfx-rippler-fill: #a6e3de;
 }
 .custom-jfx-list-view .jfx-list-cell .sublist-header > .drop-icon {
-    -fx-background-color: GRAY;
+  -fx-background-color: GRAY;
 }
 
 .custom-jfx-list-view .jfx-list-cell:filled:hover .sublist-header > .drop-icon {
-    -fx-background-color: BLACK;
+  -fx-background-color: BLACK;
 }
 /*******************************************************************************
 *                                                                              *
@@ -316,17 +309,16 @@
 *                                                                              *
 *******************************************************************************/
 .jfx-popup-overlay-pane {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
 
 .jfx-popup-container {
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
 }
-.jfx-time-picker{
-
+.jfx-time-picker {
 }
 .jfx-time-picker > .jfx-text-field {
-   visibility: false;
+  visibility: false;
 }
 /*******************************************************************************
 *                                                                              *
@@ -334,37 +326,36 @@
 *                                                                              *
 *******************************************************************************/
 .node-button {
-	-fx-font-family: "Fira Code";
-    -fx-background-color: #526c7d;
-    -fx-background-radius: 60px;
+  -fx-font-family: "Fira Code";
+  -fx-background-color: #526c7d;
+  -fx-background-radius: 60px;
 }
-.subnode-button{
-	-fx-font-family: "Fira Code";
-	-fx-font-weight: BOLD;
-	-fx-font-size: 20px;
-	-fx-background-color: #526c7d;
-	-fx-text-fill: white;
+.subnode-button {
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: BOLD;
+  -fx-font-size: 20px;
+  -fx-background-color: #526c7d;
+  -fx-text-fill: white;
 }
-.node-button .jfx-rippler{
-    -jfx-rippler-fill: #ceedd7;
+.node-button .jfx-rippler {
+  -jfx-rippler-fill: #ceedd7;
 }
-.node-button .glyph-icon{
-	-fx-fill :white;	
+.node-button .glyph-icon {
+  -fx-fill: white;
 }
 
-.subnode-button:hover{
-	-fx-font-family: "Fira Code";
-    -fx-font-weight: BOLD;
-	-fx-font-size: 22px;
-	-fx-background-color: #778299;
-	-fx-text-fill: white;
+.subnode-button:hover {
+  -fx-font-family: "Fira Code";
+  -fx-font-weight: BOLD;
+  -fx-font-size: 22px;
+  -fx-background-color: #778299;
+  -fx-text-fill: white;
 }
 /*******************************************************************************
 *                                                                              *
 * 						      JFX TabPane                                      *
 *                                                                              *
 *******************************************************************************/
-.jfx-tab-pane .tab-header-background
-{
-  -fx-background-color:  #526c7d;
+.jfx-tab-pane .tab-header-background {
+  -fx-background-color: #526c7d;
 }
